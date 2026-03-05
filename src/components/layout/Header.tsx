@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Truck } from 'lucide-react'
+import { PackageOpen } from 'lucide-react'
 import { Container } from './Container'
 import { cn } from '@/lib/utils'
 
@@ -20,8 +20,8 @@ export function Header() {
       <Container>
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 font-bold text-lg text-foreground">
-            <Truck className="h-5 w-5 text-primary" />
-            <span>HaulFind</span>
+            <PackageOpen className="h-6 w-6 text-primary" />
+            <span>Hauling Services</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-6">
