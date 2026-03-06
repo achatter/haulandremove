@@ -1,36 +1,147 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hauling & Removal Services Directory
 
-## Getting Started
+A nationwide directory website that connects consumers with local hauling and removal service providers. Search by city, state, or zip code to find trusted professionals for estate cleanout services and junk removal.
 
-First, run the development server:
+## 🌟 Features
 
+- **Nationwide Coverage**: Search for services by city, state, or zip code
+- **Service Categories**: 
+  - Estate Cleanout Services
+  - Junk Removal
+- **Business Listings**: Detailed provider profiles with contact information and services
+- **Customer Reviews**: Read and leave reviews for service providers
+- **Responsive Design**: Clean, smooth UX/UI across all devices
+- **Advanced Search**: Filter results by location and service type
+
+## 🛠 Tech Stack
+
+- **Frontend**: [Next.js 16](https://nextjs.org/) with React 19
+- **Database**: [Supabase](https://supabase.com/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **UI Components**: [Radix UI](https://www.radix-ui.com/) with [shadcn/ui](https://ui.shadcn.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Testing**: [Vitest](https://vitest.dev/) + [Playwright](https://playwright.dev/)
+- **TypeScript**: Full type safety
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm/yarn/pnpm
+- Supabase account (for database)
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/achatter/haulandremove.git
+cd haulandremove
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
+Add your Supabase credentials to `.env.local`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Set up the database:
+```bash
+npm run seed
+```
 
-## Learn More
+5. Run the development server:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📝 Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server  
+- `npm run lint` - Run ESLint
+- `npm run test` - Run unit tests
+- `npm run test:watch` - Run tests in watch mode
+- `npm run test:e2e` - Run end-to-end tests
+- `npm run seed` - Seed database with sample data
 
-## Deploy on Vercel
+## 📁 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/                  # Next.js App Router pages
+│   ├── api/             # API routes
+│   ├── categories/      # Service category pages
+│   ├── listings/        # Business listing pages
+│   └── search/          # Search functionality
+├── components/          # React components
+│   ├── home/           # Homepage components
+│   ├── layout/         # Layout components
+│   ├── listings/       # Business listing components
+│   ├── reviews/        # Review system components
+│   ├── search/         # Search components
+│   └── ui/             # Reusable UI components
+├── lib/                # Utilities and configuration
+│   ├── db/             # Database operations
+│   ├── seed/           # Database seeding
+│   └── supabase/       # Supabase configuration
+└── types/              # TypeScript type definitions
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🗄 Database Schema
+
+The application uses Supabase with the following main tables:
+- `businesses` - Service provider information
+- `reviews` - Customer reviews and ratings
+- `business_images` - Business photo galleries
+
+See `supabase/schema.sql` for the complete database schema.
+
+## 🧪 Testing
+
+- **Unit Tests**: Components and utilities tested with Vitest
+- **E2E Tests**: Critical user flows tested with Playwright
+- **Test Coverage**: Run `npm test` for unit tests, `npm run test:e2e` for end-to-end tests
+
+## 📱 Responsive Design
+
+The application is fully responsive and optimized for:
+- Mobile devices (320px+)
+- Tablets (768px+)  
+- Desktop (1024px+)
+
+## 🌐 Deployment
+
+The application is optimized for deployment on [Vercel](https://vercel.com):
+
+1. Connect your GitHub repository to Vercel
+2. Configure environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 📞 Support
+
+For support and questions, please open an issue in the GitHub repository.
+
+---
+
+Built with ❤️ using Next.js and Supabase
