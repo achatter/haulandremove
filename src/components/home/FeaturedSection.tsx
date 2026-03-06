@@ -11,18 +11,15 @@ export function FeaturedSection({ businesses }: FeaturedSectionProps) {
 
   return (
     <section className="py-16">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-end justify-between mb-10 border-t-2 border-slate-900 pt-7">
         <div>
-          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-indigo-600 uppercase mb-2">
-            <span className="w-6 h-px bg-indigo-400 inline-block" />
-            Top Rated
-          </div>
-          <h2 className="text-3xl font-bold tracking-tight text-slate-800">Featured Businesses</h2>
-          <p className="text-slate-500 mt-1">Highly rated hauling &amp; removal services</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-blue-600 mb-3">Top Rated</p>
+          <h2 className="font-serif text-4xl font-bold text-slate-900">Featured Businesses</h2>
+          <p className="text-slate-500 mt-2 text-base">Highly rated hauling &amp; removal services nationwide</p>
         </div>
         <Link
           href="/search"
-          className="text-sm font-medium text-primary hover:underline"
+          className="text-sm font-bold text-slate-900 hover:text-blue-600 transition-colors border-b-2 border-slate-900 hover:border-blue-600 pb-0.5 whitespace-nowrap"
         >
           View all →
         </Link>

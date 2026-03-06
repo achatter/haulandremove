@@ -70,7 +70,7 @@ export function HeroSection() {
 
           {/* Center: text + search */}
           <div className="text-center">
-            <h1 className="text-5xl xl:text-6xl font-extrabold tracking-tight text-white drop-shadow-lg">
+            <h1 className="font-serif text-5xl xl:text-6xl font-bold tracking-tight text-white drop-shadow-lg">
               Search for Hauling Services
             </h1>
             <p className="mt-4 text-xl text-blue-100/80">
