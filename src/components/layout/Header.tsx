@@ -16,11 +16,11 @@ export function Header() {
   const pathname = usePathname()
 
   return (
-    <header className="border-b bg-white sticky top-0 z-50">
+    <header className="border-b bg-white/95 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
       <Container>
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="flex items-center gap-2 font-bold text-lg text-foreground">
-            <PackageOpen className="h-6 w-6 text-primary" />
+        <div className="flex items-center justify-between h-18">
+          <Link href="/" className="flex items-center gap-3 font-bold text-2xl text-foreground">
+            <PackageOpen className="h-8 w-8 text-primary" />
             <span>Hauling Services</span>
           </Link>
 
