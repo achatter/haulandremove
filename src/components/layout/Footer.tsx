@@ -10,7 +10,7 @@ export function Footer() {
           <div>
             <Link href="/" className="flex items-center gap-2 font-bold text-lg">
               <Truck className="h-5 w-5 text-primary" />
-              <span>HaulFind</span>
+              <span>Hauling Services Directory</span>
             </Link>
             <p className="text-sm text-muted-foreground mt-1">
               Nationwide directory for hauling &amp; removal services.
@@ -31,7 +31,7 @@ export function Footer() {
         </div>
 
         <p className="text-xs text-muted-foreground mt-8">
-          &copy; {new Date().getFullYear()} HaulFind. All rights reserved.
+          &copy; {new Date().getFullYear()} Hauling Services Directory. All rights reserved.
         </p>
       </Container>
     </footer>
