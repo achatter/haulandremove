@@ -13,8 +13,12 @@ export function FeaturedSection({ businesses }: FeaturedSectionProps) {
     <section className="py-16">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h2 className="text-3xl font-semibold tracking-tight">Featured Businesses</h2>
-          <p className="text-muted-foreground mt-1">Highly rated hauling &amp; removal services</p>
+          <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest text-indigo-600 uppercase mb-2">
+            <span className="w-6 h-px bg-indigo-400 inline-block" />
+            Top Rated
+          </div>
+          <h2 className="text-3xl font-bold tracking-tight text-slate-800">Featured Businesses</h2>
+          <p className="text-slate-500 mt-1">Highly rated hauling &amp; removal services</p>
         </div>
         <Link
           href="/search"
