@@ -2,10 +2,11 @@ import { SearchBar } from '@/components/search/SearchBar'
 
 export function HeroSection() {
   return (
-    <section className="bg-gradient-to-b from-slate-50 to-white py-20 border-b">
-      <div className="max-w-3xl mx-auto px-6 text-center">
-        <h1 className="text-5xl font-bold tracking-tight text-foreground">
-          Find Hauling &amp; Removal Services Near You
+    <section className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-20 border-b relative overflow-hidden">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+      <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
+        <h1 className="text-6xl font-bold tracking-tight text-foreground">
+          Search for Hauling Services
         </h1>
         <p className="mt-4 text-xl text-muted-foreground">
           Search thousands of trusted junk removal and estate cleanout professionals nationwide.
