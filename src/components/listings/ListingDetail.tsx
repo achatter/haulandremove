@@ -1,6 +1,7 @@
 import { ImageGallery } from './ImageGallery'
 import { CategoryBadge } from './CategoryBadge'
 import { BusinessMeta } from './BusinessMeta'
+import { BusinessAttributes } from './BusinessAttributes'
 import { StarRating } from '@/components/reviews/StarRating'
 import type { Business } from '@/types'
 import { formatRating } from '@/lib/utils'
@@ -32,7 +33,7 @@ export function ListingDetail({ business }: ListingDetailProps) {
           </div>
 
           {business.description && (
-            <p className="text-muted-foreground leading-relaxed">{business.description}</p>
+            <BusinessAttributes description={business.description} />
           )}
         </div>
       </div>

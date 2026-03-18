@@ -63,6 +63,7 @@ function parseExcelFile(filePath: string): ProcessedBusiness[] {
   console.log(`📊 Found ${jsonData.length} rows in Excel file`)
 
   const businesses: ProcessedBusiness[] = []
+  const seenSlugs = new Map<string, number>()
 
   for (let i = 0; i < jsonData.length; i++) {
     const row = jsonData[i]
@@ -114,8 +115,11 @@ function parseExcelFile(filePath: string): ProcessedBusiness[] {
       // Extract zip code
       const zip_code = getFieldValue(row, ['zip', 'zip_code', 'zipcode', 'postal_code', 'postcode'])?.toString() || ''
 
-      // Create slug
-      const slug = slugify(`${name} ${city} ${state}`, { lower: true, strict: true })
+      // Create slug, deduplicating with a counter suffix if needed
+      const baseSlug = slugify(`${name} ${city} ${state}`, { lower: true, strict: true })
+      const count = seenSlugs.get(baseSlug) ?? 0
+      seenSlugs.set(baseSlug, count + 1)
+      const slug = count === 0 ? baseSlug : `${baseSlug}-${count + 1}`
 
       // Extract other fields with defaults
       const business: ProcessedBusiness = {

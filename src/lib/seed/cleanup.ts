@@ -15,7 +15,7 @@ async function cleanup() {
     const { error: reviewsError } = await supabase
       .from('reviews')
       .delete()
-      .neq('id', 'impossible-id') // This deletes all records
+      .gt('created_at', '1970-01-01') // This deletes all records
 
     if (reviewsError) {
       console.error('Error deleting reviews:', reviewsError)
@@ -27,7 +27,7 @@ async function cleanup() {
     const { error: imagesError } = await supabase
       .from('business_images')
       .delete()
-      .neq('id', 'impossible-id')
+      .gt('created_at', '1970-01-01')
 
     if (imagesError) {
       console.error('Error deleting business images:', imagesError)
@@ -39,7 +39,7 @@ async function cleanup() {
     const { error: businessError } = await supabase
       .from('businesses')
       .delete()
-      .neq('id', 'impossible-id')
+      .gt('created_at', '1970-01-01')
 
     if (businessError) {
       console.error('Error deleting businesses:', businessError)
