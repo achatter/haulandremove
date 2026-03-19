@@ -21,14 +21,24 @@ const jsonAttributes = JSON.stringify({
 })
 
 describe('BusinessAttributes', () => {
-  it('renders plain text description as a paragraph', () => {
+  it('renders plain text description as formatted rich text', () => {
     render(<BusinessAttributes description="We haul away junk fast and affordably." />)
     expect(screen.getByText('We haul away junk fast and affordably.')).toBeInTheDocument()
   })
 
-  it('does not render attribute sections for plain text', () => {
+  it('extracts and displays service highlights from rich text', () => {
+    render(<BusinessAttributes description="At HaulAway Junk Removal Service, LLC, we provide fast, reliable, and affordable junk removal in Dallas. We offer same-day or next-day service and 24/7 customer support. Whether you need residential, commercial, or real estate junk removal, our team is ready to help." />)
+    
+    expect(screen.getByText('Service Highlights')).toBeInTheDocument()
+    expect(screen.getByText('Same-Day or Next-Day Service')).toBeInTheDocument()
+    expect(screen.getByText('24/7 Customer Support')).toBeInTheDocument()
+    expect(screen.getByText('Residential, Commercial & Real Estate Services')).toBeInTheDocument()
+  })
+
+  it('does not render attribute sections for plain text without highlights', () => {
     render(<BusinessAttributes description="We haul away junk fast and affordably." />)
     expect(screen.queryByText('From the business')).not.toBeInTheDocument()
+    expect(screen.queryByText('Service Highlights')).not.toBeInTheDocument()
   })
 
   it('renders category headers from JSON attributes', () => {
