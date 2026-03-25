@@ -11,6 +11,7 @@
     "cleanup": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/cleanup.ts",
     "import-data": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/import-real-data.ts",
     "migrate-data": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/migrate-real-data.ts",
+    "scrape-services": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/scrape-services.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test"

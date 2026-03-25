@@ -1,7 +1,8 @@
-import { MapPin, Phone, Mail, Globe, Calendar, Shield } from 'lucide-react'
+import { MapPin, Phone, Mail, Globe, Calendar, Shield, ExternalLink } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import type { Business } from '@/types'
 import { formatPhone } from '@/lib/utils'
+import { SocialLinks } from './SocialLinks'
 
 interface BusinessMetaProps {
   business: Business
@@ -66,6 +67,28 @@ export function BusinessMeta({ business }: BusinessMetaProps) {
             {[business.insured && 'Insured', business.bonded && 'Bonded'].filter(Boolean).join(' & ')}
           </span>
         </div>
+      )}
+
+      {business.booking_url && (
+        <>
+          <Separator className="my-2" />
+          <a
+            href={business.booking_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 w-full rounded-lg bg-primary text-primary-foreground px-4 py-2.5 text-sm font-semibold hover:bg-primary/90 transition-colors"
+          >
+            <ExternalLink className="h-4 w-4" />
+            Book Appointment
+          </a>
+        </>
+      )}
+
+      {business.social_media && (
+        <>
+          <Separator className="my-2" />
+          <SocialLinks social={business.social_media} />
+        </>
       )}
     </div>
   )

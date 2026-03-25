@@ -2,6 +2,8 @@ import { ImageGallery } from './ImageGallery'
 import { CategoryBadge } from './CategoryBadge'
 import { BusinessMeta } from './BusinessMeta'
 import { BusinessAttributes } from './BusinessAttributes'
+import { BusinessHours } from './BusinessHours'
+import { ServicesList } from './ServicesList'
 import { StarRating } from '@/components/reviews/StarRating'
 import type { Business } from '@/types'
 import { formatRating } from '@/lib/utils'
@@ -36,6 +38,16 @@ export function ListingDetail({ business }: ListingDetailProps) {
             <BusinessAttributes description={business.description} />
           )}
         </div>
+
+        {business.working_hours && (
+          <div className="border rounded-xl p-5 bg-muted/30">
+            <BusinessHours hours={business.working_hours} />
+          </div>
+        )}
+
+        {business.services && business.services.length > 0 && (
+          <ServicesList services={business.services} />
+        )}
       </div>
 
       {/* Right: Contact/Meta */}

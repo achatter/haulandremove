@@ -16,8 +16,8 @@ const tilePalette = [
 ]
 
 const categoryMeta: Record<string, { label: string; color: string }> = {
-  'junk-removal':    { label: 'Junk Removal',    color: '#0891B2' },
-  'estate-cleanout': { label: 'Estate Cleanout', color: '#2563EB' },
+  'junk_removal':    { label: 'Junk Removal',    color: '#0891B2' },
+  'estate_cleanout': { label: 'Estate Cleanout', color: '#2563EB' },
 }
 
 // Stable tile color derived from business id

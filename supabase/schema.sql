@@ -157,3 +157,12 @@ CREATE POLICY "Public can insert reviews"
 
 -- Service role (seed script) manages everything
 -- (service role bypasses RLS by default in Supabase)
+
+-- ============================================================
+-- Phase 2 additions: hours, booking, services, social media
+-- ============================================================
+ALTER TABLE businesses
+  ADD COLUMN IF NOT EXISTS booking_url    TEXT,
+  ADD COLUMN IF NOT EXISTS working_hours  JSONB,
+  ADD COLUMN IF NOT EXISTS services       JSONB,
+  ADD COLUMN IF NOT EXISTS social_media   JSONB;

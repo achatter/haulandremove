@@ -8,6 +8,7 @@ const BUSINESS_SELECT = `
   street_address, city, state, state_full, zip_code,
   years_in_business, insured, bonded, featured,
   average_rating, review_count, status, created_at,
+  booking_url, working_hours, services, social_media,
   images:business_images(id, url, alt_text, is_primary, sort_order)
 `
 

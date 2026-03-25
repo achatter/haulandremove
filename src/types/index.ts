@@ -1,6 +1,29 @@
 export type Category = 'estate_cleanout' | 'junk_removal';
 export type BusinessStatus = 'active' | 'inactive';
 
+export interface BusinessHours {
+  Monday?: string | null;
+  Tuesday?: string | null;
+  Wednesday?: string | null;
+  Thursday?: string | null;
+  Friday?: string | null;
+  Saturday?: string | null;
+  Sunday?: string | null;
+}
+
+export interface ServiceItem {
+  name: string;
+  description?: string;
+  source?: 'csv' | 'scraped' | 'manual';
+}
+
+export interface SocialMedia {
+  facebook?: string | null;
+  instagram?: string | null;
+  linkedin?: string | null;
+  youtube?: string | null;
+}
+
 export interface Business {
   id: string;
   name: string;
@@ -24,6 +47,10 @@ export interface Business {
   status: BusinessStatus;
   created_at: string;
   images?: BusinessImage[];
+  booking_url?: string | null;
+  working_hours?: BusinessHours | null;
+  services?: ServiceItem[] | null;
+  social_media?: SocialMedia | null;
 }
 
 export interface BusinessImage {

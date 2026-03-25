@@ -4,9 +4,10 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
+        // Allow all HTTPS image sources — needed for scraped business photos
+        // from arbitrary CDNs (Google, GoDaddy, Wix, Squarespace, etc.)
         protocol: 'https',
-        hostname: 'images.unsplash.com',
-        pathname: '/photo-**',
+        hostname: '**',
       },
     ],
   },
