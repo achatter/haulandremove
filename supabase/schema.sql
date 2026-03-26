@@ -46,11 +46,11 @@ CREATE TABLE IF NOT EXISTS business_images (
   alt_text    TEXT NOT NULL DEFAULT '',
   is_primary  BOOLEAN NOT NULL DEFAULT false,
   sort_order  INTEGER NOT NULL DEFAULT 0,
-  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  CONSTRAINT business_images_business_id_url_key UNIQUE (business_id, url)
 );
 
 CREATE INDEX IF NOT EXISTS idx_business_images_business_id ON business_images (business_id);
-CREATE UNIQUE INDEX IF NOT EXISTS idx_business_images_business_url ON business_images (business_id, url);
 
 -- ============================================================
 -- reviews table
