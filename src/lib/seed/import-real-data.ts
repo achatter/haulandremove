@@ -32,6 +32,8 @@ interface ProcessedBusiness {
   booking_url?: string
   working_hours?: Record<string, string | null>
   social_media?: Record<string, string>
+  services?: Array<{ name: string; source: string }>
+  attributes?: Record<string, Record<string, boolean>>
 }
 
 // US state abbreviations to full names mapping
@@ -90,6 +92,66 @@ function parseSocialMedia(row: ExcelRowData): Record<string, string> | undefined
   if (youtube)   result.youtube   = String(youtube)
 
   return Object.keys(result).length > 0 ? result : undefined
+}
+
+/**
+ * Parses the 'about' JSON field from Outscraper format.
+ * e.g. {"Service options": {"Onsite services": true}, "Accessibility": {"Wheelchair accessible entrance": true}}
+ * Returns services (from 'Service options') and attributes (all other categories).
+ */
+function parseAboutField(about: any): {
+  services: Array<{ name: string; source: 'google' }>
+  attributes: Record<string, Record<string, boolean>> | undefined
+} {
+  if (!about) return { services: [], attributes: undefined }
+
+  try {
+    const parsed = typeof about === 'string' ? JSON.parse(about) : about
+    if (typeof parsed !== 'object' || Array.isArray(parsed)) {
+      return { services: [], attributes: undefined }
+    }
+
+    const services: Array<{ name: string; source: 'google' }> = []
+    const attributes: Record<string, Record<string, boolean>> = {}
+
+    for (const [category, items] of Object.entries(parsed)) {
+      if (typeof items !== 'object' || items === null || Array.isArray(items)) continue
+
+      if (category === 'Service options') {
+        // Extract individual service options that are enabled
+        for (const [key, value] of Object.entries(items as Record<string, boolean>)) {
+          if (value === true) {
+            services.push({ name: key, source: 'google' })
+          }
+        }
+      } else {
+        // Store everything else as structured attributes (Accessibility, Amenities, etc.)
+        attributes[category] = items as Record<string, boolean>
+      }
+    }
+
+    return {
+      services,
+      attributes: Object.keys(attributes).length > 0 ? attributes : undefined,
+    }
+  } catch {
+    return { services: [], attributes: undefined }
+  }
+}
+
+/**
+ * Parses the 'subtypes' column into service items.
+ * e.g. "Junk removal service, Debris removal service" → [{name: "Junk removal service", source: "google"}]
+ */
+function parseSubtypes(subtypes: any): Array<{ name: string; source: 'google' }> {
+  if (!subtypes) return []
+  const raw = String(subtypes).trim()
+  if (!raw) return []
+  return raw
+    .split(',')
+    .map(s => s.trim())
+    .filter(s => s.length > 0)
+    .map(name => ({ name, source: 'google' as const }))
 }
 
 /**
@@ -166,14 +228,29 @@ function parseExcelFile(filePath: string): { businesses: ProcessedBusiness[]; ra
       seenSlugs.set(baseSlug, count + 1)
       const slug = count === 0 ? baseSlug : `${baseSlug}-${count + 1}`
 
-      // Build description: prefer 'about' column (richer), fall back to 'description'
-      const about       = getFieldValue(row, ['about'])
-      const description = getFieldValue(row, ['description', 'details', 'services'])
-      const combinedDescription = about
-        ? String(about)
-        : description
-          ? String(description)
-          : undefined
+      // Build description: prefer website_description (plain text), fall back to website_title
+      // Do NOT use the raw 'about' JSON as description — that is parsed separately below
+      const websiteDescription = getFieldValue(row, ['website_description'])
+      const websiteTitle       = getFieldValue(row, ['website_title'])
+      const plainDescription   = getFieldValue(row, ['description', 'details'])
+      const combinedDescription = websiteDescription
+        ? String(websiteDescription)
+        : websiteTitle
+          ? String(websiteTitle)
+          : plainDescription
+            ? String(plainDescription)
+            : undefined
+
+      // Parse 'about' JSON field for services and structured attributes
+      const aboutRaw = getFieldValue(row, ['about'])
+      const { services: aboutServices, attributes } = parseAboutField(aboutRaw)
+
+      // Parse 'subtypes' column as fallback services if no service options in 'about'
+      const subtypesRaw = getFieldValue(row, ['subtypes'])
+      const subtypeServices = parseSubtypes(subtypesRaw)
+
+      // Combine: use about services first, fall back to subtypes
+      const services = aboutServices.length > 0 ? aboutServices : subtypeServices
 
       // Extract ratings directly from CSV
       const ratingRaw      = getFieldValue(row, ['rating'])
@@ -204,6 +281,8 @@ function parseExcelFile(filePath: string): { businesses: ProcessedBusiness[]; ra
         booking_url:   getFieldValue(row, ['booking_appointment_link']) || undefined,
         working_hours: parseWorkingHours(getFieldValue(row, ['working_hours'])),
         social_media:  parseSocialMedia(row),
+        services:      services.length > 0 ? services : undefined,
+        attributes:    attributes,
       }
 
       businesses.push(business)
@@ -304,21 +383,44 @@ async function importRealData(excelFilePath: string) {
 
     console.log(`✅ Inserted ${insertedBusinesses?.length ?? 0} businesses into database`)
 
-    // Insert primary photos from CSV 'photo' column into business_images
+    // Insert primary photos and logos from CSV columns into business_images
     if (insertedBusinesses && insertedBusinesses.length > 0) {
-      const imageRows = insertedBusinesses
-        .map((biz, i) => {
-          const photoUrl = getFieldValue(rawRows[i], ['photo'])
-          if (!photoUrl || typeof photoUrl !== 'string' || !photoUrl.startsWith('http')) return null
-          return {
+      const imageRows: Array<{
+        business_id: string
+        url: string
+        alt_text: string
+        is_primary: boolean
+        sort_order: number
+      }> = []
+
+      for (let i = 0; i < insertedBusinesses.length; i++) {
+        const biz = insertedBusinesses[i]
+        const row = rawRows[i]
+
+        // Primary photo
+        const photoUrl = getFieldValue(row, ['photo'])
+        if (photoUrl && typeof photoUrl === 'string' && photoUrl.startsWith('http')) {
+          imageRows.push({
             business_id: biz.id,
             url: String(photoUrl),
             alt_text: `${biz.name} photo`,
             is_primary: true,
             sort_order: 0,
-          }
-        })
-        .filter(Boolean)
+          })
+        }
+
+        // Logo image (stored as non-primary, sort_order 100 to separate from photos)
+        const logoUrl = getFieldValue(row, ['logo'])
+        if (logoUrl && typeof logoUrl === 'string' && logoUrl.startsWith('http')) {
+          imageRows.push({
+            business_id: biz.id,
+            url: String(logoUrl),
+            alt_text: `${biz.name} logo`,
+            is_primary: false,
+            sort_order: 100,
+          })
+        }
+      }
 
       if (imageRows.length > 0) {
         const { error: imgError } = await supabase
@@ -328,10 +430,12 @@ async function importRealData(excelFilePath: string) {
         if (imgError) {
           console.warn('⚠️  Error inserting images:', imgError.message)
         } else {
-          console.log(`✅ Inserted ${imageRows.length} primary photos`)
+          const primaryCount = imageRows.filter(r => r.is_primary).length
+          const logoCount    = imageRows.filter(r => !r.is_primary && r.sort_order === 100).length
+          console.log(`✅ Inserted ${primaryCount} primary photos and ${logoCount} logos`)
         }
       } else {
-        console.log('ℹ️  No photo URLs found in CSV')
+        console.log('ℹ️  No photo or logo URLs found in CSV')
       }
     }
 

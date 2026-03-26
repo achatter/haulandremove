@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS business_images (
 );
 
 CREATE INDEX IF NOT EXISTS idx_business_images_business_id ON business_images (business_id);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_business_images_business_url ON business_images (business_id, url);
 
 -- ============================================================
 -- reviews table
@@ -159,10 +160,11 @@ CREATE POLICY "Public can insert reviews"
 -- (service role bypasses RLS by default in Supabase)
 
 -- ============================================================
--- Phase 2 additions: hours, booking, services, social media
+-- Phase 2 additions: hours, booking, services, social media, attributes
 -- ============================================================
 ALTER TABLE businesses
   ADD COLUMN IF NOT EXISTS booking_url    TEXT,
   ADD COLUMN IF NOT EXISTS working_hours  JSONB,
   ADD COLUMN IF NOT EXISTS services       JSONB,
-  ADD COLUMN IF NOT EXISTS social_media   JSONB;
+  ADD COLUMN IF NOT EXISTS social_media   JSONB,
+  ADD COLUMN IF NOT EXISTS attributes     JSONB;
