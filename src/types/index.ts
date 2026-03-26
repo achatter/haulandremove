@@ -14,7 +14,7 @@ export interface BusinessHours {
 export interface ServiceItem {
   name: string;
   description?: string;
-  source?: 'csv' | 'scraped' | 'manual';
+  source?: 'csv' | 'scraped' | 'manual' | 'google';
 }
 
 export interface SocialMedia {
@@ -51,6 +51,7 @@ export interface Business {
   working_hours?: BusinessHours | null;
   services?: ServiceItem[] | null;
   social_media?: SocialMedia | null;
+  attributes?: Record<string, Record<string, boolean>> | null;
 }
 
 export interface BusinessImage {

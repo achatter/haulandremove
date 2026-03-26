@@ -48,6 +48,30 @@ export function ListingDetail({ business }: ListingDetailProps) {
         {business.services && business.services.length > 0 && (
           <ServicesList services={business.services} />
         )}
+
+        {business.attributes && Object.keys(business.attributes).length > 0 && (
+          <div className="border rounded-xl p-5 bg-muted/30 space-y-4">
+            {Object.entries(business.attributes).map(([category, items]) => (
+              <div key={category}>
+                <h3 className="text-sm font-semibold text-foreground mb-2">{category}</h3>
+                <ul className="space-y-1">
+                  {Object.entries(items).map(([label, value]) => (
+                    <li key={label} className="flex items-center gap-2 text-sm">
+                      {value ? (
+                        <span className="text-green-600" aria-hidden="true">✓</span>
+                      ) : (
+                        <span className="text-muted-foreground" aria-hidden="true">✗</span>
+                      )}
+                      <span className={value ? 'text-foreground' : 'text-muted-foreground'}>
+                        {label}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Right: Contact/Meta */}
