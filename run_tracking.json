@@ -1,0 +1,615 @@
+{
+  "launched_at": "2026-04-01T22:27:19.011881",
+  "runs": [
+    {
+      "city": "Los Angeles",
+      "state_code": "CA",
+      "state_name": "California",
+      "run_id": "9QcaJPx9vG0Yn6qPE",
+      "dataset_id": "Ydcs2yfZFzxn1u7HN",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:10:19.258560",
+      "items": 50
+    },
+    {
+      "city": "San Diego",
+      "state_code": "CA",
+      "state_name": "California",
+      "run_id": "rT5y7b5s9q8DJJLM5",
+      "dataset_id": "kccePqEPBVuRwjzM3",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:10:19.890146",
+      "items": 50
+    },
+    {
+      "city": "San Jose",
+      "state_code": "CA",
+      "state_name": "California",
+      "run_id": "MxK9sQdMz7HiVrGjy",
+      "dataset_id": "IJdYfTq1RMcsrk08b",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:10:20.441031",
+      "items": 50
+    },
+    {
+      "city": "San Francisco",
+      "state_code": "CA",
+      "state_name": "California",
+      "run_id": "X39anKIYM75hw0Q8t",
+      "dataset_id": "XX068qypZeUvDJuzs",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:10:21.113192",
+      "items": 50
+    },
+    {
+      "city": "Fresno",
+      "state_code": "CA",
+      "state_name": "California",
+      "run_id": "JocQgsblIuzYxgvPw",
+      "dataset_id": "9MVSfuKLWGKv2NoiO",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:10:21.816060",
+      "items": 50
+    },
+    {
+      "city": "Sacramento",
+      "state_code": "CA",
+      "state_name": "California",
+      "run_id": "G4dp76M7FZkr7bNI7",
+      "dataset_id": "qVQZoKMahDuvTAH5n",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:10:22.503427",
+      "items": 50
+    },
+    {
+      "city": "Long Beach",
+      "state_code": "CA",
+      "state_name": "California",
+      "run_id": "FhoMQvIzxsaiOfkEi",
+      "dataset_id": "A10CxJhjkLsLtVLgL",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:10:23.052258",
+      "items": 32
+    },
+    {
+      "city": "Oakland",
+      "state_code": "CA",
+      "state_name": "California",
+      "run_id": "gJofQm29Zz6EZgQTf",
+      "dataset_id": "VXWTmc4pfaAZXeQZI",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:13:20.050052",
+      "items": 47
+    },
+    {
+      "city": "Bakersfield",
+      "state_code": "CA",
+      "state_name": "California",
+      "run_id": "8S2AxCVHPR1tH5xOQ",
+      "dataset_id": "IpgHoGtUyFuLOFYfG",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:13:20.768194",
+      "items": 50
+    },
+    {
+      "city": "Anaheim",
+      "state_code": "CA",
+      "state_name": "California",
+      "run_id": "6emrA3hReK7kgjMMw",
+      "dataset_id": "nfJMngJm2FBpSfjHX",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:13:21.312952",
+      "items": 21
+    },
+    {
+      "city": "Houston",
+      "state_code": "TX",
+      "state_name": "Texas",
+      "run_id": "komsUPZnb9TnuyKmX",
+      "dataset_id": "ee0Dlmpv8TrN0c5Os",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:13:21.855464",
+      "items": 50
+    },
+    {
+      "city": "San Antonio",
+      "state_code": "TX",
+      "state_name": "Texas",
+      "run_id": "Ww0aGjeGrgAgMCe9b",
+      "dataset_id": "fYucKSgMlqKg0pXbS",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:13:22.418202",
+      "items": 50
+    },
+    {
+      "city": "Dallas",
+      "state_code": "TX",
+      "state_name": "Texas",
+      "run_id": "XUTIsHhgK5bNNjs4a",
+      "dataset_id": "9ffFZ6OVlZd64UvSI",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:13:22.976950",
+      "items": 50
+    },
+    {
+      "city": "Austin",
+      "state_code": "TX",
+      "state_name": "Texas",
+      "run_id": "7IVPKQueHpoj4eks3",
+      "dataset_id": "VmEWHk3GxVNNyslpT",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:13:23.510080",
+      "items": 50
+    },
+    {
+      "city": "Fort Worth",
+      "state_code": "TX",
+      "state_name": "Texas",
+      "run_id": "qfnp8bIe3rawQviai",
+      "dataset_id": "YrGKHbsqxADTxkIiC",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:16:52.923630",
+      "items": 50
+    },
+    {
+      "city": "El Paso",
+      "state_code": "TX",
+      "state_name": "Texas",
+      "run_id": "qlrC78RFaVlsuF8Oc",
+      "dataset_id": "Eh7hElI6hIvP2WSAh",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:16:53.621135",
+      "items": 42
+    },
+    {
+      "city": "Arlington",
+      "state_code": "TX",
+      "state_name": "Texas",
+      "run_id": "KEDjYpC18aMLbtL5r",
+      "dataset_id": "6n77602l0KjmRetBy",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:16:54.151837",
+      "items": 25
+    },
+    {
+      "city": "Corpus Christi",
+      "state_code": "TX",
+      "state_name": "Texas",
+      "run_id": "L8updDXnqihHzPsWG",
+      "dataset_id": "QoFuLuK6z8dyn94RR",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:16:54.728953",
+      "items": 30
+    },
+    {
+      "city": "Plano",
+      "state_code": "TX",
+      "state_name": "Texas",
+      "run_id": "eGHe3P3HsCGLbF4Fp",
+      "dataset_id": "PdcGeGs9H1joX6wvj",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:16:55.274654",
+      "items": 19
+    },
+    {
+      "city": "Lubbock",
+      "state_code": "TX",
+      "state_name": "Texas",
+      "run_id": "XPyNJCv7HhjwxhO2q",
+      "dataset_id": "AzggJ9rU5OOfNz4kW",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:16:55.835656",
+      "items": 38
+    },
+    {
+      "city": "Jacksonville",
+      "state_code": "FL",
+      "state_name": "Florida",
+      "run_id": "ueLmvoKGhvyirAl9Z",
+      "dataset_id": "HAoEE2ciCPUAgMTlq",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:16:56.414452",
+      "items": 50
+    },
+    {
+      "city": "Miami",
+      "state_code": "FL",
+      "state_name": "Florida",
+      "run_id": "UQHx7uwwwJ7rdi8yr",
+      "dataset_id": "h182RCtDKfk2DHQzh",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:20:08.658465",
+      "items": 31
+    },
+    {
+      "city": "Tampa",
+      "state_code": "FL",
+      "state_name": "Florida",
+      "run_id": "eFbPGLf0JRdm1x6sJ",
+      "dataset_id": "Li2kcrbjE4z5dcuQi",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:20:09.190850",
+      "items": 50
+    },
+    {
+      "city": "Orlando",
+      "state_code": "FL",
+      "state_name": "Florida",
+      "run_id": "l3soSUXk0GjBDNwDy",
+      "dataset_id": "R2UNFL3W4DECp6npi",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:20:09.741637",
+      "items": 50
+    },
+    {
+      "city": "St. Petersburg",
+      "state_code": "FL",
+      "state_name": "Florida",
+      "run_id": "gsZpIWI2ChuH2huzc",
+      "dataset_id": "vRgDaYTpcgeLgsGwl",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:20:10.292877",
+      "items": 50
+    },
+    {
+      "city": "Hialeah",
+      "state_code": "FL",
+      "state_name": "Florida",
+      "run_id": "hQhXE65PTYu2GL9PU",
+      "dataset_id": "7GeRS6X7gZB7745Oy",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:20:10.943727",
+      "items": 21
+    },
+    {
+      "city": "Tallahassee",
+      "state_code": "FL",
+      "state_name": "Florida",
+      "run_id": "cUZpdY4NI6ygfuma2",
+      "dataset_id": "3LpO6QblK7nguL4jL",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:20:11.630506",
+      "items": 25
+    },
+    {
+      "city": "Fort Lauderdale",
+      "state_code": "FL",
+      "state_name": "Florida",
+      "run_id": "WuxEoh7T43tFjjMWu",
+      "dataset_id": "pItpolMHORKJjKP9a",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:20:12.328744",
+      "items": 25
+    },
+    {
+      "city": "Port St. Lucie",
+      "state_code": "FL",
+      "state_name": "Florida",
+      "run_id": "khLeRvHLffehh1z3K",
+      "dataset_id": "jxurKlBohvfaMmtcN",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:23:21.626571",
+      "items": 37
+    },
+    {
+      "city": "Cape Coral",
+      "state_code": "FL",
+      "state_name": "Florida",
+      "run_id": "pmyVdyATbDkkfNXeA",
+      "dataset_id": "Ca5ampIaheBUYqlUV",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:23:22.245274",
+      "items": 23
+    },
+    {
+      "city": "New York City",
+      "state_code": "NY",
+      "state_name": "New York",
+      "run_id": "lbHaJjkuHNY6BObq3",
+      "dataset_id": "WegH6l0sO6jYk7MxI",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:23:22.812377",
+      "items": 50
+    },
+    {
+      "city": "Buffalo",
+      "state_code": "NY",
+      "state_name": "New York",
+      "run_id": "dDNiGLCzh09DtIqLg",
+      "dataset_id": "LmRSRWPa7bSPaD2pt",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:23:23.447488",
+      "items": 14
+    },
+    {
+      "city": "Rochester",
+      "state_code": "NY",
+      "state_name": "New York",
+      "run_id": "ic7UX5l9rRa7xlfho",
+      "dataset_id": "VWeTZbYzqqouVP36d",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:23:24.026616",
+      "items": 10
+    },
+    {
+      "city": "Yonkers",
+      "state_code": "NY",
+      "state_name": "New York",
+      "run_id": "dSrBgGiPosF7xOHOb",
+      "dataset_id": "fYATMwU0JUyfKWEhk",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:23:24.745983",
+      "items": 24
+    },
+    {
+      "city": "Syracuse",
+      "state_code": "NY",
+      "state_name": "New York",
+      "run_id": "MdRuffkstVfwgAB3f",
+      "dataset_id": "xrUqTVjiEDu39wS3p",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:23:25.390366",
+      "items": 10
+    },
+    {
+      "city": "Albany",
+      "state_code": "NY",
+      "state_name": "New York",
+      "run_id": "XVtgFwsz2AxiXMwav",
+      "dataset_id": "yQuKVGeAmd1xKcOOB",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:32:45.292468",
+      "items": 6
+    },
+    {
+      "city": "New Rochelle",
+      "state_code": "NY",
+      "state_name": "New York",
+      "run_id": "ZSJU1ttWJnCaWITft",
+      "dataset_id": "NtFBWCc8FA1WSXjji",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:32:45.844421",
+      "items": 6
+    },
+    {
+      "city": "Mount Vernon",
+      "state_code": "NY",
+      "state_name": "New York",
+      "run_id": "CJLNc3CTy0KaW4dSM",
+      "dataset_id": "IxTrm4P4qvuQ9cVZJ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:32:46.376513",
+      "items": 10
+    },
+    {
+      "city": "Schenectady",
+      "state_code": "NY",
+      "state_name": "New York",
+      "run_id": "yNBBbf1BJAA9eNjKL",
+      "dataset_id": "As1H5SiZmXsrFH5Vz",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:32:46.936440",
+      "items": 3
+    },
+    {
+      "city": "Utica",
+      "state_code": "NY",
+      "state_name": "New York",
+      "run_id": "C2zs4byOK8FteVoKc",
+      "dataset_id": "XOlcvyBoK1106AjCh",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T21:32:47.553814",
+      "items": 5
+    },
+    {
+      "city": "Philadelphia",
+      "state_code": "PA",
+      "state_name": "Pennsylvania",
+      "run_id": "6gfhgSy5lKwmV3orx",
+      "dataset_id": "oEJFOl20eZTY8MSYU",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:19:04.028059",
+      "items": 50
+    },
+    {
+      "city": "Pittsburgh",
+      "state_code": "PA",
+      "state_name": "Pennsylvania",
+      "run_id": "SoZuQVbeYvyM2ANfV",
+      "dataset_id": "tNRl4u61ehzUsrV1L",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:19:04.612025",
+      "items": 30
+    },
+    {
+      "city": "Allentown",
+      "state_code": "PA",
+      "state_name": "Pennsylvania",
+      "run_id": "r2zzsHKuAMcNySmxN",
+      "dataset_id": "g5P67kd9zfzK3xqMx",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:19:05.233399",
+      "items": 13
+    },
+    {
+      "city": "Erie",
+      "state_code": "PA",
+      "state_name": "Pennsylvania",
+      "run_id": "OBzlI32YDuAJbM1hf",
+      "dataset_id": "dn6bW6vYIMQiu8gde",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:19:05.893221",
+      "items": 7
+    },
+    {
+      "city": "Reading",
+      "state_code": "PA",
+      "state_name": "Pennsylvania",
+      "run_id": "KXuhtvFe5xQ9kHG5H",
+      "dataset_id": "rt3UDqLRdB3e9lmIg",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:19:06.558685",
+      "items": 12
+    },
+    {
+      "city": "Scranton",
+      "state_code": "PA",
+      "state_name": "Pennsylvania",
+      "run_id": "3TrC9hspC9yxGBhqM",
+      "dataset_id": "4ewdPft929GIrIWRv",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:19:07.263951",
+      "items": 17
+    },
+    {
+      "city": "Chicago",
+      "state_code": "IL",
+      "state_name": "Illinois",
+      "run_id": "Tl2hWKkVTnm5dgnag",
+      "dataset_id": "gh4u1VUGWhu01I14l",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:19:07.880228",
+      "items": 50
+    },
+    {
+      "city": "Aurora",
+      "state_code": "IL",
+      "state_name": "Illinois",
+      "run_id": "KDi5vTJv0OjssDVU1",
+      "dataset_id": "2ULvaMYpSW7207TPv",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:22:44.764239",
+      "items": 13
+    },
+    {
+      "city": "Joliet",
+      "state_code": "IL",
+      "state_name": "Illinois",
+      "run_id": "tvOcCQMVmCYahpoVv",
+      "dataset_id": "bfIWNV5zCut3lDwEU",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:22:45.362127",
+      "items": 11
+    },
+    {
+      "city": "Rockford",
+      "state_code": "IL",
+      "state_name": "Illinois",
+      "run_id": "gvVIPkJtgF7n1iMUJ",
+      "dataset_id": "aaNyNhEe76aofEhYg",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:22:46.046016",
+      "items": 21
+    },
+    {
+      "city": "Springfield",
+      "state_code": "IL",
+      "state_name": "Illinois",
+      "run_id": "XdrwFfXAKRPeRWgHV",
+      "dataset_id": "IE0B8Y673sWEvqLGA",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:22:46.757945",
+      "items": 20
+    },
+    {
+      "city": "Peoria",
+      "state_code": "IL",
+      "state_name": "Illinois",
+      "run_id": "zaNMdYSKLqI3feSgF",
+      "dataset_id": "Febf2wSRr2Ul4MCp2",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:22:47.387095",
+      "items": 9
+    },
+    {
+      "city": "Columbus",
+      "state_code": "OH",
+      "state_name": "Ohio",
+      "run_id": "k97QrD5zqHy5eziYx",
+      "dataset_id": "zzABkwz1FULvNiJfQ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:22:47.910629",
+      "items": 50
+    },
+    {
+      "city": "Cleveland",
+      "state_code": "OH",
+      "state_name": "Ohio",
+      "run_id": "bHaIYc395q0cyHKRd",
+      "dataset_id": "EXnDg61Qw9cAm6hDW",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:22:48.533761",
+      "items": 50
+    },
+    {
+      "city": "Cincinnati",
+      "state_code": "OH",
+      "state_name": "Ohio",
+      "run_id": "uMuqQxpqYBtcaU5Nh",
+      "dataset_id": "3ozUIehGAAZl0mLxq",
+      "status": "RUNNING",
+      "launched_at": "2026-04-01T22:27:15.547279",
+      "items": 0
+    },
+    {
+      "city": "Toledo",
+      "state_code": "OH",
+      "state_name": "Ohio",
+      "run_id": "AVLRMVzDAdTZ6wabU",
+      "dataset_id": "ai86rktrRCNSpm8V2",
+      "status": "RUNNING",
+      "launched_at": "2026-04-01T22:27:16.239489",
+      "items": 0
+    },
+    {
+      "city": "Akron",
+      "state_code": "OH",
+      "state_name": "Ohio",
+      "run_id": "pHca3BLxvbsyxtR54",
+      "dataset_id": "iQWNLlHyhJDpYwf2N",
+      "status": "RUNNING",
+      "launched_at": "2026-04-01T22:27:16.765187",
+      "items": 0
+    },
+    {
+      "city": "Dayton",
+      "state_code": "OH",
+      "state_name": "Ohio",
+      "run_id": "ibjvUibR0JdEEjQEP",
+      "dataset_id": "hQuVaKyBSoQnwkMIb",
+      "status": "RUNNING",
+      "launched_at": "2026-04-01T22:27:17.347884",
+      "items": 0
+    },
+    {
+      "city": "Atlanta",
+      "state_code": "GA",
+      "state_name": "Georgia",
+      "run_id": "LqUeabOwdclcGUo1z",
+      "dataset_id": "nkRkajwqm2C274jbt",
+      "status": "RUNNING",
+      "launched_at": "2026-04-01T22:27:17.882573",
+      "items": 0
+    },
+    {
+      "city": "Augusta",
+      "state_code": "GA",
+      "state_name": "Georgia",
+      "run_id": "z8FWTvoaib3WHaQ4a",
+      "dataset_id": "AlAygUZXKlAEsNghL",
+      "status": "RUNNING",
+      "launched_at": "2026-04-01T22:27:18.418600",
+      "items": 0
+    },
+    {
+      "city": "Columbus",
+      "state_code": "GA",
+      "state_name": "Georgia",
+      "run_id": "1I9NdmQT8nfhCJsa0",
+      "dataset_id": "CmbopnmNxMOgqmEWZ",
+      "status": "RUNNING",
+      "launched_at": "2026-04-01T22:27:19.008863",
+      "items": 0
+    }
+  ]
+}
