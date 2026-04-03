@@ -2,6 +2,9 @@
 
 A nationwide directory website that connects consumers with local hauling and removal service providers. Search by city, state, or zip code to find trusted professionals for estate cleanout services and junk removal.
 
+## 🤖 Built with Claude Code
+This project was built using Claude Code as the primary development agent. Claude Code handled the majority of scaffolding, component generation, database schema design, and PR workflows — with my direction on architecture decisions, product requirements, and code review. The goal was to validate what a solo practitioner can ship with agentic AI tooling and a real production stack. Claude Code + Supabase + GitHub PR workflows made a full-featured directory product achievable without a team.
+
 ## 🌟 Features
 
 - **Nationwide Coverage**: Search for services by city, state, or zip code
