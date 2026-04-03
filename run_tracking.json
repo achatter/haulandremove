@@ -1,5 +1,5 @@
 {
-  "launched_at": "2026-04-01T22:27:19.011881",
+  "launched_at": "2026-04-02T03:46:20.842916",
   "runs": [
     {
       "city": "Los Angeles",
@@ -547,9 +547,9 @@
       "state_name": "Ohio",
       "run_id": "uMuqQxpqYBtcaU5Nh",
       "dataset_id": "3ozUIehGAAZl0mLxq",
-      "status": "RUNNING",
+      "status": "SUCCEEDED",
       "launched_at": "2026-04-01T22:27:15.547279",
-      "items": 0
+      "items": 39
     },
     {
       "city": "Toledo",
@@ -557,9 +557,9 @@
       "state_name": "Ohio",
       "run_id": "AVLRMVzDAdTZ6wabU",
       "dataset_id": "ai86rktrRCNSpm8V2",
-      "status": "RUNNING",
+      "status": "SUCCEEDED",
       "launched_at": "2026-04-01T22:27:16.239489",
-      "items": 0
+      "items": 35
     },
     {
       "city": "Akron",
@@ -567,9 +567,9 @@
       "state_name": "Ohio",
       "run_id": "pHca3BLxvbsyxtR54",
       "dataset_id": "iQWNLlHyhJDpYwf2N",
-      "status": "RUNNING",
+      "status": "SUCCEEDED",
       "launched_at": "2026-04-01T22:27:16.765187",
-      "items": 0
+      "items": 29
     },
     {
       "city": "Dayton",
@@ -577,9 +577,9 @@
       "state_name": "Ohio",
       "run_id": "ibjvUibR0JdEEjQEP",
       "dataset_id": "hQuVaKyBSoQnwkMIb",
-      "status": "RUNNING",
+      "status": "SUCCEEDED",
       "launched_at": "2026-04-01T22:27:17.347884",
-      "items": 0
+      "items": 12
     },
     {
       "city": "Atlanta",
@@ -587,9 +587,9 @@
       "state_name": "Georgia",
       "run_id": "LqUeabOwdclcGUo1z",
       "dataset_id": "nkRkajwqm2C274jbt",
-      "status": "RUNNING",
+      "status": "SUCCEEDED",
       "launched_at": "2026-04-01T22:27:17.882573",
-      "items": 0
+      "items": 50
     },
     {
       "city": "Augusta",
@@ -597,9 +597,9 @@
       "state_name": "Georgia",
       "run_id": "z8FWTvoaib3WHaQ4a",
       "dataset_id": "AlAygUZXKlAEsNghL",
-      "status": "RUNNING",
+      "status": "SUCCEEDED",
       "launched_at": "2026-04-01T22:27:18.418600",
-      "items": 0
+      "items": 33
     },
     {
       "city": "Columbus",
@@ -607,9 +607,1999 @@
       "state_name": "Georgia",
       "run_id": "1I9NdmQT8nfhCJsa0",
       "dataset_id": "CmbopnmNxMOgqmEWZ",
-      "status": "RUNNING",
+      "status": "SUCCEEDED",
       "launched_at": "2026-04-01T22:27:19.008863",
+      "items": 19
+    },
+    {
+      "city": "Macon",
+      "state_code": "GA",
+      "state_name": "Georgia",
+      "run_id": "eG434U8tCkFHH5zL4",
+      "dataset_id": "S4KIXo4BGehBqDbGh",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:30:56.326623",
+      "items": 19
+    },
+    {
+      "city": "Savannah",
+      "state_code": "GA",
+      "state_name": "Georgia",
+      "run_id": "NhyuclIZdaYB9Z8eB",
+      "dataset_id": "h4eLbOfLpSeLY0RkO",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:30:56.970062",
+      "items": 12
+    },
+    {
+      "city": "Athens",
+      "state_code": "GA",
+      "state_name": "Georgia",
+      "run_id": "TWM4FuT1kLoIvyxfy",
+      "dataset_id": "GDOIVpQx6hEvDyio8",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:30:57.591884",
+      "items": 14
+    },
+    {
+      "city": "Charlotte",
+      "state_code": "NC",
+      "state_name": "North Carolina",
+      "run_id": "IrRrXHrhOMZBgJyZI",
+      "dataset_id": "iebc3htoLeHj0i6dA",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:30:58.107849",
+      "items": 50
+    },
+    {
+      "city": "Raleigh",
+      "state_code": "NC",
+      "state_name": "North Carolina",
+      "run_id": "NpMWxf8xmlSbC7hUk",
+      "dataset_id": "wjuHX2OKhLbk5IPG0",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:30:58.730041",
+      "items": 50
+    },
+    {
+      "city": "Greensboro",
+      "state_code": "NC",
+      "state_name": "North Carolina",
+      "run_id": "NjTEujgc8HsSeu2fA",
+      "dataset_id": "hXENLU9DpALSUeViK",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:30:59.433813",
+      "items": 46
+    },
+    {
+      "city": "Durham",
+      "state_code": "NC",
+      "state_name": "North Carolina",
+      "run_id": "aJQvrgtK1DUkvsDRm",
+      "dataset_id": "xICtTNvUcZcYHw2O6",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:31:00.112903",
+      "items": 23
+    },
+    {
+      "city": "Winston-Salem",
+      "state_code": "NC",
+      "state_name": "North Carolina",
+      "run_id": "2iAov7GkRqxrO0lmM",
+      "dataset_id": "wpizU4TmXdgXORyBy",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:34:38.767470",
+      "items": 33
+    },
+    {
+      "city": "Fayetteville",
+      "state_code": "NC",
+      "state_name": "North Carolina",
+      "run_id": "4vUg9FaVbSIaINdm4",
+      "dataset_id": "oF7ryCN8DCbHhJhFF",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:34:39.300148",
+      "items": 21
+    },
+    {
+      "city": "Seattle",
+      "state_code": "WA",
+      "state_name": "Washington",
+      "run_id": "wDKsKhKLZXDzMC9q8",
+      "dataset_id": "dkbKc9Z0tHVPsDT3e",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:34:39.876182",
+      "items": 50
+    },
+    {
+      "city": "Spokane",
+      "state_code": "WA",
+      "state_name": "Washington",
+      "run_id": "Sa7fJ2ztEXXrRW5dv",
+      "dataset_id": "qJK3YpIUATUuXZLW1",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:34:40.414765",
+      "items": 39
+    },
+    {
+      "city": "Tacoma",
+      "state_code": "WA",
+      "state_name": "Washington",
+      "run_id": "siz4SxHZQRizcRoqb",
+      "dataset_id": "HtJ96iTx7sR3fdxmY",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:34:41.021993",
+      "items": 27
+    },
+    {
+      "city": "Vancouver",
+      "state_code": "WA",
+      "state_name": "Washington",
+      "run_id": "twGaKOS5leUZJcEv0",
+      "dataset_id": "m1ncSyp3Ao9fBzVOV",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:34:41.601396",
+      "items": 26
+    },
+    {
+      "city": "Bellevue",
+      "state_code": "WA",
+      "state_name": "Washington",
+      "run_id": "VmFqQk14YWYwhLqm6",
+      "dataset_id": "5WPDnmL4eXUBm9P5a",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:34:42.226972",
+      "items": 16
+    },
+    {
+      "city": "Kirkland",
+      "state_code": "WA",
+      "state_name": "Washington",
+      "run_id": "Mcpv6MeOktdFSecKM",
+      "dataset_id": "gkzBDiX8pq6ZK4qbK",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:38:19.310383",
+      "items": 8
+    },
+    {
+      "city": "Phoenix",
+      "state_code": "AZ",
+      "state_name": "Arizona",
+      "run_id": "i6D3EDhBCRiednKPR",
+      "dataset_id": "tucg9X03qbExBd9yv",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:38:20.016906",
+      "items": 50
+    },
+    {
+      "city": "Tucson",
+      "state_code": "AZ",
+      "state_name": "Arizona",
+      "run_id": "4tdAzAV9v433btkQC",
+      "dataset_id": "N4UuOsOFYiQ2X6NIp",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:38:20.535384",
+      "items": 50
+    },
+    {
+      "city": "Mesa",
+      "state_code": "AZ",
+      "state_name": "Arizona",
+      "run_id": "EUedRtMAzil1hZi74",
+      "dataset_id": "LPctmnqLapYNBy615",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:38:21.105549",
+      "items": 37
+    },
+    {
+      "city": "Chandler",
+      "state_code": "AZ",
+      "state_name": "Arizona",
+      "run_id": "slfVgT9oD1veydHqj",
+      "dataset_id": "83NycdbWNsOpztRg2",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:38:21.708231",
+      "items": 13
+    },
+    {
+      "city": "Scottsdale",
+      "state_code": "AZ",
+      "state_name": "Arizona",
+      "run_id": "AG3Gd6bA4te26xM8g",
+      "dataset_id": "jMxhEimfslBXIBBct",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:38:22.268731",
+      "items": 16
+    },
+    {
+      "city": "Tempe",
+      "state_code": "AZ",
+      "state_name": "Arizona",
+      "run_id": "T42rPsGQl1pQETcgC",
+      "dataset_id": "pe1MXJPVninM4K7mh",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:38:22.868469",
+      "items": 7
+    },
+    {
+      "city": "Detroit",
+      "state_code": "MI",
+      "state_name": "Michigan",
+      "run_id": "ukEodS0WaE7dbjQv3",
+      "dataset_id": "Bmin4dqHcSuBCAljd",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:41:58.878988",
+      "items": 47
+    },
+    {
+      "city": "Grand Rapids",
+      "state_code": "MI",
+      "state_name": "Michigan",
+      "run_id": "FjW7hnSFhyTWvPnQi",
+      "dataset_id": "eLTW8uvjDRXgXw4ql",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:41:59.468995",
+      "items": 25
+    },
+    {
+      "city": "Warren",
+      "state_code": "MI",
+      "state_name": "Michigan",
+      "run_id": "KAXVQ7tjFWKLbqgky",
+      "dataset_id": "fOIK6aYQXp3Plbfun",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:42:00.233104",
+      "items": 9
+    },
+    {
+      "city": "Sterling Heights",
+      "state_code": "MI",
+      "state_name": "Michigan",
+      "run_id": "0gFUxdiyAAN2TV5Nu",
+      "dataset_id": "xzDE7HKGaPGJ13QrZ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:42:00.793203",
+      "items": 6
+    },
+    {
+      "city": "Lansing",
+      "state_code": "MI",
+      "state_name": "Michigan",
+      "run_id": "GGWEMCKsSgKN3SybC",
+      "dataset_id": "cgwAXWUAx9fp4Gvo9",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:42:01.326470",
+      "items": 16
+    },
+    {
+      "city": "Ann Arbor",
+      "state_code": "MI",
+      "state_name": "Michigan",
+      "run_id": "XCL1z81SHULmcTrMk",
+      "dataset_id": "XqZaXHf9LaNYIfwWz",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:42:01.917102",
+      "items": 9
+    },
+    {
+      "city": "Newark",
+      "state_code": "NJ",
+      "state_name": "New Jersey",
+      "run_id": "nN5pUEyHaZqW7S7Cc",
+      "dataset_id": "2F7euTarJ2xevpBAI",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:42:02.420705",
+      "items": 23
+    },
+    {
+      "city": "Jersey City",
+      "state_code": "NJ",
+      "state_name": "New Jersey",
+      "run_id": "nUOGRgWkPiKPhjsEg",
+      "dataset_id": "dhnqyd3bNLzScn0Wm",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:44:45.927132",
+      "items": 4
+    },
+    {
+      "city": "Paterson",
+      "state_code": "NJ",
+      "state_name": "New Jersey",
+      "run_id": "Tzg4pTCF3Y2JjdqRH",
+      "dataset_id": "X43fef0WFHNWSZRR8",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:44:46.441853",
+      "items": 7
+    },
+    {
+      "city": "Elizabeth",
+      "state_code": "NJ",
+      "state_name": "New Jersey",
+      "run_id": "2dq4ShVLwaUMbjaPz",
+      "dataset_id": "SkloNcvLQdj0NUIj6",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:44:47.033981",
+      "items": 7
+    },
+    {
+      "city": "Trenton",
+      "state_code": "NJ",
+      "state_name": "New Jersey",
+      "run_id": "GwLCuyVM0dT0a5BLv",
+      "dataset_id": "VBTtHSRbtTEByAPJV",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:44:47.665092",
+      "items": 5
+    },
+    {
+      "city": "Camden",
+      "state_code": "NJ",
+      "state_name": "New Jersey",
+      "run_id": "Iba7GiNbde9rR7r7a",
+      "dataset_id": "Fk6hbFwEyhD9eLq6o",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:44:48.246054",
+      "items": 2
+    },
+    {
+      "city": "Denver",
+      "state_code": "CO",
+      "state_name": "Colorado",
+      "run_id": "6wgAF4aPl17j4C0Jx",
+      "dataset_id": "RR68cx8GqEvjQAdiI",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:44:48.840127",
+      "items": 50
+    },
+    {
+      "city": "Colorado Springs",
+      "state_code": "CO",
+      "state_name": "Colorado",
+      "run_id": "QrO3CjOFu7zHSpYXe",
+      "dataset_id": "DMU6sY17UplwvflPU",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:44:49.534722",
+      "items": 50
+    },
+    {
+      "city": "Aurora",
+      "state_code": "CO",
+      "state_name": "Colorado",
+      "run_id": "HNtd51lckZvfM0M6s",
+      "dataset_id": "FvxYHK7lRm3MOX9zY",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:48:24.761441",
+      "items": 43
+    },
+    {
+      "city": "Fort Collins",
+      "state_code": "CO",
+      "state_name": "Colorado",
+      "run_id": "LnEldVSEXZ3YhzNpc",
+      "dataset_id": "LLf0i2c1O2Av4DtsN",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:48:25.542411",
+      "items": 16
+    },
+    {
+      "city": "Lakewood",
+      "state_code": "CO",
+      "state_name": "Colorado",
+      "run_id": "caLgrR4MidVSeRD7c",
+      "dataset_id": "ijCmK826rWLedyC14",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:48:26.067961",
+      "items": 14
+    },
+    {
+      "city": "Thornton",
+      "state_code": "CO",
+      "state_name": "Colorado",
+      "run_id": "JYKHTjI63mK205FHz",
+      "dataset_id": "lYjEJ6GBlSOs1qUmB",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:48:26.625888",
+      "items": 15
+    },
+    {
+      "city": "Virginia Beach",
+      "state_code": "VA",
+      "state_name": "Virginia",
+      "run_id": "N8MrolbjgqEY05qZe",
+      "dataset_id": "30D6ACleVSFdI3d92",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:48:27.300324",
+      "items": 42
+    },
+    {
+      "city": "Norfolk",
+      "state_code": "VA",
+      "state_name": "Virginia",
+      "run_id": "eGRif6DssmLTz5ScE",
+      "dataset_id": "iO44Y8hjcB0lx7a3k",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:48:27.983870",
+      "items": 18
+    },
+    {
+      "city": "Chesapeake",
+      "state_code": "VA",
+      "state_name": "Virginia",
+      "run_id": "5jIAhLjO97AKbslkW",
+      "dataset_id": "aTkRqsEb3ZqqSaHEZ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:48:28.689417",
+      "items": 25
+    },
+    {
+      "city": "Richmond",
+      "state_code": "VA",
+      "state_name": "Virginia",
+      "run_id": "UhVpU5gkRzbgZVUxH",
+      "dataset_id": "zwv9x2ZtGtWFKmLMm",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:59:44.373606",
+      "items": 24
+    },
+    {
+      "city": "Newport News",
+      "state_code": "VA",
+      "state_name": "Virginia",
+      "run_id": "ZXxvbOThuHKo8u8Mn",
+      "dataset_id": "aDFSdTiNYyf4Bgk6J",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:59:45.016043",
+      "items": 13
+    },
+    {
+      "city": "Arlington",
+      "state_code": "VA",
+      "state_name": "Virginia",
+      "run_id": "2DNG3BhJivew9ywf0",
+      "dataset_id": "WfcbEP5KiEX56UKsJ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:59:45.577072",
+      "items": 9
+    },
+    {
+      "city": "Nashville",
+      "state_code": "TN",
+      "state_name": "Tennessee",
+      "run_id": "jOR7xp5b7UPXITPic",
+      "dataset_id": "MjwEHVR02sD8QDfbK",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:59:46.124452",
+      "items": 50
+    },
+    {
+      "city": "Memphis",
+      "state_code": "TN",
+      "state_name": "Tennessee",
+      "run_id": "XwECMHxRCcy9RIjno",
+      "dataset_id": "6M2DXfRjpJdwCK4RP",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:59:46.702126",
+      "items": 50
+    },
+    {
+      "city": "Knoxville",
+      "state_code": "TN",
+      "state_name": "Tennessee",
+      "run_id": "wu8PrbO9Mv0en0xuZ",
+      "dataset_id": "cXWS3mPIfBFZGQQzd",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:59:47.211757",
+      "items": 38
+    },
+    {
+      "city": "Chattanooga",
+      "state_code": "TN",
+      "state_name": "Tennessee",
+      "run_id": "zynTnHwegFvKJKjf4",
+      "dataset_id": "JEpDijG9fvXjkcM6j",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T22:59:47.786678",
+      "items": 46
+    },
+    {
+      "city": "Clarksville",
+      "state_code": "TN",
+      "state_name": "Tennessee",
+      "run_id": "QRbSV1XL6bDVkjy8S",
+      "dataset_id": "0ziSK6WhxXOa7au09",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:03:27.050073",
+      "items": 26
+    },
+    {
+      "city": "Murfreesboro",
+      "state_code": "TN",
+      "state_name": "Tennessee",
+      "run_id": "aGGDt38hKGF53YOCy",
+      "dataset_id": "ZjIQYTpHOtb4UwFed",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:03:27.723699",
+      "items": 27
+    },
+    {
+      "city": "Indianapolis",
+      "state_code": "IN",
+      "state_name": "Indiana",
+      "run_id": "zmspIqlGhCDfXBg6y",
+      "dataset_id": "jDHKpIYfpe9DtDK48",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:03:28.434625",
+      "items": 50
+    },
+    {
+      "city": "Fort Wayne",
+      "state_code": "IN",
+      "state_name": "Indiana",
+      "run_id": "EZWrniLa3dbpQGsoL",
+      "dataset_id": "NwU9gjrIw6g2ilMzG",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:03:29.086402",
+      "items": 33
+    },
+    {
+      "city": "Evansville",
+      "state_code": "IN",
+      "state_name": "Indiana",
+      "run_id": "7kohDancDcaIjQ0Ea",
+      "dataset_id": "Rhlk4aVfp6w85janf",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:03:29.793766",
+      "items": 11
+    },
+    {
+      "city": "South Bend",
+      "state_code": "IN",
+      "state_name": "Indiana",
+      "run_id": "ycndhG3p9LTJqWiuN",
+      "dataset_id": "D10nsFzM7mvn3PWUx",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:03:30.660173",
+      "items": 12
+    },
+    {
+      "city": "Carmel",
+      "state_code": "IN",
+      "state_name": "Indiana",
+      "run_id": "Jjnf7ouoHKc18SnW5",
+      "dataset_id": "DEb4zFOf651hJOWnl",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:03:31.221632",
+      "items": 5
+    },
+    {
+      "city": "Fishers",
+      "state_code": "IN",
+      "state_name": "Indiana",
+      "run_id": "3UC0b5ASMH8jfuQVV",
+      "dataset_id": "ne0tFQkZgl9C2BIxO",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:07:07.263803",
+      "items": 6
+    },
+    {
+      "city": "Boston",
+      "state_code": "MA",
+      "state_name": "Massachusetts",
+      "run_id": "pGMxfSmywxL2bXNEX",
+      "dataset_id": "s8ubpnUJcBXb6Nor6",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:07:07.902889",
+      "items": 41
+    },
+    {
+      "city": "Worcester",
+      "state_code": "MA",
+      "state_name": "Massachusetts",
+      "run_id": "dpkDn8BRhXXnfCXdw",
+      "dataset_id": "2SzBuXx9c4VlbHsJH",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:07:08.768309",
+      "items": 28
+    },
+    {
+      "city": "Springfield",
+      "state_code": "MA",
+      "state_name": "Massachusetts",
+      "run_id": "TF4Q2QJspS17Cmbsb",
+      "dataset_id": "juByLIWpVqGmC3a1v",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:07:09.355856",
+      "items": 17
+    },
+    {
+      "city": "Lowell",
+      "state_code": "MA",
+      "state_name": "Massachusetts",
+      "run_id": "gCEk0LyBecyVBtBsa",
+      "dataset_id": "JXiUTcCGaUhwB629d",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:07:09.983407",
+      "items": 8
+    },
+    {
+      "city": "Cambridge",
+      "state_code": "MA",
+      "state_name": "Massachusetts",
+      "run_id": "0bSxxLOpRKbyMdX1p",
+      "dataset_id": "QpvVPjugNSgbuhwHt",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:07:10.733126",
+      "items": 3
+    },
+    {
+      "city": "New Bedford",
+      "state_code": "MA",
+      "state_name": "Massachusetts",
+      "run_id": "qJDxlIfhRkefWDZQf",
+      "dataset_id": "F2qR6at0GM9cwaVpG",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:07:11.398713",
+      "items": 6
+    },
+    {
+      "city": "Kansas City",
+      "state_code": "MO",
+      "state_name": "Missouri",
+      "run_id": "uNeogthFutSdtFDRv",
+      "dataset_id": "szCCJuJ6Srv9RtYVv",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:09:57.574917",
+      "items": 50
+    },
+    {
+      "city": "St. Louis",
+      "state_code": "MO",
+      "state_name": "Missouri",
+      "run_id": "ZWNb9zZzlnTkhnMhG",
+      "dataset_id": "cQoZVeBFBU1vJEQ1W",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:09:58.253979",
+      "items": 28
+    },
+    {
+      "city": "Springfield",
+      "state_code": "MO",
+      "state_name": "Missouri",
+      "run_id": "GtE0pUBlkC643ZBbc",
+      "dataset_id": "ncRXvCeyAaklQwoxF",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:09:58.961445",
+      "items": 31
+    },
+    {
+      "city": "Columbia",
+      "state_code": "MO",
+      "state_name": "Missouri",
+      "run_id": "WT3smtvl98uczLS5H",
+      "dataset_id": "fLI1ij8r7HTAr2He5",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:09:59.493529",
+      "items": 14
+    },
+    {
+      "city": "Independence",
+      "state_code": "MO",
+      "state_name": "Missouri",
+      "run_id": "m14Hkuw4PxP0U0p5o",
+      "dataset_id": "BiXJPsV5O6BeXgKYy",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:10:00.061284",
+      "items": 22
+    },
+    {
+      "city": "Lee's Summit",
+      "state_code": "MO",
+      "state_name": "Missouri",
+      "run_id": "jIUmVfViZsBysbulq",
+      "dataset_id": "fgtkHTAIyhXnR7sO6",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:10:00.558093",
+      "items": 12
+    },
+    {
+      "city": "Baltimore",
+      "state_code": "MD",
+      "state_name": "Maryland",
+      "run_id": "3Qa16l9CTuivBGWUF",
+      "dataset_id": "5xZv11Q3lxFhw9MKg",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:10:01.113386",
+      "items": 50
+    },
+    {
+      "city": "Frederick",
+      "state_code": "MD",
+      "state_name": "Maryland",
+      "run_id": "1F25m1cfTpKSVPZzy",
+      "dataset_id": "sOafM0dmuwIsUOVge",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:13:38.894081",
+      "items": 15
+    },
+    {
+      "city": "Rockville",
+      "state_code": "MD",
+      "state_name": "Maryland",
+      "run_id": "ogwMKMcCwHLd6mKfN",
+      "dataset_id": "pExiaEwWpesVBXbRt",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:13:39.506879",
+      "items": 13
+    },
+    {
+      "city": "Gaithersburg",
+      "state_code": "MD",
+      "state_name": "Maryland",
+      "run_id": "nNPe1MgZMvMCDtgPc",
+      "dataset_id": "mrcWJ8T5iEUPdv4c1",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:13:40.208035",
+      "items": 7
+    },
+    {
+      "city": "Bowie",
+      "state_code": "MD",
+      "state_name": "Maryland",
+      "run_id": "dDq118oDslbC5A3Ot",
+      "dataset_id": "2yEtFor6IAa2PNPy7",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:13:40.773745",
+      "items": 3
+    },
+    {
+      "city": "Hagerstown",
+      "state_code": "MD",
+      "state_name": "Maryland",
+      "run_id": "GDgBVZ0u1vGyMHCd3",
+      "dataset_id": "eaSffvsQmVoUpU2Kz",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:13:41.461141",
+      "items": 8
+    },
+    {
+      "city": "Milwaukee",
+      "state_code": "WI",
+      "state_name": "Wisconsin",
+      "run_id": "xqaryVzdK7YOgwWIL",
+      "dataset_id": "8rlal7dKF2Wt9L9Ev",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:13:42.073710",
+      "items": 37
+    },
+    {
+      "city": "Madison",
+      "state_code": "WI",
+      "state_name": "Wisconsin",
+      "run_id": "fr6zfq17kI0hqFVth",
+      "dataset_id": "PDuvFHNSqgz2JojLQ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:13:42.646841",
+      "items": 22
+    },
+    {
+      "city": "Green Bay",
+      "state_code": "WI",
+      "state_name": "Wisconsin",
+      "run_id": "sGpT1CXCn5aBjN2Dp",
+      "dataset_id": "PzlOt9Ld19gipL44f",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:17:19.633363",
+      "items": 9
+    },
+    {
+      "city": "Kenosha",
+      "state_code": "WI",
+      "state_name": "Wisconsin",
+      "run_id": "PL38ibvoeWdLGxAAB",
+      "dataset_id": "fxgjfhjTtBYC1Zf1H",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:17:20.260217",
+      "items": 6
+    },
+    {
+      "city": "Racine",
+      "state_code": "WI",
+      "state_name": "Wisconsin",
+      "run_id": "GvVIix6f3enlLxJTU",
+      "dataset_id": "INt6jqQlmPhmxfSDK",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:17:21.138215",
+      "items": 7
+    },
+    {
+      "city": "Appleton",
+      "state_code": "WI",
+      "state_name": "Wisconsin",
+      "run_id": "LS7Tlix1ExPY9rEBy",
+      "dataset_id": "spVJccHimpF3x6aSB",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:17:23.612682",
+      "items": 4
+    },
+    {
+      "city": "Minneapolis",
+      "state_code": "MN",
+      "state_name": "Minnesota",
+      "run_id": "86SBFLenhhRg6VRFI",
+      "dataset_id": "U8QUaESZ6S0zfj7NS",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:17:24.489187",
+      "items": 30
+    },
+    {
+      "city": "St. Paul",
+      "state_code": "MN",
+      "state_name": "Minnesota",
+      "run_id": "CeW9S1aX48nYktbfL",
+      "dataset_id": "0dHcbiEo7bQa06tAG",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:17:25.926493",
+      "items": 25
+    },
+    {
+      "city": "Rochester",
+      "state_code": "MN",
+      "state_name": "Minnesota",
+      "run_id": "zwZTFbVd7eroQn7Zj",
+      "dataset_id": "ugxhoByhN50iiopLD",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:17:26.589241",
+      "items": 12
+    },
+    {
+      "city": "Duluth",
+      "state_code": "MN",
+      "state_name": "Minnesota",
+      "run_id": "psJp6jB5RSQbAZTw4",
+      "dataset_id": "xTMySKihz4Q2nvmL9",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:21:01.677072",
+      "items": 12
+    },
+    {
+      "city": "Brooklyn Park",
+      "state_code": "MN",
+      "state_name": "Minnesota",
+      "run_id": "Ei9V37U9m5WOWwRij",
+      "dataset_id": "rhXXVBrelXucxYeZW",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-01T23:21:02.715649",
+      "items": 8
+    },
+    {
+      "city": "Birmingham",
+      "state_code": "AL",
+      "state_name": "Alabama",
+      "run_id": "OltxkjgdkZb4uA6ls",
+      "dataset_id": "dzEgbNaamlcwTWjTM",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T02:58:04.162533",
+      "items": 21
+    },
+    {
+      "city": "Montgomery",
+      "state_code": "AL",
+      "state_name": "Alabama",
+      "run_id": "Yoe5pZLLUNAHldc1N",
+      "dataset_id": "SOYOd5jMgQzNkcAxr",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T02:58:04.948378",
+      "items": 16
+    },
+    {
+      "city": "Huntsville",
+      "state_code": "AL",
+      "state_name": "Alabama",
+      "run_id": "u8UcCZsQTfnchPUXL",
+      "dataset_id": "kXPoGn6eTgWzBze3s",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T02:58:05.467921",
+      "items": 23
+    },
+    {
+      "city": "Mobile",
+      "state_code": "AL",
+      "state_name": "Alabama",
+      "run_id": "BEGe2VAYPlFKBIdHE",
+      "dataset_id": "7hd2BbViwdUKoefvS",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T02:58:06.061355",
+      "items": 22
+    },
+    {
+      "city": "Anchorage",
+      "state_code": "AK",
+      "state_name": "Alaska",
+      "run_id": "cw6NsEemAPHMxEF6N",
+      "dataset_id": "wKEK1vw1G96tmaieh",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T02:58:06.601507",
+      "items": 24
+    },
+    {
+      "city": "Fairbanks",
+      "state_code": "AK",
+      "state_name": "Alaska",
+      "run_id": "9pmAyQvneHXL73aRT",
+      "dataset_id": "NkDRRXct3IQczw2XI",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T02:58:07.322999",
+      "items": 4
+    },
+    {
+      "city": "Juneau",
+      "state_code": "AK",
+      "state_name": "Alaska",
+      "run_id": "Wkfp8YuEJOa0YEces",
+      "dataset_id": "AKOtP40pI42GQUpkJ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T02:58:08.304871",
+      "items": 7
+    },
+    {
+      "city": "Little Rock",
+      "state_code": "AR",
+      "state_name": "Arkansas",
+      "run_id": "o5nmgIGwVQcb2XPxO",
+      "dataset_id": "wBMOJBrx8f9yGDvTb",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:01:48.380668",
+      "items": 14
+    },
+    {
+      "city": "Fort Smith",
+      "state_code": "AR",
+      "state_name": "Arkansas",
+      "run_id": "sSQ6Qd4Ria3VvVurx",
+      "dataset_id": "CaojN91yvHiqO33ht",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:01:48.957512",
+      "items": 10
+    },
+    {
+      "city": "Fayetteville",
+      "state_code": "AR",
+      "state_name": "Arkansas",
+      "run_id": "ycHdxQR5tOM3jXVMi",
+      "dataset_id": "DpByYLbyPPex5w3yl",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:01:49.654189",
+      "items": 11
+    },
+    {
+      "city": "Springdale",
+      "state_code": "AR",
+      "state_name": "Arkansas",
+      "run_id": "eiRjskAgdqjY4AIzx",
+      "dataset_id": "RHM3qDE8CpyOZo8vS",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:01:50.458878",
+      "items": 10
+    },
+    {
+      "city": "Bridgeport",
+      "state_code": "CT",
+      "state_name": "Connecticut",
+      "run_id": "n3UwSkkTxpzALjk1P",
+      "dataset_id": "pR1CiOoKxli6DwQX9",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:01:51.326802",
+      "items": 13
+    },
+    {
+      "city": "New Haven",
+      "state_code": "CT",
+      "state_name": "Connecticut",
+      "run_id": "QV9QyWvecdiv0k4Se",
+      "dataset_id": "Xx06M0A0MqNKfLHFJ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:01:52.016731",
+      "items": 11
+    },
+    {
+      "city": "Hartford",
+      "state_code": "CT",
+      "state_name": "Connecticut",
+      "run_id": "nZiYhQB6fPV6pfZcR",
+      "dataset_id": "yhe85m1rntLIGuqOZ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:05:30.096746",
+      "items": 10
+    },
+    {
+      "city": "Stamford",
+      "state_code": "CT",
+      "state_name": "Connecticut",
+      "run_id": "7rGhp4tXrZpcXm4KD",
+      "dataset_id": "PAdd6WenC0zYnrZF5",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:05:30.786786",
+      "items": 23
+    },
+    {
+      "city": "Wilmington",
+      "state_code": "DE",
+      "state_name": "Delaware",
+      "run_id": "HZ6hfdjZJbTXtAi5n",
+      "dataset_id": "hT9OdpWcMcsjuAl1z",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:05:31.396052",
+      "items": 10
+    },
+    {
+      "city": "Dover",
+      "state_code": "DE",
+      "state_name": "Delaware",
+      "run_id": "udjYfwUgf3RjRy6QM",
+      "dataset_id": "vUDoAJt4Dn2Czr7Ou",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:05:31.986026",
+      "items": 5
+    },
+    {
+      "city": "Newark",
+      "state_code": "DE",
+      "state_name": "Delaware",
+      "run_id": "lcKMwig4duU39yNA1",
+      "dataset_id": "M7mmRCGnawYPSo2bc",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:05:32.699603",
+      "items": 1
+    },
+    {
+      "city": "Middletown",
+      "state_code": "DE",
+      "state_name": "Delaware",
+      "run_id": "faqRQFL9Q8wRHD12a",
+      "dataset_id": "8ZPot3okmKWyRlJ3C",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:05:33.439043",
+      "items": 2
+    },
+    {
+      "city": "Honolulu",
+      "state_code": "HI",
+      "state_name": "Hawaii",
+      "run_id": "8cDr4y2dIYFjXReas",
+      "dataset_id": "UgCersNESlGDDOMfs",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:05:34.121747",
+      "items": 17
+    },
+    {
+      "city": "Pearl City",
+      "state_code": "HI",
+      "state_name": "Hawaii",
+      "run_id": "9WPlOpVTjtgkae1IN",
+      "dataset_id": "XzLoypUexfUvd71KX",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:09:12.721798",
+      "items": 1
+    },
+    {
+      "city": "Hilo",
+      "state_code": "HI",
+      "state_name": "Hawaii",
+      "run_id": "BsPjbdUHTqoh2TdPZ",
+      "dataset_id": "4Kumi874bOmAarUwG",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:09:13.576311",
+      "items": 15
+    },
+    {
+      "city": "Kailua",
+      "state_code": "HI",
+      "state_name": "Hawaii",
+      "run_id": "bjyCL827az525kOfD",
+      "dataset_id": "hVlMstf88Ko8lBuVk",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:09:14.296305",
+      "items": 8
+    },
+    {
+      "city": "Boise",
+      "state_code": "ID",
+      "state_name": "Idaho",
+      "run_id": "up3YBD1HkLvqIKhF3",
+      "dataset_id": "7GEEshxyFGdRj6EBM",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:09:14.955354",
+      "items": 30
+    },
+    {
+      "city": "Nampa",
+      "state_code": "ID",
+      "state_name": "Idaho",
+      "run_id": "ygRWPb3HgKO9Ss5iV",
+      "dataset_id": "Bnmj3aaeBTEmkXVBL",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:09:15.677081",
+      "items": 17
+    },
+    {
+      "city": "Meridian",
+      "state_code": "ID",
+      "state_name": "Idaho",
+      "run_id": "U6AY1po86I2utOVt6",
+      "dataset_id": "bHsjuPts5GtZgFRQ4",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:09:16.391116",
+      "items": 13
+    },
+    {
+      "city": "Idaho Falls",
+      "state_code": "ID",
+      "state_name": "Idaho",
+      "run_id": "P9bUt0YFuLhiTKGYU",
+      "dataset_id": "jBeAP8JHkH2R5e65V",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:09:17.121203",
+      "items": 9
+    },
+    {
+      "city": "Des Moines",
+      "state_code": "IA",
+      "state_name": "Iowa",
+      "run_id": "nHOaIqNpvGvd6TiAw",
+      "dataset_id": "d6tUWcbt3cEjecLUp",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:12:50.540838",
+      "items": 27
+    },
+    {
+      "city": "Cedar Rapids",
+      "state_code": "IA",
+      "state_name": "Iowa",
+      "run_id": "nYFJ2EuMmoPxWgpQB",
+      "dataset_id": "HlIVClcqcbRHlOuGl",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:12:51.152181",
+      "items": 19
+    },
+    {
+      "city": "Davenport",
+      "state_code": "IA",
+      "state_name": "Iowa",
+      "run_id": "AXu4JOk1qS4h4qUcX",
+      "dataset_id": "abBCTSB57wXSTRSi7",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:12:51.943340",
+      "items": 19
+    },
+    {
+      "city": "Sioux City",
+      "state_code": "IA",
+      "state_name": "Iowa",
+      "run_id": "syAtQ3f6TDfCvWahw",
+      "dataset_id": "w5dVZWoWDb3r5mITJ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:12:52.589056",
+      "items": 6
+    },
+    {
+      "city": "Wichita",
+      "state_code": "KS",
+      "state_name": "Kansas",
+      "run_id": "ZQ9PHqPlWwAfL9vCD",
+      "dataset_id": "dA9FyRbHbBdhzKa80",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:12:53.135856",
+      "items": 45
+    },
+    {
+      "city": "Overland Park",
+      "state_code": "KS",
+      "state_name": "Kansas",
+      "run_id": "QOdczM0AKX4K6KHPz",
+      "dataset_id": "6TByrX2fde85i2SjN",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:12:53.687347",
+      "items": 12
+    },
+    {
+      "city": "Kansas City",
+      "state_code": "KS",
+      "state_name": "Kansas",
+      "run_id": "l6OyA96UkZHcSAiDx",
+      "dataset_id": "1Y5g92lyBhaSZHGNy",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:12:54.296475",
+      "items": 16
+    },
+    {
+      "city": "Topeka",
+      "state_code": "KS",
+      "state_name": "Kansas",
+      "run_id": "seLKuA0QSdFTJTdT9",
+      "dataset_id": "Oig5bkSZxrwk849Iq",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:15:41.065129",
+      "items": 13
+    },
+    {
+      "city": "Louisville",
+      "state_code": "KY",
+      "state_name": "Kentucky",
+      "run_id": "mBLZ6qq6HL0WqtWx9",
+      "dataset_id": "AldWXMyWrbhtMBu74",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:15:41.651568",
+      "items": 50
+    },
+    {
+      "city": "Lexington",
+      "state_code": "KY",
+      "state_name": "Kentucky",
+      "run_id": "zqxfTChg07oYIc7cX",
+      "dataset_id": "JbKxV2oXmzqUVm2eF",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:15:42.530685",
+      "items": 33
+    },
+    {
+      "city": "Bowling Green",
+      "state_code": "KY",
+      "state_name": "Kentucky",
+      "run_id": "bO302hgXfZ7b6fQws",
+      "dataset_id": "CPKkGZ28ZmJko1EoP",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:15:43.138862",
+      "items": 10
+    },
+    {
+      "city": "Owensboro",
+      "state_code": "KY",
+      "state_name": "Kentucky",
+      "run_id": "BOeof9PslbDkV1dSJ",
+      "dataset_id": "MH2gUvgRUbk9cIgP5",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:15:43.729081",
+      "items": 6
+    },
+    {
+      "city": "New Orleans",
+      "state_code": "LA",
+      "state_name": "Louisiana",
+      "run_id": "edBUUiIGjJO4p9qO5",
+      "dataset_id": "f3ZYleA5SYLqkMdPp",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:15:44.487686",
+      "items": 37
+    },
+    {
+      "city": "Baton Rouge",
+      "state_code": "LA",
+      "state_name": "Louisiana",
+      "run_id": "zhu4KpiJtfRnSB61j",
+      "dataset_id": "LfagYoVjzsIeCZV7T",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:15:45.147309",
+      "items": 12
+    },
+    {
+      "city": "Shreveport",
+      "state_code": "LA",
+      "state_name": "Louisiana",
+      "run_id": "2Jby4B9rQBf89eXC1",
+      "dataset_id": "ir6z2bPi5gIteKBhN",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:19:22.790881",
+      "items": 14
+    },
+    {
+      "city": "Lafayette",
+      "state_code": "LA",
+      "state_name": "Louisiana",
+      "run_id": "0Js4kh3rQIA6EJPrQ",
+      "dataset_id": "rvQOIAvhNEM2OhozW",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:19:23.581058",
+      "items": 11
+    },
+    {
+      "city": "Portland",
+      "state_code": "ME",
+      "state_name": "Maine",
+      "run_id": "1n3YBrlG9HOw89HPe",
+      "dataset_id": "GZy6gugafPB8xljDE",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:19:24.353882",
+      "items": 16
+    },
+    {
+      "city": "Lewiston",
+      "state_code": "ME",
+      "state_name": "Maine",
+      "run_id": "RSECyD0VwZyJUyjp2",
+      "dataset_id": "HoDkGFUUc4m31PQ50",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:19:24.997174",
+      "items": 2
+    },
+    {
+      "city": "Bangor",
+      "state_code": "ME",
+      "state_name": "Maine",
+      "run_id": "4cPj47SsTw0YRYJqc",
+      "dataset_id": "GUBhFAfqCegmI6ajk",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:19:25.701493",
+      "items": 6
+    },
+    {
+      "city": "South Portland",
+      "state_code": "ME",
+      "state_name": "Maine",
+      "run_id": "gcVuU7bO8wRfyQu7K",
+      "dataset_id": "zFROdoBeHl3fBVPia",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:19:26.396975",
+      "items": 5
+    },
+    {
+      "city": "Jackson",
+      "state_code": "MS",
+      "state_name": "Mississippi",
+      "run_id": "u7hlOJI7qrTzetRPe",
+      "dataset_id": "cXZwvAcncBbDbviKw",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:19:26.965411",
+      "items": 17
+    },
+    {
+      "city": "Gulfport",
+      "state_code": "MS",
+      "state_name": "Mississippi",
+      "run_id": "Nclp5ZoxV9cCdlKmn",
+      "dataset_id": "k1iywfcIvI0j21UfF",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:22:10.572811",
+      "items": 4
+    },
+    {
+      "city": "Southaven",
+      "state_code": "MS",
+      "state_name": "Mississippi",
+      "run_id": "08hwk4Q2PraHyaPdj",
+      "dataset_id": "KrAcPdqpmq45cItv7",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:22:11.231203",
+      "items": 2
+    },
+    {
+      "city": "Hattiesburg",
+      "state_code": "MS",
+      "state_name": "Mississippi",
+      "run_id": "P32Stma93u4PE0Vrd",
+      "dataset_id": "LzlgpKtE4eD1t4PGQ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:22:11.761937",
+      "items": 10
+    },
+    {
+      "city": "Billings",
+      "state_code": "MT",
+      "state_name": "Montana",
+      "run_id": "7TVuf2sbxOAMufcpz",
+      "dataset_id": "HNA1br11li3TRIkFd",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:22:12.294101",
+      "items": 10
+    },
+    {
+      "city": "Missoula",
+      "state_code": "MT",
+      "state_name": "Montana",
+      "run_id": "LjwE0TK7GXDggnMtq",
+      "dataset_id": "wsHRYbhcUq3BMKsnX",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:22:12.903680",
+      "items": 11
+    },
+    {
+      "city": "Great Falls",
+      "state_code": "MT",
+      "state_name": "Montana",
+      "run_id": "EkY9OfXyKXmfDrvWK",
+      "dataset_id": "kOAD5N8811qnzo1Bn",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:22:13.567689",
+      "items": 4
+    },
+    {
+      "city": "Bozeman",
+      "state_code": "MT",
+      "state_name": "Montana",
+      "run_id": "AROYHU4Yqz1KqssCc",
+      "dataset_id": "zDMzMiDfiauLtEnkZ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:22:14.276003",
+      "items": 4
+    },
+    {
+      "city": "Omaha",
+      "state_code": "NE",
+      "state_name": "Nebraska",
+      "run_id": "pawCaPQHt3NGWOVg6",
+      "dataset_id": "2Lb1lsfbznxVXMOyZ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:24:05.070256",
+      "items": 50
+    },
+    {
+      "city": "Lincoln",
+      "state_code": "NE",
+      "state_name": "Nebraska",
+      "run_id": "0KIJZXZzd4PQvuPoq",
+      "dataset_id": "l8sIlziMgsJfy6TpN",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:24:05.781933",
+      "items": 36
+    },
+    {
+      "city": "Bellevue",
+      "state_code": "NE",
+      "state_name": "Nebraska",
+      "run_id": "krqdwNp02nguqOlw3",
+      "dataset_id": "Lg96wom12DL1XpBNz",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:24:06.357498",
+      "items": 4
+    },
+    {
+      "city": "Grand Island",
+      "state_code": "NE",
+      "state_name": "Nebraska",
+      "run_id": "z930bZjclNTij0HhT",
+      "dataset_id": "R2TJh529SuknNvbYo",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:24:06.950390",
+      "items": 5
+    },
+    {
+      "city": "Las Vegas",
+      "state_code": "NV",
+      "state_name": "Nevada",
+      "run_id": "YzG0iQxwCq71LyKLz",
+      "dataset_id": "8ge8w3365sKFHzG0d",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:24:07.570496",
+      "items": 50
+    },
+    {
+      "city": "Henderson",
+      "state_code": "NV",
+      "state_name": "Nevada",
+      "run_id": "e2AMz4stZKN2bKSJ2",
+      "dataset_id": "f6OddZC25OjsctfSQ",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:24:08.203297",
+      "items": 25
+    },
+    {
+      "city": "Reno",
+      "state_code": "NV",
+      "state_name": "Nevada",
+      "run_id": "QXIwyVElsEUNOg1lg",
+      "dataset_id": "oD5JPn2T3F6qHfSeV",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:24:08.930021",
+      "items": 19
+    },
+    {
+      "city": "North Las Vegas",
+      "state_code": "NV",
+      "state_name": "Nevada",
+      "run_id": "BB4VA1bfoGDETEmRF",
+      "dataset_id": "i5QF4xPXrwGJHeBeq",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:26:55.199659",
+      "items": 9
+    },
+    {
+      "city": "Manchester",
+      "state_code": "NH",
+      "state_name": "New Hampshire",
+      "run_id": "lrqjjzwrv7j2RZsHZ",
+      "dataset_id": "nNUzwzPz35wg8osKm",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:26:55.845893",
+      "items": 13
+    },
+    {
+      "city": "Nashua",
+      "state_code": "NH",
+      "state_name": "New Hampshire",
+      "run_id": "9oQw8gqywEpvo2wYr",
+      "dataset_id": "4ADVKzJsSUAmJx5pC",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:26:56.519063",
+      "items": 9
+    },
+    {
+      "city": "Concord",
+      "state_code": "NH",
+      "state_name": "New Hampshire",
+      "run_id": "ycrOJ1j50KvPN9xzg",
+      "dataset_id": "GEGlesY7VZQhr9UNi",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:26:57.069415",
+      "items": 4
+    },
+    {
+      "city": "Derry",
+      "state_code": "NH",
+      "state_name": "New Hampshire",
+      "run_id": "B6ycIVpsrIdatlzaE",
+      "dataset_id": "hgJn70NvobN8kCUCT",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:26:57.603955",
+      "items": 3
+    },
+    {
+      "city": "Albuquerque",
+      "state_code": "NM",
+      "state_name": "New Mexico",
+      "run_id": "MhJH9lm5nCMuDoGbT",
+      "dataset_id": "iQMCiHpH2TYRgLGvv",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:26:58.129995",
+      "items": 50
+    },
+    {
+      "city": "Las Cruces",
+      "state_code": "NM",
+      "state_name": "New Mexico",
+      "run_id": "U69G3GhPqW023wFR8",
+      "dataset_id": "WhgnQawdAcU1Q1pr9",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:26:58.637765",
+      "items": 12
+    },
+    {
+      "city": "Rio Rancho",
+      "state_code": "NM",
+      "state_name": "New Mexico",
+      "run_id": "y9x8B2Vwmxai0bm0X",
+      "dataset_id": "Aj5UbEjx4rGWrqZZ2",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:30:33.278909",
+      "items": 7
+    },
+    {
+      "city": "Santa Fe",
+      "state_code": "NM",
+      "state_name": "New Mexico",
+      "run_id": "3b19oOhSsegewt4TT",
+      "dataset_id": "QSTANdL7nA7kHgZEc",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:30:33.913886",
+      "items": 9
+    },
+    {
+      "city": "Fargo",
+      "state_code": "ND",
+      "state_name": "North Dakota",
+      "run_id": "7w9r8shPO16PIa71A",
+      "dataset_id": "Wuer5r9ie9HGeEzBW",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:30:34.609808",
+      "items": 12
+    },
+    {
+      "city": "Bismarck",
+      "state_code": "ND",
+      "state_name": "North Dakota",
+      "run_id": "WDSUOd0EtAi87jSf9",
+      "dataset_id": "YaM55GtJcKJbNyLDw",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:30:35.138433",
+      "items": 8
+    },
+    {
+      "city": "Grand Forks",
+      "state_code": "ND",
+      "state_name": "North Dakota",
+      "run_id": "I3DnJI6GTWURa3P9J",
+      "dataset_id": "GBKUM4VFFU352BxlN",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:30:35.726056",
+      "items": 7
+    },
+    {
+      "city": "Minot",
+      "state_code": "ND",
+      "state_name": "North Dakota",
+      "run_id": "ysZdUu6bj63HIx9P4",
+      "dataset_id": "nAuwBVciY2sSvdilp",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:30:36.307421",
+      "items": 6
+    },
+    {
+      "city": "Oklahoma City",
+      "state_code": "OK",
+      "state_name": "Oklahoma",
+      "run_id": "QsHJD7P13fzbBQZM9",
+      "dataset_id": "YVJN1sdmyS54TqLZE",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:30:36.895809",
+      "items": 50
+    },
+    {
+      "city": "Tulsa",
+      "state_code": "OK",
+      "state_name": "Oklahoma",
+      "run_id": "eOc0TUTL6ZBRIekyR",
+      "dataset_id": "f4wu86E89rzqomvNd",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:33:19.786251",
+      "items": 50
+    },
+    {
+      "city": "Norman",
+      "state_code": "OK",
+      "state_name": "Oklahoma",
+      "run_id": "LiVbp2A844ZvoVHHa",
+      "dataset_id": "fHUYqMCCGq9udalzD",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:33:20.399247",
+      "items": 8
+    },
+    {
+      "city": "Broken Arrow",
+      "state_code": "OK",
+      "state_name": "Oklahoma",
+      "run_id": "jIjzmlZOzG11BMJhu",
+      "dataset_id": "qlYgVcydi6pr2fEXK",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:33:20.966619",
+      "items": 6
+    },
+    {
+      "city": "Portland",
+      "state_code": "OR",
+      "state_name": "Oregon",
+      "run_id": "ZbdutkLqd0K3YN4Z5",
+      "dataset_id": "OWkb1ZmqoPXo7R2D8",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:33:21.630897",
+      "items": 50
+    },
+    {
+      "city": "Salem",
+      "state_code": "OR",
+      "state_name": "Oregon",
+      "run_id": "ujN9Pw4EYaIimKPeN",
+      "dataset_id": "3dtChOxzlcRZHVHb8",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:33:22.239064",
+      "items": 21
+    },
+    {
+      "city": "Eugene",
+      "state_code": "OR",
+      "state_name": "Oregon",
+      "run_id": "yZmoNqoPVzBWe7p2F",
+      "dataset_id": "4J0z1eHKTcmw7Hizx",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:33:23.108829",
+      "items": 13
+    },
+    {
+      "city": "Gresham",
+      "state_code": "OR",
+      "state_name": "Oregon",
+      "run_id": "D3BUn1EALVfq4pNdD",
+      "dataset_id": "Y9H9FlOry61QURtpg",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:33:23.671253",
+      "items": 10
+    },
+    {
+      "city": "Providence",
+      "state_code": "RI",
+      "state_name": "Rhode Island",
+      "run_id": "XLIMeBfXVuyOP6Y3G",
+      "dataset_id": "gmNujChWxY4qZhbUT",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:37:00.154537",
+      "items": 15
+    },
+    {
+      "city": "Warwick",
+      "state_code": "RI",
+      "state_name": "Rhode Island",
+      "run_id": "vjVBGyAGpejLQ5aVq",
+      "dataset_id": "2uROtpxEiUEDhhEwh",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:37:00.892058",
+      "items": 10
+    },
+    {
+      "city": "Cranston",
+      "state_code": "RI",
+      "state_name": "Rhode Island",
+      "run_id": "GHuZhEyc1HoRuIqlO",
+      "dataset_id": "J7w1hwgfovZMi64dD",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:37:01.587885",
+      "items": 4
+    },
+    {
+      "city": "Pawtucket",
+      "state_code": "RI",
+      "state_name": "Rhode Island",
+      "run_id": "gfSBoCmyxrayMc0ug",
+      "dataset_id": "vBVoC06SPnKjTlOuX",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:37:02.246895",
+      "items": 5
+    },
+    {
+      "city": "Columbia",
+      "state_code": "SC",
+      "state_name": "South Carolina",
+      "run_id": "FnIfmJf4miZDZku1x",
+      "dataset_id": "OJhwjz2b3EopWBPy8",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:37:02.835798",
+      "items": 16
+    },
+    {
+      "city": "Charleston",
+      "state_code": "SC",
+      "state_name": "South Carolina",
+      "run_id": "GOnN4l9Non1FGsgG9",
+      "dataset_id": "aYl6uUUFaKKgMIaF0",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:37:03.690391",
+      "items": 19
+    },
+    {
+      "city": "North Charleston",
+      "state_code": "SC",
+      "state_name": "South Carolina",
+      "run_id": "Ul9LmBnqFwOWA3eAk",
+      "dataset_id": "H9SlDwfbWWCtZ8sdg",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:37:04.345751",
+      "items": 24
+    },
+    {
+      "city": "Greenville",
+      "state_code": "SC",
+      "state_name": "South Carolina",
+      "run_id": "6PuAj9QBL363Xk59R",
+      "dataset_id": "9T9knE2MPsHjA2tEz",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:40:40.747105",
+      "items": 15
+    },
+    {
+      "city": "Sioux Falls",
+      "state_code": "SD",
+      "state_name": "South Dakota",
+      "run_id": "uzNkshGeN8crNtIYN",
+      "dataset_id": "fvmVBtRFxX3q662yg",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:40:41.295386",
+      "items": 33
+    },
+    {
+      "city": "Rapid City",
+      "state_code": "SD",
+      "state_name": "South Dakota",
+      "run_id": "fPDUzSq3jZ7YOOHVs",
+      "dataset_id": "ybezB0FHastIf3san",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:40:41.816780",
+      "items": 8
+    },
+    {
+      "city": "Aberdeen",
+      "state_code": "SD",
+      "state_name": "South Dakota",
+      "run_id": "x7ishaUsRCB3l5kuf",
+      "dataset_id": "qFZfH5HuWb8N03Ny7",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:40:42.409554",
+      "items": 1
+    },
+    {
+      "city": "Brookings",
+      "state_code": "SD",
+      "state_name": "South Dakota",
+      "run_id": "QYV79iKqT1AQmwQfy",
+      "dataset_id": "yiz7hA2hVdJa2iGRY",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:40:42.957571",
+      "items": 2
+    },
+    {
+      "city": "Salt Lake City",
+      "state_code": "UT",
+      "state_name": "Utah",
+      "run_id": "kVS9KRTIJiZVr8LAP",
+      "dataset_id": "jUFaqgINa57bW9dRw",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:40:43.625315",
+      "items": 33
+    },
+    {
+      "city": "West Valley City",
+      "state_code": "UT",
+      "state_name": "Utah",
+      "run_id": "mSEo83K4APlNqBVFu",
+      "dataset_id": "oCbuvanwIPZ5EDFT1",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:40:44.350777",
+      "items": 11
+    },
+    {
+      "city": "Provo",
+      "state_code": "UT",
+      "state_name": "Utah",
+      "run_id": "MnyiAbeqzd8hnflg5",
+      "dataset_id": "b3DoTZfpaik1PuCQ1",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:44:19.973818",
+      "items": 11
+    },
+    {
+      "city": "West Jordan",
+      "state_code": "UT",
+      "state_name": "Utah",
+      "run_id": "Hq5FjnocTrN8dPUjU",
+      "dataset_id": "frGAvsrvU0Xlblvyn",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:44:20.757087",
+      "items": 13
+    },
+    {
+      "city": "Burlington",
+      "state_code": "VT",
+      "state_name": "Vermont",
+      "run_id": "u0rYt8KCcDmsAr3hj",
+      "dataset_id": "a3UsFxyZCxyvvAcKn",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:44:21.403174",
+      "items": 3
+    },
+    {
+      "city": "South Burlington",
+      "state_code": "VT",
+      "state_name": "Vermont",
+      "run_id": "BtmZADjphMA9lhDr7",
+      "dataset_id": "pc8ciPSyXhpmeRgnB",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:44:21.988750",
+      "items": 2
+    },
+    {
+      "city": "Rutland",
+      "state_code": "VT",
+      "state_name": "Vermont",
+      "run_id": "dPfsVcz3dWeimeGIz",
+      "dataset_id": "sJbfPgkbryrkIpJIh",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:44:22.617847",
+      "items": 2
+    },
+    {
+      "city": "Barre",
+      "state_code": "VT",
+      "state_name": "Vermont",
+      "run_id": "d1ac6ssZb8saHOBNB",
+      "dataset_id": "j9CtviznK4VMFbE8h",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:44:23.864594",
+      "items": 1
+    },
+    {
+      "city": "Charleston",
+      "state_code": "WV",
+      "state_name": "West Virginia",
+      "run_id": "L6jXKh1goywXL8LCZ",
+      "dataset_id": "ah7p0TCPKBx0B0low",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:44:24.734505",
+      "items": 6
+    },
+    {
+      "city": "Morgantown",
+      "state_code": "WV",
+      "state_name": "West Virginia",
+      "run_id": "LB5Gxb3p3yLeknKI5",
+      "dataset_id": "wCUnwAfAEiITvoDgR",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:46:17.554476",
+      "items": 2
+    },
+    {
+      "city": "Parkersburg",
+      "state_code": "WV",
+      "state_name": "West Virginia",
+      "run_id": "QFxKc7GfrwJliTEtv",
+      "dataset_id": "Hw1oR8qhpUgwOgNGt",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:46:18.222247",
+      "items": 3
+    },
+    {
+      "city": "Cheyenne",
+      "state_code": "WY",
+      "state_name": "Wyoming",
+      "run_id": "TpXAkWDEdxys7mSkF",
+      "dataset_id": "9Dl10MGZIEFaZDUqO",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:46:18.906265",
+      "items": 10
+    },
+    {
+      "city": "Casper",
+      "state_code": "WY",
+      "state_name": "Wyoming",
+      "run_id": "rrOZYdxeW7h2mEWoA",
+      "dataset_id": "9yVUa650AjR10vQNk",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:46:19.628268",
+      "items": 7
+    },
+    {
+      "city": "Laramie",
+      "state_code": "WY",
+      "state_name": "Wyoming",
+      "run_id": "vWbvJ7evTDA7wve7S",
+      "dataset_id": "O6oSLwauFMa9xa6kb",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:46:20.235783",
+      "items": 4
+    },
+    {
+      "city": "Gillette",
+      "state_code": "WY",
+      "state_name": "Wyoming",
+      "run_id": "FnOiRKgWwnX86lmdv",
+      "dataset_id": "S5kjcTDN2aQQvKqjF",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T03:46:20.840838",
+      "items": 1
+    },
+    {
+      "city": "Huntington",
+      "state_code": "WV",
+      "state_name": "West Virginia",
+      "run_id": "sBzT2s8DbKx3tiskq",
+      "dataset_id": "gov5MV6zeHPdMrETY",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T04:50:52.817754",
       "items": 0
+    },
+    {
+      "city": "Wasilla",
+      "state_code": "AK",
+      "state_name": "Alaska",
+      "run_id": "yDIi7bYzKNHJbEGJI",
+      "dataset_id": "qu4jA14hCelTI6T4q",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T04:50:52.821435",
+      "items": 0
+    },
+    {
+      "city": "Bloomington",
+      "state_code": "MN",
+      "state_name": "Minnesota",
+      "run_id": "Gf4E2Ttq61wor2bwX",
+      "dataset_id": "w8i1RnWe4KRoCmIAg",
+      "status": "SUCCEEDED",
+      "launched_at": "2026-04-02T04:50:52.891579",
+      "items": 6
     }
   ]
 }
