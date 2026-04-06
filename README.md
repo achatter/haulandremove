@@ -2,19 +2,94 @@
 
 A nationwide directory website that connects consumers with local hauling and removal service providers. Search by city, state, or zip code to find trusted professionals for estate cleanout services and junk removal.
 
+## 📦 Version History
+
+### v2.0.0 — Lead Generation Pipeline (2026-04-05)
+- Added `junk_hauling_launcher.py` — a nationwide lead generation pipeline built on the Apify Google Maps Scraper (`compass/crawler-google-places`)
+- Parameterized search term via `--search` flag — run any service category (junk hauling, estate cleanout, furniture removal, etc.) against the same 260-city national footprint
+- 260-city coverage across all 50 states organized into three tiers (Tier 1: CA/TX/FL/NY, Tier 2: 18 mid-size states, Tier 3: 28 smaller states)
+- Batched execution engine — submits runs in groups of 7 at 4,096 MB memory each, staying within Apify Starter plan's 32,768 MB combined memory ceiling
+- Per-batch polling at 50-second intervals with `while` loop — continues until all runs in a batch reach terminal state regardless of duration
+- Separate tracking file and CSV output per search term — multiple searches run independently without overwriting each other
+- `kill` command — immediately aborts all active Apify runs to stop costs, requires typing `KILL` to confirm
+- `diagnose` command — full per-city breakdown of status and item counts before committing to retry or harvest
+- Fixed item count reading — `compass/crawler-google-places` uses pay-per-event pricing where `stats.itemCount` always returns 0; item counts now read directly from the dataset API
+- `harvest` now filters on `status == SUCCEEDED` rather than cached item count, and writes real counts back to tracking after fetch
+
+### v1.0.0 — Initial Release
+- Directory website with nationwide coverage
+- Next.js 16 + Supabase + Tailwind CSS 4
+- Business listings, reviews, and search functionality
+
 ## 🤖 Built with Claude Code
-This project was built using Claude Code as the primary development agent. Claude Code handled the majority of scaffolding, component generation, database schema design, and PR workflows — with my direction on architecture decisions, product requirements, and code review. The goal was to validate what a solo practitioner can ship with agentic AI tooling and a real production stack. Claude Code + Supabase + GitHub PR workflows made a full-featured directory product achievable without a team.
+This project was built using Claude Code as the primary development agent, authored by **achatter** and **Claude**. Claude Code handled the majority of scaffolding, component generation, database schema design, PR workflows, and the entire lead generation pipeline — with achatter's direction on architecture decisions, product requirements, and code review. The goal was to validate what a solo practitioner can ship with agentic AI tooling and a real production stack. Claude Code + Supabase + GitHub PR workflows made a full-featured directory product achievable without a team.
 
 ## 🌟 Features
 
 - **Nationwide Coverage**: Search for services by city, state, or zip code
-- **Service Categories**: 
+- **Service Categories**:
   - Estate Cleanout Services
   - Junk Removal
 - **Business Listings**: Detailed provider profiles with contact information and services
 - **Customer Reviews**: Read and leave reviews for service providers
 - **Responsive Design**: Clean, smooth UX/UI across all devices
 - **Advanced Search**: Filter results by location and service type
+- **Lead Generation Pipeline**: Automated nationwide scraping of Google Maps listings across 260 cities and all 50 states
+
+## 🗺 Lead Generation Pipeline
+
+The pipeline (`junk_hauling_launcher.py`) scrapes Google Maps for any service category across a fixed 260-city national footprint and produces a deduplicated CSV with contact details, social profiles, ratings, and GPS coordinates.
+
+### City Coverage
+
+| Tier | States | Cities per State | Total Cities |
+|---|---|---|---|
+| Tier 1 | CA, TX, FL, NY | 10 | 40 |
+| Tier 2 | PA, IL, OH, GA, NC, WA, AZ, MI, NJ, CO, VA, TN, IN, MA, MO, MD, WI, MN | 6 | 108 |
+| Tier 3 | AK, AL, AR, CT, DE, HI, IA, ID, KS, KY, LA, ME, MS, MT, ND, NE, NH, NM, NV, OK, OR, RI, SC, SD, UT, VT, WV, WY | 4 | 112 |
+
+### Output Fields
+
+Each record includes: state, state code, scraped city, business name, category, address, city, postal code, phone, email, all emails, website, rating, review count, latitude, longitude, Facebook, Instagram, LinkedIn, YouTube, TikTok, Twitter, Google Maps URL.
+
+### Commands
+
+```bash
+# Install dependency
+pip install requests
+
+# Set your Apify API token
+export APIFY_TOKEN=apify_api_xxxxxxxxxxxxxxxxxxxx
+
+# Launch — all 260 cities or by tier
+python junk_hauling_launcher.py launch --search "junk hauling"
+python junk_hauling_launcher.py launch --search "estate cleanout" tier1
+python junk_hauling_launcher.py launch --search "estate cleanout" tier2
+python junk_hauling_launcher.py launch --search "estate cleanout" tier3
+
+# Check progress
+python junk_hauling_launcher.py status   --search "junk hauling"
+python junk_hauling_launcher.py diagnose --search "junk hauling"
+
+# Re-submit any failed or 0-item runs
+python junk_hauling_launcher.py retry   --search "junk hauling"
+
+# Stop all active runs immediately (requires typing KILL)
+python junk_hauling_launcher.py kill    --search "junk hauling"
+
+# Export results to CSV
+python junk_hauling_launcher.py harvest --search "junk hauling"
+
+# Start fresh (requires typing YES)
+python junk_hauling_launcher.py reset   --search "junk hauling"
+```
+
+### Requirements
+
+- Python 3.8+
+- `pip install requests`
+- Apify account with Starter plan or above
+- Apify billing limit set above $135 (subscription + scraping costs)
 
 ## 🛠 Tech Stack
 
@@ -25,12 +100,13 @@ This project was built using Claude Code as the primary development agent. Claud
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Testing**: [Vitest](https://vitest.dev/) + [Playwright](https://playwright.dev/)
 - **TypeScript**: Full type safety
+- **Lead Generation**: [Apify](https://apify.com/) — `compass/crawler-google-places`
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm/yarn/pnpm
 - Supabase account (for database)
 
@@ -69,7 +145,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the application.
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
-- `npm run start` - Start production server  
+- `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 - `npm run test` - Run unit tests
 - `npm run test:watch` - Run tests in watch mode
@@ -97,6 +173,8 @@ src/
 │   ├── seed/           # Database seeding
 │   └── supabase/       # Supabase configuration
 └── types/              # TypeScript type definitions
+
+junk_hauling_launcher.py  # Nationwide lead generation pipeline
 ```
 
 ## 🗄 Database Schema
@@ -118,7 +196,7 @@ See `supabase/schema.sql` for the complete database schema.
 
 The application is fully responsive and optimized for:
 - Mobile devices (320px+)
-- Tablets (768px+)  
+- Tablets (768px+)
 - Desktop (1024px+)
 
 ## 🌐 Deployment
@@ -147,4 +225,4 @@ For support and questions, please open an issue in the GitHub repository.
 
 ---
 
-Built with ❤️ using Next.js and Supabase
+Built with ❤️ by [achatter](https://github.com/achatter) and [Claude](https://claude.ai) using Next.js, Supabase, and Apify
