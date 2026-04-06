@@ -1,6 +1,43 @@
 """
-Junk Hauling National Scrape — Async Launcher + Harvester
-==========================================================
+Hauling & Removal Services — Nationwide Lead Generation Pipeline
+================================================================
+Authors:  achatter + Claude (claude.ai)
+Version:  2.0.0  (2026-04-06)
+Actor:    compass/crawler-google-places (Apify Google Maps Scraper)
+
+Version history:
+  2.0.0  (2026-04-06)
+    - Parameterized --search flag: any service category (junk hauling, estate
+      cleanout, furniture removal, etc.) runs against the same 260-city footprint
+    - Each search term gets its own isolated tracking file and output CSV
+    - trial command: 5-city validation run across 5 states before full launch
+    - kill command: immediately aborts all active Apify runs to stop costs
+    - diagnose command: full per-city status and item count breakdown
+    - Batched execution engine: submits 7 runs at a time (4,096 MB each) to stay
+      within Apify Starter plan's 32,768 MB combined memory ceiling
+    - Polling interval set to 50s with unbounded while loop — continues until
+      all runs in a batch reach a terminal state, regardless of duration
+    - Fixed item count reading: compass/crawler-google-places uses pay-per-event
+      pricing where stats.itemCount always returns 0; counts now read directly
+      from the dataset API (GET /v2/datasets/{datasetId})
+    - harvest filters on status == SUCCEEDED (not cached item count) and writes
+      real item counts back to run_tracking.json after each dataset fetch
+    - Explicit TIER3_CODES set with 6 safety assertions at import time to catch
+      any future tier misconfiguration before a single API call is made
+    - Duplicate city name bug fixed: CITY_MAP keyed on (city, state_code) tuples
+      so Columbus/OH vs GA, Springfield/IL vs MA vs MO etc. always resolve correctly
+    - retry clears ABORTED, FAILED, TIMED-OUT, and SUCCEEDED-with-0-items runs;
+      protects any SUCCEEDED run with items > 0
+    - abort API endpoint verified from Apify docs:
+      POST /v2/actor-runs/{runId}/abort
+
+  1.0.0  (2026-03-15)
+    - Initial release: single hardcoded search term ("junk hauling")
+    - 260 cities across all 50 states in 3 tiers (Tier 1: 40, Tier 2: 108, Tier 3: 112)
+    - Async launch with ThreadPoolExecutor, status polling, harvest to CSV
+    - Contact enrichment via scrapeContacts flag (emails, social profiles)
+    - Deduplication on (business_name, phone) across all city datasets
+
 RECOMMENDED WORKFLOW:
 
   1. python junk_hauling_launcher.py launch     — submit all 260 city runs
@@ -10,28 +47,32 @@ RECOMMENDED WORKFLOW:
      (repeat steps 2–4 until diagnose shows 0 cities needing retry)
   5. python junk_hauling_launcher.py harvest    — merge all results into one CSV
 
-Commands:
-  launch   — Submit city runs. Optional tier filter:
-               python junk_hauling_launcher.py launch        (all 260 cities)
-               python junk_hauling_launcher.py launch tier1  (CA, TX, FL, NY — 40 cities)
-               python junk_hauling_launcher.py launch tier2  (18 mid-size states — 108 cities)
-               python junk_hauling_launcher.py launch tier3  (28 smaller states — 112 cities)
-             Skips cities already tracked with data (SUCCEEDED + items > 0).
-  status   — Refresh live status from Apify. Shows SUCCEEDED/RUNNING/ABORTED/FAILED
-             and flags how many runs have 0 items despite SUCCEEDED status.
-  diagnose — Full per-city breakdown: status, item count, and which cities need retry.
-             Run this before retry to see exactly what will be re-submitted.
-  retry    — Clears and re-submits any run that is:
-               • ABORTED, FAILED, TIMED-OUT (billing kills, errors), OR
-               • SUCCEEDED with 0 items (ran but returned no data)
-             SUCCEEDED runs with items > 0 are NEVER touched.
-  kill     — Immediately abort ALL active (RUNNING/READY) runs on Apify to stop
-               costs. Requires typing KILL to confirm. Use 'retry' afterward to
-               re-submit when ready.
-  reset    — Deletes run_tracking.json entirely for a clean start from scratch.
-             Requires typing YES to confirm.
-  harvest  — Fetches all SUCCEEDED datasets with items > 0 and writes one
-             deduplicated CSV. Reports which cities still have 0 items.
+Commands (all commands require --search):
+  launch   — Submit city runs for a given search term:
+               python junk_hauling_launcher.py launch --search "junk hauling"
+               python junk_hauling_launcher.py launch --search "estate cleanout" tier1
+               python junk_hauling_launcher.py launch --search "estate cleanout" tier2
+               python junk_hauling_launcher.py launch --search "estate cleanout" tier3
+             Optional tier filter (tier1/tier2/tier3) runs only that subset.
+  status   — Refresh live status for a search:
+               python junk_hauling_launcher.py status --search "junk hauling"
+  diagnose — Full per-city breakdown for a search:
+               python junk_hauling_launcher.py diagnose --search "junk hauling"
+  retry    — Re-submit ABORTED/FAILED/0-item runs for a search:
+               python junk_hauling_launcher.py retry --search "junk hauling"
+  kill     — Abort all active runs for a search (type KILL to confirm):
+               python junk_hauling_launcher.py kill --search "junk hauling"
+  reset    — Delete the tracking file for a search (type YES to confirm):
+               python junk_hauling_launcher.py reset --search "junk hauling"
+  harvest  — Pull all SUCCEEDED datasets into a CSV for a search:
+               python junk_hauling_launcher.py harvest --search "junk hauling"
+  trial    — Run a quick 5-city validation across 5 states (one per tier) before
+             committing to a full 260-city run. Uses a separate trial tracking file
+             and CSV so it never touches your main run data:
+               python junk_hauling_launcher.py trial --search "junk hauling"
+
+Each search term gets its own tracking file and output CSV, so multiple
+searches can run independently without interfering with each other.
 
 Requires:
     pip install requests
@@ -52,13 +93,18 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 # ── CONFIG ────────────────────────────────────────────────────────────────────
 APIFY_TOKEN     = os.environ.get("APIFY_TOKEN", "YOUR_APIFY_TOKEN_HERE")
 ACTOR_ID        = "compass~crawler-google-places"
-SEARCH_TERM     = "junk hauling"
 PLACES_LIMIT    = 50
 SCRAPE_CONTACTS = True
-TRACKING_FILE   = "run_tracking.json"
-OUTPUT_CSV      = "junk_hauling_all_cities.csv"
 MAX_WORKERS     = 7    # Starter plan: 32,768 MB combined memory cap ÷ 4,096 MB per run = 8 max; using 7 for safety buffer
 MEMORY_MB       = 4096   # 4 GB — prevents 0-item runs caused by memory exhaustion
+
+def make_filenames(search_term):
+    """Derive tracking file and CSV names from the search term.
+    e.g. "junk hauling"     → run_tracking_junk_hauling.json, junk_hauling_all_cities.csv
+         "estate cleanout"  → run_tracking_estate_cleanout.json, estate_cleanout_all_cities.csv
+    """
+    slug = search_term.lower().strip().replace(" ", "_").replace("/", "_")
+    return f"run_tracking_{slug}.json", f"{slug}_all_cities.csv"
 
 BASE_URL = f"https://api.apify.com/v2/acts/{ACTOR_ID}/runs"
 
@@ -897,7 +943,7 @@ def cmd_retry():
 
 def cmd_reset():
     confirm = input(
-        f"\nThis will DELETE {TRACKING_FILE} and lose all run history.\n"
+        f"\nThis will DELETE {TRACKING_FILE} and lose all run history for \"{SEARCH_TERM}\".\n"
         "Type YES to confirm: "
     ).strip()
     if confirm == "YES":
@@ -1059,6 +1105,180 @@ def cmd_kill():
             print(f"    {city}, {sc}: {err}")
     print(f"\n  Run 'retry' to re-submit aborted cities when ready.")
 
+
+def cmd_trial():
+    """
+    Launch a 5-city trial run across 5 states — one from each tier — to validate
+    the full pipeline before committing to a 260-city run.
+
+    Trial cities (chosen to represent all three tiers):
+      Los Angeles, CA  — Tier 1 (large metro)
+      Chicago,     IL  — Tier 2 (mid-size state)
+      Atlanta,     GA  — Tier 2 (mid-size state, different region)
+      Las Vegas,   NV  — Tier 3 (smaller state)
+      Portland,    OR  — Tier 3 (smaller state, different region)
+
+    Uses a separate tracking file and CSV (prefixed with "trial_") so it never
+    touches or overwrites your main run data for the same search term.
+    Run 'harvest' (not 'trial') after verifying results to get the full CSV.
+    """
+    _check_token()
+
+    TRIAL_CITIES = [
+        ("Los Angeles", "CA", "California"),   # Tier 1
+        ("Chicago",     "IL", "Illinois"),     # Tier 2
+        ("Atlanta",     "GA", "Georgia"),      # Tier 2 — different region
+        ("Las Vegas",   "NV", "Nevada"),       # Tier 3
+        ("Portland",    "OR", "Oregon"),       # Tier 3 — different region
+    ]
+
+    # Trial uses its own isolated tracking and CSV files
+    slug           = SEARCH_TERM.lower().strip().replace(" ", "_").replace("/", "_")
+    trial_tracking = f"trial_run_tracking_{slug}.json"
+    trial_csv      = f"trial_{slug}_results.csv"
+
+    # Load trial-specific tracking (separate from main run)
+    if os.path.exists(trial_tracking):
+        with open(trial_tracking) as f:
+            tracking = json.load(f)
+    else:
+        tracking = {"launched_at": None, "runs": []}
+
+    already  = {(r["city"], r["state_code"]) for r in tracking.get("runs", [])
+                if r.get("status") == "SUCCEEDED"}
+    to_run   = [(c, sc, sn) for c, sc, sn in TRIAL_CITIES if (c, sc) not in already]
+
+    print(f"\nTrial run — 5 cities across 5 states")
+    print(f"  Search term:     \"{SEARCH_TERM}\"")
+    print(f"  Tracking file:   {trial_tracking}  (isolated from main run)")
+    print(f"  Output CSV:      {trial_csv}")
+    print(f"  Memory per run:  {MEMORY_MB} MB")
+    print()
+
+    if not to_run:
+        print("All 5 trial cities already succeeded. Running harvest on trial data...")
+        _harvest_to_file(tracking, trial_csv)
+        return
+
+    print(f"  Submitting {len(to_run)} city runs:\n")
+
+    runs         = tracking.get("runs", [])
+    success      = 0
+    launch_failed = []
+    poll_interval = 50
+    terminal      = {"SUCCEEDED", "FAILED", "ABORTED", "TIMED-OUT"}
+
+    # All 5 fit in one batch (well under 7-run memory ceiling)
+    batch_runs = []
+    for city, sc, sn in to_run:
+        try:
+            result = launch_one(city, sc, sn)
+            batch_runs.append(result)
+            runs.append(result)
+            success += 1
+            print(f"    ✓  {city}, {sc}  →  {result['run_id']}")
+        except Exception as e:
+            launch_failed.append((city, sc, str(e)))
+            print(f"    ✗  {city}, {sc}  →  {e}")
+
+    tracking["launched_at"] = datetime.utcnow().isoformat()
+    tracking["runs"]        = runs
+    with open(trial_tracking, "w") as f:
+        json.dump(tracking, f, indent=2)
+    print(f"\n  Tracking saved → {trial_tracking}")
+
+    if launch_failed:
+        print(f"\n  Failed to submit:")
+        for city, sc, err in launch_failed:
+            print(f"    {city}, {sc}: {err}")
+        return
+
+    # Poll until all trial runs complete
+    print(f"\n  Waiting for all {len(batch_runs)} runs to complete (polling every {poll_interval}s)...")
+    active_run_ids = {r["run_id"] for r in batch_runs}
+    poll_count = 0
+    while active_run_ids:
+        time.sleep(poll_interval)
+        poll_count += 1
+        still_active = set()
+        for run_id in active_run_ids:
+            try:
+                status, _ = check_run_status(run_id)
+                for r in runs:
+                    if r["run_id"] == run_id:
+                        r["status"] = status
+                        if status == "SUCCEEDED" and r.get("dataset_id"):
+                            try:
+                                r["items"] = get_dataset_count(r["dataset_id"])
+                            except Exception:
+                                pass
+                        break
+                if status not in terminal:
+                    still_active.add(run_id)
+            except Exception:
+                still_active.add(run_id)
+        active_run_ids = still_active
+        if active_run_ids:
+            print(f"    Poll {poll_count}: {len(active_run_ids)} still running — checking again in {poll_interval}s...")
+
+    tracking["runs"] = runs
+    with open(trial_tracking, "w") as f:
+        json.dump(tracking, f, indent=2)
+
+    # Report results
+    succeeded = [r for r in batch_runs if r.get("status") == "SUCCEEDED"]
+    failed    = [r for r in batch_runs if r.get("status") != "SUCCEEDED"]
+    print(f"\n  {'─'*50}")
+    print(f"  Trial complete:")
+    print(f"    SUCCEEDED:  {len(succeeded)}")
+    print(f"    FAILED:     {len(failed)}")
+    for r in succeeded:
+        print(f"    ✓  {r['city']:<20} {r['state_code']}  {r.get('items', 0):>4} listings")
+    for r in failed:
+        print(f"    ✗  {r['city']:<20} {r['state_code']}  {r.get('status', '?')}")
+
+    if succeeded:
+        print()
+        _harvest_to_file(tracking, trial_csv)
+        print(f"\n  Trial CSV written → {trial_csv}")
+        print(f"  If results look good, run the full launch:")
+        print(f'    python {sys.argv[0]} launch --search "{SEARCH_TERM}"')
+    else:
+        print(f"\n  No cities succeeded. Check the errors above before running the full launch.")
+
+
+def _harvest_to_file(tracking, csv_path):
+    """Internal helper — fetch all SUCCEEDED datasets and write to csv_path."""
+    runs       = tracking.get("runs", [])
+    succeeded  = [r for r in runs if r.get("status") == "SUCCEEDED"]
+    all_records, fetch_errors = [], []
+
+    for r in succeeded:
+        city, sc, sn = r["city"], r["state_code"], r["state_name"]
+        try:
+            raw     = fetch_dataset(r["dataset_id"])
+            records = [flatten_record(item, city, sc, sn) for item in raw]
+            r["items"] = len(records)
+            all_records.extend(records)
+            print(f"    {city:<20} {sc}  →  {len(records)} listings")
+        except Exception as e:
+            fetch_errors.append((city, sc, str(e)))
+            print(f"    {city:<20} {sc}  →  ERROR: {e}")
+
+    seen, dedup = set(), []
+    for rec in all_records:
+        key = (rec["business_name"].lower().strip(), rec["phone"].strip())
+        if key not in seen:
+            seen.add(key)
+            dedup.append(rec)
+
+    with open(csv_path, "w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(f, fieldnames=CSV_FIELDS)
+        writer.writeheader()
+        writer.writerows(dedup)
+
+    print(f"  Total: {len(all_records)} raw → {len(dedup)} deduplicated listings")
+
 # ── ENTRY POINT ───────────────────────────────────────────────────────────────
 
 COMMANDS = {
@@ -1069,16 +1289,86 @@ COMMANDS = {
     "kill":     cmd_kill,
     "reset":    cmd_reset,
     "harvest":  cmd_harvest,
+    "trial":    cmd_trial,
 }
 
-if __name__ == "__main__":
-    if len(sys.argv) < 2 or sys.argv[1] not in COMMANDS:
+def parse_args():
+    """
+    Parse command-line arguments. Returns (command, search_term, tier).
+    --search "some service" is required for all commands.
+    tier (tier1/tier2/tier3) is optional for launch only.
+
+    Examples:
+      launch --search "junk hauling"
+      launch --search "estate cleanout" tier1
+      status --search "junk hauling"
+      harvest --search "estate cleanout"
+    """
+    args = sys.argv[1:]
+
+    if not args or args[0] not in COMMANDS:
         print(__doc__)
-        print(f"Usage: python {sys.argv[0]} [launch [tier1|tier2|tier3]|status|diagnose|retry|kill|reset|harvest]")
+        print(f'Usage: python {sys.argv[0]} <command> --search "search term" [tier1|tier2|tier3]')
+        print(f'Commands: launch, trial, status, diagnose, retry, kill, reset, harvest')
+        print(f"Commands: {', '.join(COMMANDS.keys())}")
         sys.exit(1)
-    cmd  = sys.argv[1]
-    args = sys.argv[2:]
+
+    cmd  = args[0]
+    rest = args[1:]
+
+    # Extract --search value
+    search_term = None
+    tier        = None
+    i = 0
+    remaining = []
+    while i < len(rest):
+        if rest[i] == "--search" and i + 1 < len(rest):
+            search_term = rest[i + 1]
+            i += 2
+        elif rest[i].startswith("--search="):
+            search_term = rest[i].split("=", 1)[1]
+            i += 1
+        elif rest[i] in ("tier1", "tier2", "tier3") and cmd == "launch":
+            tier = rest[i]
+            i += 1
+        else:
+            remaining.append(rest[i])
+            i += 1
+
+    if search_term is None:
+        print(f"ERROR: --search is required for all commands.")
+        print(f'Example: python {sys.argv[0]} {cmd} --search "junk hauling"')
+        sys.exit(1)
+
+    return cmd, search_term.strip(), tier
+
+
+if __name__ == "__main__":
+    cmd, search_term, tier = parse_args()
+
+    # Set dynamic globals based on search term
+    import builtins
+    TRACKING_FILE, OUTPUT_CSV = make_filenames(search_term)
+
+    # Inject into module globals so all functions pick them up
+    import __main__
+    __main__.SEARCH_TERM   = search_term
+    __main__.TRACKING_FILE = TRACKING_FILE
+    __main__.OUTPUT_CSV    = OUTPUT_CSV
+
+    # Patch module-level names used inside functions
+    import sys as _sys
+    current_module = _sys.modules[__name__]
+    current_module.SEARCH_TERM   = search_term
+    current_module.TRACKING_FILE = TRACKING_FILE
+    current_module.OUTPUT_CSV    = OUTPUT_CSV
+
+    print(f"  Search term:    \"{search_term}\"")
+    print(f"  Tracking file:  {TRACKING_FILE}")
+    print(f"  Output CSV:     {OUTPUT_CSV}")
+    print()
+
     if cmd == "launch":
-        cmd_launch(tier=args[0] if args else None)
+        cmd_launch(tier=tier)
     else:
         COMMANDS[cmd]()
