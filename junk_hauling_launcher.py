@@ -889,13 +889,11 @@ def cmd_retry():
     refresh_all_statuses(runs)
 
     # Separate into: keep (has good data or still running) vs retry
+    # NOTE: retry only re-submits cities already in tracking that failed or
+    # returned 0 items. It does NOT add untracked cities — if cities were
+    # never launched (e.g. you only ran tier1), use 'launch' for those.
     to_keep  = [r for r in runs if has_data(r) or r.get("status") == "RUNNING"]
     to_retry = [(r["city"], r["state_code"]) for r in runs if needs_retry(r)]
-
-    # Also add any cities from the master list not in tracking at all
-    tracked_keys = {(r["city"], r["state_code"]) for r in runs}
-    untracked    = [(c, sc) for c, sc, _ in CITIES if (c, sc) not in tracked_keys]
-    to_retry_all = to_retry + untracked
 
     tracking["runs"] = to_keep
     save_tracking(tracking)
@@ -903,12 +901,12 @@ def cmd_retry():
     protected = len(to_keep)
     print(f"\n  {protected} cities with good data protected — will NOT be re-submitted.")
     print(f"  {len(to_retry)} ABORTED/FAILED/0-item runs cleared from tracking.")
-    if untracked:
-        print(f"  {len(untracked)} cities were never launched — adding to retry queue.")
-    print(f"  Re-launching {len(to_retry_all)} cities total...\n")
+    print(f"  Re-launching {len(to_retry)} cities...\n")
 
-    if not to_retry_all:
+    if not to_retry:
         print("Nothing to retry — all tracked cities have data.")
+        print("  To launch cities that haven\'t run yet, use:")
+        print(f'    python {{sys.argv[0]}} launch --search "{{SEARCH_TERM}}" [tier1|tier2|tier3]')
         return
 
     new_runs, success, still_failed = list(to_keep), 0, []
@@ -916,7 +914,7 @@ def cmd_retry():
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
         futures = {
             pool.submit(launch_one, city, sc, CITY_MAP[(city, sc)]): (city, sc)
-            for city, sc in to_retry_all
+            for city, sc in to_retry
         }
         for i, future in enumerate(as_completed(futures), 1):
             city, sc = futures[future]
@@ -924,10 +922,10 @@ def cmd_retry():
                 result = future.result()
                 new_runs.append(result)
                 success += 1
-                print(f"  [{i:>3}/{len(to_retry_all)}] ✓  {city}, {sc}  →  {result['run_id']}")
+                print(f"  [{i:>3}/{len(to_retry)}] ✓  {city}, {sc}  →  {result['run_id']}")
             except Exception as e:
                 still_failed.append((city, sc, str(e)))
-                print(f"  [{i:>3}/{len(to_retry_all)}] ✗  {city}, {sc}  →  {e}")
+                print(f"  [{i:>3}/{len(to_retry)}] ✗  {city}, {sc}  →  {e}")
 
     tracking["runs"] = new_runs
     save_tracking(tracking)
