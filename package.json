@@ -13,6 +13,7 @@
     "migrate-data": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/migrate-real-data.ts",
     "scrape-services": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/scrape-services.ts",
     "import-csv": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/import-csv-businesses.ts",
+    "update-estate-cleanout": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/update-estate-cleanout.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test"
