@@ -17,7 +17,7 @@ export async function searchBusinesses(params: SearchParams): Promise<{
   count: number
 }> {
   const supabase = await createClient()
-  const { q, category, state, sort = 'rating', page = '1' } = params
+  const { q, category, state, city, sort = 'rating', page = '1' } = params
   const offset = (parseInt(page) - 1) * PAGE_SIZE
 
   let query = supabase
@@ -28,18 +28,29 @@ export async function searchBusinesses(params: SearchParams): Promise<{
   if (q) {
     const trimmed = q.trim()
     if (isZipCode(trimmed)) {
-      query = query.eq('zip_code', trimmed)
+      // Only apply zip filter when no explicit state/city dropdown values override it
+      if (!state && !city) query = query.eq('zip_code', trimmed)
     } else if (isStateAbbr(trimmed)) {
-      query = query.eq('state', trimmed)
+      // Only apply if no explicit state dropdown
+      if (!state) query = query.eq('state', trimmed.toUpperCase())
     } else if (isCityState(trimmed)) {
-      const { city, state: stateAbbr } = parseCityState(trimmed)
-      query = query.ilike('city', `%${city}%`).eq('state', stateAbbr)
+      const { city: parsedCity, state: parsedState } = parseCityState(trimmed)
+      if (state) {
+        // Explicit state dropdown wins — broaden to state-wide results,
+        // ignore the city restriction from q so the user sees all results in that state
+      } else {
+        query = query.ilike('city', `%${parsedCity}%`).eq('state', parsedState)
+      }
     } else {
       query = query.textSearch('search_vector', trimmed, {
         type: 'plain',
         config: 'english',
       })
     }
+  }
+
+  if (city) {
+    query = query.ilike('city', `%${city}%`)
   }
 
   if (category) {

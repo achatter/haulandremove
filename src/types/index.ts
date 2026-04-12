@@ -80,6 +80,7 @@ export interface SearchParams {
   q?: string;
   category?: Category | '';
   state?: string;
+  city?: string;
   sort?: 'rating' | 'name' | 'newest';
   page?: string;
 }
