@@ -1,72 +1,79 @@
 import { SearchBar } from '@/components/search/SearchBar'
-import { Truck, Home, CheckCircle2, Zap, ShieldCheck, Star } from 'lucide-react'
+import { Truck, Home, ShieldCheck, CheckCircle2, Star, MapPin } from 'lucide-react'
 
 function JunkRemovalCard() {
   return (
     <div
-      className="relative w-full overflow-hidden"
-      style={{ background: 'linear-gradient(150deg, #0369A1 0%, #0EA5E9 60%, #38BDF8 100%)', height: 340, borderRadius: 6 }}
+      className="relative w-full overflow-hidden flex flex-col"
+      style={{
+        borderRadius: 16,
+        height: 360,
+        background: 'rgba(255,255,255,0.70)',
+        backdropFilter: 'blur(18px)',
+        WebkitBackdropFilter: 'blur(18px)',
+        border: '1px solid rgba(255,255,255,0.85)',
+        boxShadow: '0 8px 40px rgba(37,99,235,0.13), 0 2px 8px rgba(0,0,0,0.07)',
+      }}
     >
-      {/* Top shimmer line */}
-      <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)' }} />
-
-      {/* Watermark truck */}
-      <div className="absolute -bottom-4 -right-8 opacity-[0.12] pointer-events-none">
-        <Truck style={{ width: 180, height: 180, color: 'white', strokeWidth: 1 }} />
+      {/* Photo peek strip at top */}
+      <div className="relative w-full overflow-hidden shrink-0" style={{ height: 130 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=200&fit=crop&auto=format"
+          alt="Junk removal truck"
+          className="w-full h-full object-cover"
+        />
+        {/* Blue-amber tint overlay */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(135deg, rgba(30,58,138,0.55) 0%, rgba(234,88,12,0.35) 100%)' }}
+        />
+        {/* Icon badge over photo */}
+        <div
+          className="absolute bottom-3 left-4 flex items-center gap-2 px-3 py-1.5"
+          style={{ background: 'rgba(255,255,255,0.92)', borderRadius: 20, backdropFilter: 'blur(8px)' }}
+        >
+          <Truck className="h-4 w-4 text-blue-700" strokeWidth={2} />
+          <span className="text-blue-800 text-xs font-bold uppercase tracking-wider">Junk Removal</span>
+        </div>
+        {/* Rating badge */}
+        <div
+          className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1"
+          style={{ background: 'rgba(255,255,255,0.92)', borderRadius: 20 }}
+        >
+          <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+          <span className="text-slate-700 text-xs font-bold">4.8</span>
+        </div>
       </div>
 
-      {/* Diagonal stripe accent */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'repeating-linear-gradient(-55deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 22px)',
-        }}
-      />
+      {/* Card body */}
+      <div className="flex flex-col flex-1 p-5">
+        <p className="text-slate-600 text-sm leading-relaxed mb-4">
+          Same-day pickup for furniture, appliances, yard waste &amp; more. Fast, reliable pros available nationwide.
+        </p>
 
-      <div className="relative z-10 p-6 flex flex-col h-full">
-        {/* Header row */}
-        <div className="flex items-center gap-3 mb-5">
-          <div className="p-2.5" style={{ background: 'rgba(255,255,255,0.22)', borderRadius: 6 }}>
-            <Truck className="h-7 w-7 text-white" strokeWidth={1.8} />
-          </div>
-          <div>
-            <p className="text-sky-200 text-[10px] font-bold uppercase tracking-[0.15em]">Category</p>
-            <h3 className="font-serif text-xl font-bold text-white leading-tight">Junk Removal</h3>
-          </div>
-        </div>
-
-        {/* Feature tags */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
-          {['Same-Day Pickup', 'Free Estimates', 'All Items Taken'].map((tag) => (
+        {/* Accent tags */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {['Same-Day Pickup', 'Free Estimates', 'All Items'].map((tag) => (
             <span
               key={tag}
-              className="text-[11px] font-semibold text-white px-2.5 py-1"
-              style={{ background: 'rgba(255,255,255,0.18)', borderRadius: 3 }}
+              className="text-[11px] font-semibold px-2.5 py-1"
+              style={{
+                background: 'rgba(37,99,235,0.09)',
+                color: '#1d4ed8',
+                borderRadius: 20,
+                border: '1px solid rgba(37,99,235,0.2)',
+              }}
             >
               {tag}
             </span>
           ))}
         </div>
 
-        {/* Stats grid */}
-        <div className="grid grid-cols-2 gap-2.5 mb-auto">
-          <div className="p-3" style={{ background: 'rgba(0,0,0,0.2)', borderRadius: 4 }}>
-            <p className="text-2xl font-extrabold text-white leading-none">500+</p>
-            <p className="text-sky-200 text-xs mt-0.5">Verified Pros</p>
-          </div>
-          <div className="p-3" style={{ background: 'rgba(0,0,0,0.2)', borderRadius: 4 }}>
-            <div className="flex items-center gap-1">
-              <p className="text-2xl font-extrabold text-white leading-none">4.8</p>
-              <Star className="h-4 w-4 text-yellow-300 fill-yellow-300" />
-            </div>
-            <p className="text-sky-200 text-xs mt-0.5">Avg. Rating</p>
-          </div>
-        </div>
-
-        {/* Footer trust line */}
-        <div className="flex items-center gap-2 mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.15)' }}>
-          <ShieldCheck className="h-4 w-4 text-sky-200 shrink-0" />
-          <span className="text-sky-100/80 text-xs font-medium">Licensed &amp; insured professionals</span>
+        {/* Trust line */}
+        <div className="flex items-center gap-2 mt-auto pt-3" style={{ borderTop: '1px solid rgba(37,99,235,0.12)' }}>
+          <ShieldCheck className="h-4 w-4 shrink-0" style={{ color: '#2563eb' }} />
+          <span className="text-slate-500 text-xs font-medium">500+ Licensed &amp; insured pros</span>
         </div>
       </div>
     </div>
@@ -76,69 +83,76 @@ function JunkRemovalCard() {
 function EstateCleanoutCard() {
   return (
     <div
-      className="relative w-full overflow-hidden"
-      style={{ background: 'linear-gradient(150deg, #5B21B6 0%, #7C3AED 60%, #A78BFA 100%)', height: 340, borderRadius: 6 }}
+      className="relative w-full overflow-hidden flex flex-col"
+      style={{
+        borderRadius: 16,
+        height: 360,
+        background: 'rgba(255,255,255,0.70)',
+        backdropFilter: 'blur(18px)',
+        WebkitBackdropFilter: 'blur(18px)',
+        border: '1px solid rgba(255,255,255,0.85)',
+        boxShadow: '0 8px 40px rgba(5,150,105,0.13), 0 2px 8px rgba(0,0,0,0.07)',
+      }}
     >
-      {/* Top shimmer line */}
-      <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)' }} />
-
-      {/* Watermark home */}
-      <div className="absolute -bottom-4 -right-8 opacity-[0.12] pointer-events-none">
-        <Home style={{ width: 180, height: 180, color: 'white', strokeWidth: 1 }} />
+      {/* Photo peek strip at top */}
+      <div className="relative w-full overflow-hidden shrink-0" style={{ height: 130 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=200&fit=crop&auto=format"
+          alt="Estate cleanout home"
+          className="w-full h-full object-cover"
+        />
+        {/* Emerald tint overlay */}
+        <div
+          className="absolute inset-0"
+          style={{ background: 'linear-gradient(135deg, rgba(6,78,59,0.50) 0%, rgba(16,185,129,0.30) 100%)' }}
+        />
+        {/* Icon badge over photo */}
+        <div
+          className="absolute bottom-3 left-4 flex items-center gap-2 px-3 py-1.5"
+          style={{ background: 'rgba(255,255,255,0.92)', borderRadius: 20, backdropFilter: 'blur(8px)' }}
+        >
+          <Home className="h-4 w-4 text-emerald-700" strokeWidth={2} />
+          <span className="text-emerald-800 text-xs font-bold uppercase tracking-wider">Estate Cleanout</span>
+        </div>
+        {/* Rating badge */}
+        <div
+          className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1"
+          style={{ background: 'rgba(255,255,255,0.92)', borderRadius: 20 }}
+        >
+          <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+          <span className="text-slate-700 text-xs font-bold">4.9</span>
+        </div>
       </div>
 
-      {/* Diagonal stripe accent */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'repeating-linear-gradient(-55deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 22px)',
-        }}
-      />
+      {/* Card body */}
+      <div className="flex flex-col flex-1 p-5">
+        <p className="text-slate-600 text-sm leading-relaxed mb-4">
+          Compassionate, thorough property cleanouts for estates, downsizing &amp; transitions — available in all 50 states.
+        </p>
 
-      <div className="relative z-10 p-6 flex flex-col h-full">
-        {/* Header row */}
-        <div className="flex items-center gap-3 mb-5">
-          <div className="p-2.5" style={{ background: 'rgba(255,255,255,0.22)', borderRadius: 6 }}>
-            <Home className="h-7 w-7 text-white" strokeWidth={1.8} />
-          </div>
-          <div>
-            <p className="text-violet-200 text-[10px] font-bold uppercase tracking-[0.15em]">Category</p>
-            <h3 className="font-serif text-xl font-bold text-white leading-tight">Estate Cleanout</h3>
-          </div>
-        </div>
-
-        {/* Feature tags */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
+        {/* Accent tags */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {['Full Property', 'Downsizing', 'Fast Turnaround'].map((tag) => (
             <span
               key={tag}
-              className="text-[11px] font-semibold text-white px-2.5 py-1"
-              style={{ background: 'rgba(255,255,255,0.18)', borderRadius: 3 }}
+              className="text-[11px] font-semibold px-2.5 py-1"
+              style={{
+                background: 'rgba(5,150,105,0.09)',
+                color: '#047857',
+                borderRadius: 20,
+                border: '1px solid rgba(5,150,105,0.2)',
+              }}
             >
               {tag}
             </span>
           ))}
         </div>
 
-        {/* Stats grid */}
-        <div className="grid grid-cols-2 gap-2.5 mb-auto">
-          <div className="p-3" style={{ background: 'rgba(0,0,0,0.2)', borderRadius: 4 }}>
-            <p className="text-2xl font-extrabold text-white leading-none">200+</p>
-            <p className="text-violet-200 text-xs mt-0.5">Markets Served</p>
-          </div>
-          <div className="p-3" style={{ background: 'rgba(0,0,0,0.2)', borderRadius: 4 }}>
-            <div className="flex items-center gap-1">
-              <p className="text-2xl font-extrabold text-white leading-none">4.9</p>
-              <Star className="h-4 w-4 text-yellow-300 fill-yellow-300" />
-            </div>
-            <p className="text-violet-200 text-xs mt-0.5">Avg. Rating</p>
-          </div>
-        </div>
-
-        {/* Footer trust line */}
-        <div className="flex items-center gap-2 mt-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.15)' }}>
-          <CheckCircle2 className="h-4 w-4 text-violet-200 shrink-0" />
-          <span className="text-violet-100/80 text-xs font-medium">Compassionate, bonded specialists</span>
+        {/* Trust line */}
+        <div className="flex items-center gap-2 mt-auto pt-3" style={{ borderTop: '1px solid rgba(5,150,105,0.12)' }}>
+          <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: '#059669' }} />
+          <span className="text-slate-500 text-xs font-medium">200+ markets · Bonded specialists</span>
         </div>
       </div>
     </div>
@@ -147,42 +161,148 @@ function EstateCleanoutCard() {
 
 export function HeroSection() {
   return (
-    <section className="relative py-20 border-b overflow-hidden" style={{ background: 'linear-gradient(135deg, #020817 0%, #0f172a 40%, #0f172a 70%, #0d1224 100%)' }}>
-      {/* Grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:40px_40px]" />
-      {/* Glow blobs */}
-      <div className="absolute top-[-80px] left-[-80px] w-[500px] h-[500px] rounded-full opacity-20" style={{ background: 'radial-gradient(circle, #6366f1, transparent 70%)' }} />
-      <div className="absolute bottom-[-100px] right-[-80px] w-[600px] h-[600px] rounded-full opacity-15" style={{ background: 'radial-gradient(circle, #3b82f6, transparent 70%)' }} />
+    <section className="relative overflow-hidden" style={{ minHeight: 520 }}>
+      {/* Full-width panoramic background photo */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1600&h=700&fit=crop&auto=format"
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ zIndex: 0 }}
+      />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr_280px] gap-10 items-center">
+      {/* Bright airy overlay — white+sky gradient so the photo shows subtly underneath */}
+      <div
+        className="absolute inset-0"
+        style={{
+          zIndex: 1,
+          background:
+            'linear-gradient(135deg, rgba(255,255,255,0.88) 0%, rgba(219,234,254,0.80) 50%, rgba(186,230,253,0.82) 100%)',
+        }}
+      />
 
-          {/* Left: Junk Removal */}
+      {/* Subtle dot grid overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          zIndex: 2,
+          backgroundImage: 'radial-gradient(rgba(37,99,235,0.12) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+
+      <div className="relative py-16 px-6 max-w-7xl mx-auto" style={{ zIndex: 3 }}>
+
+        {/* Trust badge */}
+        <div className="flex justify-center mb-6">
+          <div
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-blue-700"
+            style={{
+              background: 'rgba(255,255,255,0.80)',
+              borderRadius: 24,
+              border: '1px solid rgba(37,99,235,0.2)',
+              backdropFilter: 'blur(8px)',
+              boxShadow: '0 2px 8px rgba(37,99,235,0.10)',
+            }}
+          >
+            <MapPin className="h-3.5 w-3.5 text-blue-500" />
+            Trusted by 50,000+ homeowners nationwide
+            <span className="flex items-center gap-0.5">
+              <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+              <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+              <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+              <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+              <Star className="h-3 w-3 text-amber-400 fill-amber-400" />
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr_300px] gap-10 items-center">
+
+          {/* Left: Junk Removal card */}
           <div className="hidden lg:block">
             <JunkRemovalCard />
           </div>
 
-          {/* Center: text + search */}
+          {/* Center: heading + search */}
           <div className="text-center">
-            <h1 className="font-serif text-5xl xl:text-6xl font-bold tracking-tight text-white drop-shadow-lg">
-              Search for Hauling Services
+            <h1 className="font-serif text-5xl xl:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
+              Find the Right<br />
+              <span
+                style={{
+                  background: 'linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #0ea5e9 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                }}
+              >
+                Hauling Pro
+              </span>{' '}
+              <span className="text-slate-900">Near You</span>
             </h1>
-            <p className="mt-4 text-xl text-blue-100/80">
-              Search thousands of trusted junk removal and estate cleanout professionals nationwide.
+            <p className="mt-4 text-lg text-slate-600 max-w-md mx-auto">
+              Search thousands of trusted junk removal and estate cleanout professionals across all 50 states.
             </p>
-            <div className="mt-8 max-w-2xl mx-auto">
-              <SearchBar placeholder="Enter city, state, or zip code..." large />
+
+            <div className="mt-8 max-w-xl mx-auto">
+              <div
+                style={{
+                  borderRadius: 14,
+                  padding: 3,
+                  background: 'linear-gradient(135deg, #2563eb, #7c3aed, #0ea5e9)',
+                  boxShadow: '0 4px 24px rgba(37,99,235,0.2)',
+                }}
+              >
+                <div style={{ borderRadius: 11, overflow: 'hidden', background: 'white' }}>
+                  <SearchBar placeholder="Enter city, state, or zip code..." large />
+                </div>
+              </div>
             </div>
-            <div className="mt-4 flex items-center justify-center gap-6 text-sm text-blue-200/70">
-              <span>Junk Removal</span>
-              <span>·</span>
-              <span>Estate Cleanout</span>
-              <span>·</span>
-              <span>Nationwide Coverage</span>
+
+            <div className="mt-5 flex items-center justify-center gap-5 text-sm">
+              <span
+                className="flex items-center gap-1.5 font-medium"
+                style={{
+                  background: 'rgba(255,255,255,0.70)',
+                  backdropFilter: 'blur(8px)',
+                  padding: '4px 12px',
+                  borderRadius: 20,
+                  border: '1px solid rgba(37,99,235,0.15)',
+                  color: '#1d4ed8',
+                }}
+              >
+                <Truck className="h-3.5 w-3.5" /> Junk Removal
+              </span>
+              <span
+                className="flex items-center gap-1.5 font-medium"
+                style={{
+                  background: 'rgba(255,255,255,0.70)',
+                  backdropFilter: 'blur(8px)',
+                  padding: '4px 12px',
+                  borderRadius: 20,
+                  border: '1px solid rgba(5,150,105,0.15)',
+                  color: '#047857',
+                }}
+              >
+                <Home className="h-3.5 w-3.5" /> Estate Cleanout
+              </span>
+              <span
+                className="flex items-center gap-1.5 text-slate-500 font-medium"
+                style={{
+                  background: 'rgba(255,255,255,0.70)',
+                  backdropFilter: 'blur(8px)',
+                  padding: '4px 12px',
+                  borderRadius: 20,
+                  border: '1px solid rgba(0,0,0,0.08)',
+                }}
+              >
+                <MapPin className="h-3.5 w-3.5" /> All 50 States
+              </span>
             </div>
           </div>
 
-          {/* Right: Estate Cleanout */}
+          {/* Right: Estate Cleanout card */}
           <div className="hidden lg:block">
             <EstateCleanoutCard />
           </div>
