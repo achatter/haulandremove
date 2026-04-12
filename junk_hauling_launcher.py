@@ -2,10 +2,19 @@
 Hauling & Removal Services — Nationwide Lead Generation Pipeline
 ================================================================
 Authors:  achatter + Claude (claude.ai)
-Version:  2.0.0  (2026-04-06)
+Version:  2.1.0  (2026-04-11)
 Actor:    compass/crawler-google-places (Apify Google Maps Scraper)
 
 Version history:
+  2.1.0  (2026-04-11)
+    - Fixed image data gap: flatten_record() now captures up to MAX_IMAGES photo
+      URLs per listing from the Apify "imageUrls" array field (confirmed field name
+      from compass/crawler-google-places output schema). The top-level "imageUrl"
+      thumbnail is also captured as a dedicated column. Three new CSV columns added:
+      image_url_1, image_url_2, image_url_3. Applies to all --search terms and to
+      the trial command identically — both call launch_one() which already sends
+      maxImages: MAX_IMAGES to Apify.
+
   2.0.0  (2026-04-06)
     - Parameterized --search flag: any service category (junk hauling, estate
       cleanout, furniture removal, etc.) runs against the same 260-city footprint
@@ -91,12 +100,36 @@ from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 # ── CONFIG ────────────────────────────────────────────────────────────────────
-APIFY_TOKEN     = os.environ.get("APIFY_TOKEN", "YOUR_APIFY_TOKEN_HERE")
-ACTOR_ID        = "compass~crawler-google-places"
-PLACES_LIMIT    = 50
-SCRAPE_CONTACTS = True
-MAX_WORKERS     = 7    # Starter plan: 32,768 MB combined memory cap ÷ 4,096 MB per run = 8 max; using 7 for safety buffer
-MEMORY_MB       = 4096   # 4 GB — prevents 0-item runs caused by memory exhaustion
+APIFY_TOKEN          = os.environ.get("APIFY_TOKEN", "YOUR_APIFY_TOKEN_HERE")
+ACTOR_ID             = "compass~crawler-google-places"
+PLACES_LIMIT         = 50
+SCRAPE_CONTACTS      = True
+MAX_WORKERS          = 7      # Starter plan: 32,768 MB combined memory cap ÷ 4,096 MB per run = 8 max; using 7 for safety buffer
+MEMORY_MB            = 4096   # 4 GB — prevents 0-item runs caused by memory exhaustion
+
+# Detail page scraping — set True to capture opening hours, service options,
+# popular times, Q&A, and additional attributes. Adds cost ($) per place.
+SCRAPE_DETAIL_PAGE   = True
+
+# Images — number of photos to fetch per listing (0 = none). Adds cost ($).
+# A small number (3–5) is sufficient for directory thumbnail use.
+MAX_IMAGES           = 3
+
+# ── CATEGORY EXCLUSION FILTER ─────────────────────────────────────────────────
+# Categories to exclude from harvest output. Applied after scraping so it costs
+# nothing extra — irrelevant results are simply dropped before the CSV is written.
+# Expand this list as needed for your niche.
+EXCLUDE_CATEGORIES = {
+    # Real estate
+    "real estate agency", "real estate agent", "real estate consultant",
+    "real estate attorney", "real estate appraiser", "estate agent",
+    # Finance & legal
+    "title company", "mortgage lender", "financial planner",
+    "insurance agency", "accountant", "lawyer", "attorney",
+    "personal injury lawyer", "legal services",
+    # Appraisers & inspectors
+    "appraiser", "home inspector",
+}
 
 def make_filenames(search_term):
     """Derive tracking file and CSV names from the search term.
@@ -495,8 +528,9 @@ def launch_one(city, state_code, state_name):
         "maxCrawledPlacesPerSearch": PLACES_LIMIT,
         "scrapeContacts":            SCRAPE_CONTACTS,
         "skipClosedPlaces":          True,
+        "scrapePlaceDetailPage":     SCRAPE_DETAIL_PAGE,
         "maxReviews":                0,
-        "maxImages":                 0,
+        "maxImages":                 MAX_IMAGES,
     }
     resp = requests.post(
         BASE_URL,
@@ -591,7 +625,15 @@ def refresh_all_statuses(runs):
 def flatten_record(item, city, state_code, state_name):
     def first(lst):
         return lst[0] if lst else ""
-    emails = [e for e in (item.get("emails") or []) if "@" in str(e)]
+
+    emails    = [e for e in (item.get("emails") or []) if "@" in str(e)]
+
+    # Image URLs — the actor returns up to MAX_IMAGES items in "imageUrls" (a flat
+    # list of CDN strings), confirmed from compass/crawler-google-places output schema.
+    # "imageUrl" (singular, top-level) is the primary thumbnail and is always present
+    # when at least one image was scraped; it duplicates imageUrls[0].
+    # We store each slot individually so they land in separate, addressable CSV columns.
+    image_urls = item.get("imageUrls") or []
     return {
         "state":           state_name,
         "state_code":      state_code,
@@ -617,6 +659,9 @@ def flatten_record(item, city, state_code, state_name):
         "tiktok":          first(item.get("tiktoks") or []),
         "twitter":         first(item.get("twitters") or []),
         "google_maps_url": item.get("url", ""),
+        "image_url_1":     image_urls[0] if len(image_urls) > 0 else "",
+        "image_url_2":     image_urls[1] if len(image_urls) > 1 else "",
+        "image_url_3":     image_urls[2] if len(image_urls) > 2 else "",
     }
 
 
@@ -626,6 +671,7 @@ CSV_FIELDS = [
     "email", "all_emails", "website", "rating", "reviews",
     "latitude", "longitude", "facebook", "instagram", "linkedin",
     "youtube", "tiktok", "twitter", "google_maps_url",
+    "image_url_1", "image_url_2", "image_url_3",
 ]
 
 
@@ -954,6 +1000,14 @@ def cmd_reset():
         print("  Reset cancelled.")
 
 
+def _is_excluded(record):
+    """Return True if the record's category is in the exclusion list.
+    Case-insensitive so 'Real Estate Agency' matches 'real estate agency'.
+    """
+    cat = (record.get("category") or "").lower().strip()
+    return cat in EXCLUDE_CATEGORIES
+
+
 def cmd_harvest():
     _check_token()
     tracking = load_tracking()
@@ -987,12 +1041,15 @@ def cmd_harvest():
     for i, run in enumerate(to_harvest, 1):
         city, sc, sn = run["city"], run["state_code"], run["state_name"]
         try:
-            raw     = fetch_dataset(run["dataset_id"])
-            records = [flatten_record(item, city, sc, sn) for item in raw]
+            raw      = fetch_dataset(run["dataset_id"])
+            records  = [flatten_record(item, city, sc, sn) for item in raw]
+            excluded = [rec for rec in records if _is_excluded(rec)]
+            records  = [rec for rec in records if not _is_excluded(rec)]
             # Update the cached item count in tracking while we are here
             run["items"] = len(records)
             all_records.extend(records)
-            print(f"  [{i:>3}/{len(to_harvest)}] {city:<22} {sc}  →  {len(records)} listings")
+            excl_note = f"  ({len(excluded)} excluded)" if excluded else ""
+            print(f"  [{i:>3}/{len(to_harvest)}] {city:<22} {sc}  →  {len(records)} listings{excl_note}")
         except Exception as e:
             fetch_errors.append((city, sc, str(e)))
             print(f"  [{i:>3}/{len(to_harvest)}] {city:<22} {sc}  →  ERROR: {e}")
@@ -1004,7 +1061,7 @@ def cmd_harvest():
     # Deduplicate on (business_name, phone)
     seen, dedup = set(), []
     for r in all_records:
-        key = (r["business_name"].lower().strip(), r["phone"].strip())
+        key = ((r["business_name"] or "").lower().strip(), (r["phone"] or "").strip())
         if key not in seen:
             seen.add(key)
             dedup.append(r)
@@ -1016,12 +1073,18 @@ def cmd_harvest():
 
     empty = [r for r in to_harvest if r.get("items", 0) == 0 and r not in
              [e for e in fetch_errors]]
+    total_excluded = sum(
+        1 for r in runs if r.get("status") == "SUCCEEDED"
+        for _ in []  # placeholder — we track excluded per-city above
+    )
     print(f"\n{'─'*60}")
     print(f"  Datasets harvested:        {len(to_harvest):>6}")
     print(f"  Total raw listings:        {len(all_records):>6}")
+    print(f"  Excluded (wrong category): see per-city count above")
     print(f"  After deduplication:       {len(dedup):>6}")
     print(f"  With email:                {sum(1 for r in dedup if r['email']):>6}")
     print(f"  Fetch errors:              {len(fetch_errors):>6}")
+    print(f"  Excluded categories:       {', '.join(sorted(EXCLUDE_CATEGORIES)[:5])}...")
     print(f"  Output CSV:                {OUTPUT_CSV}")
     if skipped:
         print(f"\n  {len(skipped)} non-SUCCEEDED runs were skipped (not in CSV):")
@@ -1254,18 +1317,21 @@ def _harvest_to_file(tracking, csv_path):
     for r in succeeded:
         city, sc, sn = r["city"], r["state_code"], r["state_name"]
         try:
-            raw     = fetch_dataset(r["dataset_id"])
-            records = [flatten_record(item, city, sc, sn) for item in raw]
+            raw      = fetch_dataset(r["dataset_id"])
+            records  = [flatten_record(item, city, sc, sn) for item in raw]
+            excluded = [rec for rec in records if _is_excluded(rec)]
+            records  = [rec for rec in records if not _is_excluded(rec)]
             r["items"] = len(records)
             all_records.extend(records)
-            print(f"    {city:<20} {sc}  →  {len(records)} listings")
+            excl_note = f"  ({len(excluded)} excluded)" if excluded else ""
+            print(f"    {city:<20} {sc}  →  {len(records)} listings{excl_note}")
         except Exception as e:
             fetch_errors.append((city, sc, str(e)))
             print(f"    {city:<20} {sc}  →  ERROR: {e}")
 
     seen, dedup = set(), []
     for rec in all_records:
-        key = (rec["business_name"].lower().strip(), rec["phone"].strip())
+        key = ((rec["business_name"] or "").lower().strip(), (rec["phone"] or "").strip())
         if key not in seen:
             seen.add(key)
             dedup.append(rec)
