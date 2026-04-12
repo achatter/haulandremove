@@ -26,7 +26,7 @@ export function SearchFilters() {
     } else {
       sp.delete(key)
     }
-    router.push(`${pathname}?${sp.toString()}`)
+    router.push(`${pathname}?${sp.toString()}`, { scroll: false })
   }
 
   return (
