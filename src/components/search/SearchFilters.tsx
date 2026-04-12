@@ -1,6 +1,6 @@
 'use client'
 
-import { useRouter, usePathname } from 'next/navigation'
+import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 import {
   Select,
   SelectContent,
@@ -9,22 +9,18 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { US_STATES, SORT_OPTIONS } from '@/lib/constants'
-import type { SearchParams } from '@/types'
 
-interface SearchFiltersProps {
-  params: SearchParams
-}
-
-export function SearchFilters({ params }: SearchFiltersProps) {
+export function SearchFilters() {
   const router = useRouter()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const category = searchParams.get('category') || 'all'
+  const state = searchParams.get('state') || 'all'
+  const sort = searchParams.get('sort') || 'rating'
 
   function updateParams(key: string, value: string) {
-    const sp = new URLSearchParams()
-    if (params.q) sp.set('q', params.q)
-    if (params.category) sp.set('category', params.category)
-    if (params.state) sp.set('state', params.state)
-    if (params.sort) sp.set('sort', params.sort)
+    const sp = new URLSearchParams(searchParams.toString())
     if (value) {
       sp.set(key, value)
     } else {
@@ -36,7 +32,7 @@ export function SearchFilters({ params }: SearchFiltersProps) {
   return (
     <div className="flex flex-wrap gap-3 items-center">
       <Select
-        value={params.category || 'all'}
+        value={category}
         onValueChange={(v) => updateParams('category', v === 'all' ? '' : v)}
       >
         <SelectTrigger className="w-[180px]">
@@ -50,7 +46,7 @@ export function SearchFilters({ params }: SearchFiltersProps) {
       </Select>
 
       <Select
-        value={params.state || 'all'}
+        value={state}
         onValueChange={(v) => updateParams('state', v === 'all' ? '' : v)}
       >
         <SelectTrigger className="w-[180px]">
@@ -67,7 +63,7 @@ export function SearchFilters({ params }: SearchFiltersProps) {
       </Select>
 
       <Select
-        value={params.sort || 'rating'}
+        value={sort}
         onValueChange={(v) => updateParams('sort', v)}
       >
         <SelectTrigger className="w-[160px]">

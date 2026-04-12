@@ -22,7 +22,7 @@ export function SearchResults({ businesses, count, params }: SearchResultsProps)
             <span> for &ldquo;<strong className="text-foreground">{params.q}</strong>&rdquo;</span>
           )}
         </p>
-        <SearchFilters params={params} />
+        <SearchFilters />
       </div>
 
       <ListingGrid businesses={businesses} />
