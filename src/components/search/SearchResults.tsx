@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { ListingGrid } from '@/components/listings/ListingGrid'
 import { SearchFilters } from './SearchFilters'
 import type { Business, SearchParams } from '@/types'
@@ -22,7 +23,9 @@ export function SearchResults({ businesses, count, params }: SearchResultsProps)
             <span> for &ldquo;<strong className="text-foreground">{params.q}</strong>&rdquo;</span>
           )}
         </p>
-        <SearchFilters />
+        <Suspense fallback={null}>
+          <SearchFilters />
+        </Suspense>
       </div>
 
       <ListingGrid businesses={businesses} />
