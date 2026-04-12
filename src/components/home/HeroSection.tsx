@@ -161,7 +161,7 @@ function EstateCleanoutCard() {
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden" style={{ minHeight: 520 }}>
+    <section className="relative" style={{ minHeight: 520 }}>
       {/* Full-width panoramic background photo */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -254,7 +254,7 @@ export function HeroSection() {
                   boxShadow: '0 4px 24px rgba(37,99,235,0.2)',
                 }}
               >
-                <div style={{ borderRadius: 11, overflow: 'hidden', background: 'white' }}>
+                <div style={{ borderRadius: 11, background: 'white' }}>
                   <SearchBar placeholder="Enter city, state, or zip code..." large />
                 </div>
               </div>
