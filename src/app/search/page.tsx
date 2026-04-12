@@ -23,6 +23,7 @@ export default async function SearchPage({ searchParams }: PageProps) {
     q: typeof sp.q === 'string' ? sp.q : undefined,
     category: typeof sp.category === 'string' ? (sp.category as SearchParams['category']) : undefined,
     state: typeof sp.state === 'string' ? sp.state : undefined,
+    city: typeof sp.city === 'string' ? sp.city : undefined,
     sort: typeof sp.sort === 'string' ? (sp.sort as SearchParams['sort']) : 'rating',
     page: typeof sp.page === 'string' ? sp.page : '1',
   }
