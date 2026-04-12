@@ -45,6 +45,7 @@ interface ProcessedBusiness {
   name: string
   slug: string
   category: Category
+  description?: string
   phone?: string
   email?: string
   website?: string
@@ -206,6 +207,7 @@ async function parseCsv(filePath: string, existingSlugs: Set<string>): Promise<P
       name,
       slug,
       category: 'estate_cleanout',
+      description:    `${name} provides professional estate cleanout services in ${city}, ${state_full}. Contact us to schedule a pickup or get a free estimate.`,
       phone:          cleanPhone(row.phone),
       email:          row.email?.trim() || undefined,
       website:        row.website?.trim() || undefined,
