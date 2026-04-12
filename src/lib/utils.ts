@@ -28,6 +28,16 @@ export function isStateAbbr(query: string): boolean {
   return /^[A-Z]{2}$/.test(query.trim())
 }
 
+export function isCityState(query: string): boolean {
+  return /^.+,\s*[A-Za-z]{2}$/.test(query.trim())
+}
+
+export function parseCityState(query: string): { city: string; state: string } {
+  const match = query.trim().match(/^(.+),\s*([A-Za-z]{2})$/)
+  if (!match) return { city: query.trim(), state: '' }
+  return { city: match[1].trim(), state: match[2].toUpperCase() }
+}
+
 export function formatCityState(city: string, state: string): string {
   return `${city}, ${state}`
 }

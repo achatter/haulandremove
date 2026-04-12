@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import type { Business, SearchParams } from '@/types'
-import { isZipCode, isStateAbbr } from '@/lib/utils'
+import { isZipCode, isStateAbbr, isCityState, parseCityState } from '@/lib/utils'
 import { PAGE_SIZE } from '@/lib/constants'
 
 const BUSINESS_SELECT = `
@@ -31,6 +31,9 @@ export async function searchBusinesses(params: SearchParams): Promise<{
       query = query.eq('zip_code', trimmed)
     } else if (isStateAbbr(trimmed)) {
       query = query.eq('state', trimmed)
+    } else if (isCityState(trimmed)) {
+      const { city, state: stateAbbr } = parseCityState(trimmed)
+      query = query.ilike('city', `%${city}%`).eq('state', stateAbbr)
     } else {
       query = query.textSearch('search_vector', trimmed, {
         type: 'plain',
@@ -94,6 +97,35 @@ export async function getFeaturedBusinesses(): Promise<Business[]> {
 
   if (error) throw error
   return (data as Business[]) ?? []
+}
+
+export async function getCitySuggestions(q: string, limit = 8): Promise<{ city: string; state: string }[]> {
+  const supabase = await createClient()
+  const trimmed = q.trim()
+  if (!trimmed) return []
+
+  const { data, error } = await supabase
+    .from('businesses')
+    .select('city, state')
+    .eq('status', 'active')
+    .ilike('city', `%${trimmed}%`)
+    .order('city', { ascending: true })
+    .limit(limit * 4) // over-fetch to deduplicate in JS
+
+  if (error) return []
+
+  // Deduplicate city+state combinations
+  const seen = new Set<string>()
+  const results: { city: string; state: string }[] = []
+  for (const row of (data ?? [])) {
+    const key = `${row.city},${row.state}`
+    if (!seen.has(key)) {
+      seen.add(key)
+      results.push({ city: row.city, state: row.state })
+      if (results.length >= limit) break
+    }
+  }
+  return results
 }
 
 export async function getBusinessesByCategory(
