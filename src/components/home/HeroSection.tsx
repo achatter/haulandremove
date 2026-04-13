@@ -22,7 +22,7 @@ function JunkRemovalCard() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/junk-removal-hero.png"
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=300&fit=crop&q=80"
           alt="Junk removal truck"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
@@ -93,7 +93,7 @@ function EstateCleanoutCard() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/images/estate-cleanout-hero.png"
+          src="https://images.unsplash.com/photo-1560440021-33f9b867899d?w=600&h=300&fit=crop&q=80"
           alt="Estate cleanout house"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
