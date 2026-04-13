@@ -15,69 +15,79 @@ const BUSINESS_SELECT = `
 export async function searchBusinesses(params: SearchParams): Promise<{
   businesses: Business[]
   count: number
+  categoryFallback: boolean
 }> {
   const supabase = await createClient()
   const { q, category, state, city, sort = 'rating', page = '1' } = params
   const offset = (parseInt(page) - 1) * PAGE_SIZE
 
-  let query = supabase
-    .from('businesses')
-    .select(BUSINESS_SELECT, { count: 'exact' })
-    .eq('status', 'active')
+  // Parse location from q once — reused in both primary and fallback queries
+  let locationType: 'zip' | 'state' | 'citystate' | 'text' | 'none' = 'none'
+  let parsedCity = ''
+  let parsedState = ''
+  let parsedZip = ''
+  let searchText = ''
 
   if (q) {
     const trimmed = q.trim()
     if (isZipCode(trimmed)) {
-      // Only apply zip filter when no explicit state/city dropdown values override it
-      if (!state && !city) query = query.eq('zip_code', trimmed)
+      locationType = 'zip'; parsedZip = trimmed
     } else if (isStateAbbr(trimmed)) {
-      // Only apply if no explicit state dropdown
-      if (!state) query = query.eq('state', trimmed.toUpperCase())
+      locationType = 'state'; parsedState = trimmed.toUpperCase()
     } else if (isCityState(trimmed)) {
-      const { city: parsedCity, state: parsedState } = parseCityState(trimmed)
-      if (state) {
-        // Explicit state dropdown wins — broaden to state-wide results,
-        // ignore the city restriction from q so the user sees all results in that state
-      } else {
-        query = query.ilike('city', `%${parsedCity}%`).eq('state', parsedState)
-      }
+      const p = parseCityState(trimmed)
+      locationType = 'citystate'; parsedCity = p.city; parsedState = p.state
     } else {
-      query = query.textSearch('search_vector', trimmed, {
-        type: 'plain',
-        config: 'english',
-      })
+      locationType = 'text'; searchText = trimmed
     }
   }
 
-  if (city) {
-    query = query.ilike('city', `%${city}%`)
+  function buildQuery(includeCategory: boolean) {
+    let qb = supabase
+      .from('businesses')
+      .select(BUSINESS_SELECT, { count: 'exact' })
+      .eq('status', 'active')
+
+    if (locationType === 'zip' && !state && !city) {
+      qb = qb.eq('zip_code', parsedZip)
+    } else if (locationType === 'state' && !state) {
+      qb = qb.eq('state', parsedState)
+    } else if (locationType === 'citystate') {
+      if (!state) qb = qb.ilike('city', `%${parsedCity}%`).eq('state', parsedState)
+    } else if (locationType === 'text') {
+      qb = qb.textSearch('search_vector', searchText, { type: 'plain', config: 'english' })
+    }
+
+    if (city) qb = qb.ilike('city', `%${city}%`)
+    if (includeCategory && category) qb = qb.eq('category', category)
+    if (state) qb = qb.eq('state', state)
+
+    if (sort === 'rating') qb = qb.order('average_rating', { ascending: false })
+    else if (sort === 'name') qb = qb.order('name', { ascending: true })
+    else if (sort === 'newest') qb = qb.order('created_at', { ascending: false })
+
+    return qb.range(offset, offset + PAGE_SIZE - 1)
   }
 
-  if (category) {
-    query = query.eq('category', category)
-  }
-
-  if (state) {
-    query = query.eq('state', state)
-  }
-
-  if (sort === 'rating') {
-    query = query.order('average_rating', { ascending: false })
-  } else if (sort === 'name') {
-    query = query.order('name', { ascending: true })
-  } else if (sort === 'newest') {
-    query = query.order('created_at', { ascending: false })
-  }
-
-  query = query.range(offset, offset + PAGE_SIZE - 1)
-
-  const { data, count, error } = await query
-
+  // Primary query — with category filter
+  const { data, count, error } = await buildQuery(true)
   if (error) throw error
+
+  // If category was specified but returned 0 results, fall back without category
+  if (category && (count ?? 0) === 0) {
+    const { data: fbData, count: fbCount, error: fbError } = await buildQuery(false)
+    if (fbError) throw fbError
+    return {
+      businesses: (fbData as Business[]) ?? [],
+      count: fbCount ?? 0,
+      categoryFallback: true,
+    }
+  }
 
   return {
     businesses: (data as Business[]) ?? [],
     count: count ?? 0,
+    categoryFallback: false,
   }
 }
 

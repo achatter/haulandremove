@@ -9,6 +9,7 @@ interface SearchResultsProps {
   businesses: Business[]
   count: number
   params: SearchParams
+  categoryFallback?: boolean
 }
 
 function buildNoResultsMessage(params: SearchParams): string {
@@ -34,11 +35,20 @@ function buildNoResultsMessage(params: SearchParams): string {
   return `No ${serviceText} found.`
 }
 
-export function SearchResults({ businesses, count, params }: SearchResultsProps) {
+export function SearchResults({ businesses, count, params, categoryFallback }: SearchResultsProps) {
   const showing = Math.min(businesses.length, count)
+  const categoryLabel = params.category
+    ? (CATEGORIES[params.category as keyof typeof CATEGORIES]?.label ?? params.category)
+    : null
 
   return (
     <div className="space-y-6">
+      {categoryFallback && categoryLabel && (
+        <div className="text-sm text-amber-700 bg-amber-50 border border-amber-200 rounded-md px-4 py-2">
+          No <strong>{categoryLabel}</strong> providers found{params.q ? ` for "${params.q}"` : ''}.
+          Showing all available services instead who might be able to provide <strong>{categoryLabel}</strong>.
+        </div>
+      )}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <p className="text-sm text-muted-foreground">
           {count === 0

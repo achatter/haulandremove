@@ -22,13 +22,11 @@ export default async function SearchPage({ searchParams }: PageProps) {
   const params: SearchParams = {
     q: typeof sp.q === 'string' ? sp.q : undefined,
     category: typeof sp.category === 'string' ? (sp.category as SearchParams['category']) : undefined,
-    state: typeof sp.state === 'string' ? sp.state : undefined,
-    city: typeof sp.city === 'string' ? sp.city : undefined,
     sort: typeof sp.sort === 'string' ? (sp.sort as SearchParams['sort']) : 'rating',
     page: typeof sp.page === 'string' ? sp.page : '1',
   }
 
-  const { businesses, count } = await searchBusinesses(params)
+  const { businesses, count, categoryFallback } = await searchBusinesses(params)
 
   return (
     <Container className="py-10">
@@ -39,11 +37,10 @@ export default async function SearchPage({ searchParams }: PageProps) {
         <SearchBar
           initialQuery={params.q ?? ''}
           currentCategory={params.category ?? ''}
-          currentState={params.state ?? ''}
         />
       </div>
 
-      <SearchResults businesses={businesses} count={count} params={params} />
+      <SearchResults businesses={businesses} count={count} params={params} categoryFallback={categoryFallback} />
     </Container>
   )
 }

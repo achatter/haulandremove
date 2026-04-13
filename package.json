@@ -1,6 +1,7 @@
 {
   "name": "hauling-removal-directory",
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "authors": ["achatter", "Claude Sonnet 4.6 <noreply@anthropic.com>"],
   "private": true,
   "scripts": {
     "dev": "next dev",
