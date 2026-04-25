@@ -51,3 +51,26 @@ export function buildSearchUrl(params: Record<string, string>): string {
   return qs ? `/search?${qs}` : '/search'
 }
 
+export function toSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/'/g, '')
+    .replace(/\./g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+}
+
+export function fromSlug(slug: string): string {
+  return slug
+    .split('-')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ')
+}
+
+export function categorySlugToKey(slug: string): 'junk_removal' | 'estate_cleanout' | null {
+  if (slug === 'junk-removal') return 'junk_removal'
+  if (slug === 'estate-cleanout') return 'estate_cleanout'
+  return null
+}
+

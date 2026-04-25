@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatPhone, formatRating, isZipCode, isStateAbbr, formatCityState, buildSearchUrl } from './utils'
+import { formatPhone, formatRating, isZipCode, isStateAbbr, formatCityState, buildSearchUrl, toSlug, fromSlug, categorySlugToKey } from './utils'
 
 describe('formatPhone', () => {
   it('formats a 10-digit number', () => {
@@ -72,5 +72,54 @@ describe('buildSearchUrl', () => {
   it('includes multiple params', () => {
     const url = buildSearchUrl({ q: 'Austin', category: 'junk_removal' })
     expect(url).toBe('/search?q=Austin&category=junk_removal')
+  })
+})
+
+describe('toSlug', () => {
+  it('converts simple city names to slugs', () => {
+    expect(toSlug('Los Angeles')).toBe('los-angeles')
+    expect(toSlug('Austin')).toBe('austin')
+    expect(toSlug('New York City')).toBe('new-york-city')
+  })
+  it('removes apostrophes', () => {
+    expect(toSlug("Lee's Summit")).toBe('lees-summit')
+  })
+  it('removes periods', () => {
+    expect(toSlug('St. Louis')).toBe('st-louis')
+    expect(toSlug('Port St. Lucie')).toBe('port-st-lucie')
+    expect(toSlug('St. Petersburg')).toBe('st-petersburg')
+  })
+  it('handles multiple spaces', () => {
+    expect(toSlug('Fort  Worth')).toBe('fort-worth')
+  })
+  it('handles already lowercase input', () => {
+    expect(toSlug('dallas')).toBe('dallas')
+  })
+  it('removes special characters other than hyphens', () => {
+    expect(toSlug('Winston-Salem')).toBe('winston-salem')
+  })
+})
+
+describe('fromSlug', () => {
+  it('converts a slug back to a display name', () => {
+    expect(fromSlug('los-angeles')).toBe('Los Angeles')
+    expect(fromSlug('austin')).toBe('Austin')
+    expect(fromSlug('new-york-city')).toBe('New York City')
+  })
+  it('capitalizes each word', () => {
+    expect(fromSlug('fort-worth')).toBe('Fort Worth')
+  })
+})
+
+describe('categorySlugToKey', () => {
+  it('maps junk-removal to junk_removal', () => {
+    expect(categorySlugToKey('junk-removal')).toBe('junk_removal')
+  })
+  it('maps estate-cleanout to estate_cleanout', () => {
+    expect(categorySlugToKey('estate-cleanout')).toBe('estate_cleanout')
+  })
+  it('returns null for unknown slugs', () => {
+    expect(categorySlugToKey('unknown-category')).toBeNull()
+    expect(categorySlugToKey('')).toBeNull()
   })
 })
