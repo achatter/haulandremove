@@ -166,3 +166,51 @@ export async function getBusinessesByCategory(
   if (error) throw error
   return (data as Business[]) ?? []
 }
+
+export async function getBusinessesByCategoryAndCity(
+  category: string,
+  state: string,
+  city: string,
+  limit = PAGE_SIZE,
+): Promise<{ businesses: Business[]; count: number }> {
+  const supabase = await createClient()
+
+  const { data, count, error } = await supabase
+    .from('businesses')
+    .select(BUSINESS_SELECT, { count: 'exact' })
+    .eq('status', 'active')
+    .eq('category', category)
+    .eq('state', state.toUpperCase())
+    .eq('city', city)
+    .order('average_rating', { ascending: false })
+    .limit(limit)
+
+  if (error) throw error
+  return { businesses: (data as Business[]) ?? [], count: count ?? 0 }
+}
+
+export async function getDistinctCitiesForSitemap(): Promise<
+  { category: string; state: string; city: string }[]
+> {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('businesses')
+    .select('category, state, city')
+    .eq('status', 'active')
+    .order('state')
+    .order('city')
+
+  if (error) return []
+
+  const seen = new Set<string>()
+  const results: { category: string; state: string; city: string }[] = []
+  for (const row of (data ?? [])) {
+    const key = `${row.category}|${row.state}|${row.city}`
+    if (!seen.has(key)) {
+      seen.add(key)
+      results.push({ category: row.category, state: row.state, city: row.city })
+    }
+  }
+  return results
+}
