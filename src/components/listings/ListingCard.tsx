@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { MapPin, Phone, Shield, ArrowUpRight } from 'lucide-react'
+import { MapPin, Phone, ArrowUpRight } from 'lucide-react'
 import { StarRating } from '@/components/reviews/StarRating'
 import type { Business } from '@/types'
 import { formatPhone, formatRating } from '@/lib/utils'
+import { ListingCardImage } from './ListingCardImage'
 
 // Bold McKinsey-style tile palette
 const tilePalette = [
@@ -43,16 +43,7 @@ export function ListingCard({ business }: ListingCardProps) {
         {/* ── Image / Color Tile ── */}
         <div className="relative overflow-hidden" style={{ height: 220 }}>
           {primaryImage ? (
-            <>
-              <Image
-                src={primaryImage.url}
-                alt={primaryImage.alt_text}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-            </>
+            <ListingCardImage image={primaryImage} tileBg={tile.bg} tileAccent={tile.accent} businessName={business.name} />
           ) : (
             <div className="absolute inset-0" style={{ backgroundColor: tile.bg }}>
               {/* Diagonal line pattern */}

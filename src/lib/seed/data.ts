@@ -32,7 +32,7 @@ interface SeedReview {
 const PHOTOS = {
   junk: [
     { id: '1558618666-fcd25c85cd64', alt: 'Junk removal truck loaded with debris' },
-    { id: '1558618666-fcd25c85cd64', alt: 'Crew removing furniture from home' },
+    { id: '1530126174756-aeefa3b5c4ef', alt: 'Crew removing furniture from home' },
     { id: '1504307651254-35680f356dfd', alt: 'Dumpster bin for waste removal' },
     { id: '1581578731548-c64695cc6952', alt: 'Team clearing out garage clutter' },
     { id: '1530124566582-a618bc2615dc', alt: 'Junk removal professionals at work' },
@@ -52,26 +52,22 @@ const PHOTOS = {
   ],
 }
 
+function pickPhotos(pool: typeof PHOTOS.junk, start: number, count: number) {
+  const len = pool.length
+  return Array.from({ length: count }, (_, i) => pool[(start + i) % len]).map((p, i) => ({
+    url: `https://images.unsplash.com/photo-${p.id}?w=800&q=80`,
+    alt_text: p.alt,
+    is_primary: i === 0,
+    sort_order: i,
+  }))
+}
+
 function junkPhotos(start = 0, count = 3) {
-  return PHOTOS.junk.slice(start % PHOTOS.junk.length, (start % PHOTOS.junk.length) + count).map(
-    (p, i) => ({
-      url: `https://images.unsplash.com/photo-${p.id}?w=800&q=80`,
-      alt_text: p.alt,
-      is_primary: i === 0,
-      sort_order: i,
-    })
-  )
+  return pickPhotos(PHOTOS.junk, start, count)
 }
 
 function estatePhotos(start = 0, count = 3) {
-  return PHOTOS.estate.slice(start % PHOTOS.estate.length, (start % PHOTOS.estate.length) + count).map(
-    (p, i) => ({
-      url: `https://images.unsplash.com/photo-${p.id}?w=800&q=80`,
-      alt_text: p.alt,
-      is_primary: i === 0,
-      sort_order: i,
-    })
-  )
+  return pickPhotos(PHOTOS.estate, start, count)
 }
 
 export const SEED_BUSINESSES: SeedBusiness[] = [
