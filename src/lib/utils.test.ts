@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatPhone, formatRating, isZipCode, isStateAbbr, formatCityState, buildSearchUrl, toSlug, fromSlug, categorySlugToKey } from './utils'
+import { formatPhone, formatRating, isZipCode, isStateAbbr, formatCityState, buildSearchUrl, toSlug, fromSlug, categorySlugToKey, stateAbbrToSlug, stateSlugToAbbr } from './utils'
 
 describe('formatPhone', () => {
   it('formats a 10-digit number', () => {
@@ -111,5 +111,35 @@ describe('categorySlugToKey', () => {
   })
   it('returns null for unknown slugs', () => {
     expect(categorySlugToKey('other-service')).toBeNull()
+  })
+})
+
+describe('stateAbbrToSlug', () => {
+  it('converts CA to california', () => {
+    expect(stateAbbrToSlug('CA')).toBe('california')
+  })
+  it('converts TX to texas', () => {
+    expect(stateAbbrToSlug('TX')).toBe('texas')
+  })
+  it('handles lowercase abbreviation', () => {
+    expect(stateAbbrToSlug('ny')).toBe('new-york')
+  })
+  it('falls back to lowercase abbr for unknown state', () => {
+    expect(stateAbbrToSlug('ZZ')).toBe('zz')
+  })
+})
+
+describe('stateSlugToAbbr', () => {
+  it('converts california to CA', () => {
+    expect(stateSlugToAbbr('california')).toBe('CA')
+  })
+  it('converts texas to TX', () => {
+    expect(stateSlugToAbbr('texas')).toBe('TX')
+  })
+  it('converts new-york to NY', () => {
+    expect(stateSlugToAbbr('new-york')).toBe('NY')
+  })
+  it('returns null for unknown slug', () => {
+    expect(stateSlugToAbbr('unknown-state')).toBeNull()
   })
 })

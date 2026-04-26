@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getDistinctCitiesForSitemap } from '@/lib/db/businesses'
 import { CATEGORIES } from '@/lib/constants'
-import { toSlug } from '@/lib/utils'
+import { toSlug, stateAbbrToSlug } from '@/lib/utils'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://haulandremove.com'
 
@@ -27,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       )?.slug ?? category.replace(/_/g, '-')
 
       return {
-        url: `${BASE_URL}/${categorySlug}/${state.toLowerCase()}/${toSlug(city)}`,
+        url: `${BASE_URL}/${categorySlug}/${stateAbbrToSlug(state)}/${toSlug(city)}`,
         lastModified: new Date(),
         changeFrequency: 'monthly' as const,
         priority: 0.7,

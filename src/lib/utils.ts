@@ -1,5 +1,6 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
+import { US_STATES } from '@/lib/constants'
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -71,5 +72,17 @@ export function categorySlugToKey(slug: string): 'junk_removal' | 'estate_cleano
   if (slug === 'junk-removal') return 'junk_removal'
   if (slug === 'estate-cleanout') return 'estate_cleanout'
   return null
+}
+
+// Converts a state abbreviation to a URL slug: "CA" → "california", "TX" → "texas"
+export function stateAbbrToSlug(abbr: string): string {
+  const found = US_STATES.find(s => s.abbr === abbr.toUpperCase())
+  return found ? toSlug(found.name) : abbr.toLowerCase()
+}
+
+// Converts a state URL slug back to abbreviation: "california" → "CA", "texas" → "TX"
+export function stateSlugToAbbr(slug: string): string | null {
+  const found = US_STATES.find(s => toSlug(s.name) === slug)
+  return found?.abbr ?? null
 }
 
