@@ -19,6 +19,9 @@ function parseAttributes(description: string): AttributesData | null {
 
 // Extract service highlights from text description
 function extractServiceHighlights(description: string): string[] {
+  // Only extract highlights from substantial descriptions
+  if (description.length < 80) return []
+
   const highlights: string[] = []
   
   // Common service highlight patterns
@@ -65,8 +68,15 @@ function formatDescription(description: string): {
   highlights: string[]
   details?: string
 } {
-  // Split by periods or line breaks to find sections
-  const sentences = description.split(/[.\n]+/).filter(s => s.trim().length > 0)
+  // Split on ". " or newlines, preserving the period at the end of each sentence
+  const sentences = description.split(/(?:\. |\n)+/).map((s, i, arr) => {
+    const trimmed = s.trim()
+    if (!trimmed) return ''
+    if (i < arr.length - 1 || description.trimEnd().endsWith('.')) {
+      return trimmed.endsWith('.') ? trimmed : trimmed + '.'
+    }
+    return trimmed
+  }).filter(s => s.length > 0)
   
   // Extract service highlights
   const highlights = extractServiceHighlights(description)
