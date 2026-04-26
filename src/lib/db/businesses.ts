@@ -171,20 +171,29 @@ export async function getBusinessesByCategoryAndCity(
   category: string,
   state: string,
   city: string
-): Promise<Business[]> {
+): Promise<{ businesses: Business[]; categoryFallback: boolean }> {
   const supabase = await createClient()
 
-  const { data, error } = await supabase
-    .from('businesses')
-    .select(BUSINESS_SELECT)
-    .eq('status', 'active')
-    .eq('category', category)
-    .eq('state', state.toUpperCase())
-    .ilike('city', city)
-    .order('average_rating', { ascending: false })
+  const baseQuery = () =>
+    supabase
+      .from('businesses')
+      .select(BUSINESS_SELECT)
+      .eq('status', 'active')
+      .eq('state', state.toUpperCase())
+      .ilike('city', `%${city}%`)
+      .order('average_rating', { ascending: false })
 
+  const { data, error } = await baseQuery().eq('category', category)
   if (error) throw error
-  return (data as Business[]) ?? []
+
+  if ((data ?? []).length > 0) {
+    return { businesses: data as Business[], categoryFallback: false }
+  }
+
+  // No results for requested category — fall back to all businesses in that city
+  const { data: fbData, error: fbError } = await baseQuery()
+  if (fbError) throw fbError
+  return { businesses: (fbData as Business[]) ?? [], categoryFallback: true }
 }
 
 export async function getDistinctCitiesForSitemap(): Promise<
