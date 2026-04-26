@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { formatPhone, formatRating, isZipCode, isStateAbbr, formatCityState, buildSearchUrl } from './utils'
+import { formatPhone, formatRating, isZipCode, isStateAbbr, formatCityState, buildSearchUrl, toSlug, fromSlug, categorySlugToKey } from './utils'
 
 describe('formatPhone', () => {
   it('formats a 10-digit number', () => {
@@ -72,5 +72,44 @@ describe('buildSearchUrl', () => {
   it('includes multiple params', () => {
     const url = buildSearchUrl({ q: 'Austin', category: 'junk_removal' })
     expect(url).toBe('/search?q=Austin&category=junk_removal')
+  })
+})
+
+describe('toSlug', () => {
+  it('lowercases and hyphenates a simple city name', () => {
+    expect(toSlug('Los Angeles')).toBe('los-angeles')
+  })
+  it("strips apostrophes (Lee's Summit)", () => {
+    expect(toSlug("Lee's Summit")).toBe('lees-summit')
+  })
+  it('strips periods (St. Louis)', () => {
+    expect(toSlug('St. Louis')).toBe('st-louis')
+  })
+  it('handles multiple consecutive spaces', () => {
+    expect(toSlug('New  York')).toBe('new-york')
+  })
+  it('preserves existing hyphens (Winston-Salem)', () => {
+    expect(toSlug('Winston-Salem')).toBe('winston-salem')
+  })
+})
+
+describe('fromSlug', () => {
+  it('capitalizes a single word', () => {
+    expect(fromSlug('austin')).toBe('Austin')
+  })
+  it('capitalizes each word in a multi-word slug', () => {
+    expect(fromSlug('los-angeles')).toBe('Los Angeles')
+  })
+})
+
+describe('categorySlugToKey', () => {
+  it('maps junk-removal to junk_removal', () => {
+    expect(categorySlugToKey('junk-removal')).toBe('junk_removal')
+  })
+  it('maps estate-cleanout to estate_cleanout', () => {
+    expect(categorySlugToKey('estate-cleanout')).toBe('estate_cleanout')
+  })
+  it('returns null for unknown slugs', () => {
+    expect(categorySlugToKey('other-service')).toBeNull()
   })
 })
