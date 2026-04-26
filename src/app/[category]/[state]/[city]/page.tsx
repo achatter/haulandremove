@@ -61,7 +61,7 @@ export default async function CityPage({ params }: PageProps) {
   const categoryLabel = CATEGORIES[categoryKey].label
   const cityName = resolveCityName(stateAbbr, citySlug)
 
-  const businesses = await getBusinessesByCategoryAndCity(categoryKey, stateAbbr, cityName)
+  const { businesses, categoryFallback } = await getBusinessesByCategoryAndCity(categoryKey, stateAbbr, cityName)
 
   const searchParams = {
     category: categoryKey,
@@ -82,7 +82,7 @@ export default async function CityPage({ params }: PageProps) {
         </p>
         <SearchBar currentCategory={categoryKey} />
       </div>
-      <SearchResults businesses={businesses} count={businesses.length} params={searchParams} />
+      <SearchResults businesses={businesses} count={businesses.length} params={searchParams} categoryFallback={categoryFallback} />
     </Container>
   )
 }
