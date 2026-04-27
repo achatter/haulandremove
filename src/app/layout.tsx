@@ -14,11 +14,45 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: 'HaulFind — Hauling & Removal Services Directory',
-    template: '%s | HaulFind',
+    default: 'JunkRemovalSearch | Find Local Junk Removal & Estate Cleanout Services',
+    template: '%s | JunkRemovalSearch',
   },
   description:
     'Find trusted junk removal and estate cleanout professionals nationwide. Search by city, state, or zip code.',
+
+   // Canonical URL base
+  metadataBase: new URL('https://junkremovalsearch.com'),
+
+  // Open Graph — controls how your site looks when shared on Facebook, LinkedIn etc
+  openGraph: {
+    type: 'website',
+    siteName: 'JunkRemovalSearch',
+    title: 'JunkRemovalSearch | Find Local Junk Removal & Estate Cleanout Services',
+    description: 'Find trusted junk removal and estate cleanout companies near you. Compare local providers across the US, read reviews, and get free quotes.',
+    url: 'https://junkremovalsearch.com',
+    images: [
+      {
+        url: '/og-image.png', // Create this image — more on this below
+        width: 1200,
+        height: 630,
+        alt: 'JunkRemovalSearch - Find Local Junk Removal Services',
+      },
+    ],
+  },
+
+  // Twitter/X card
+  twitter: {
+    card: 'summary_large_image',
+    title: 'JunkRemovalSearch | Find Local Junk Removal & Estate Cleanout Services',
+    description: 'Find trusted junk removal and estate cleanout companies near you.',
+    images: ['/og-image.png'],
+  },
+
+  // Robots — tells Google to index everything by default
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
