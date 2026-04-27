@@ -9,7 +9,6 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "eslint",
     "seed": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/seed.ts",
