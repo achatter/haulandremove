@@ -6,13 +6,8 @@ import { Separator } from '@/components/ui/separator'
 import { getBusinessBySlug } from '@/lib/db/businesses'
 import { getReviewsForBusiness } from '@/lib/db/reviews'
 import type { Metadata } from 'next'
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-)
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -20,6 +15,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
+  const supabase = await createClient()
   const { data: biz } = await supabase
     .from('businesses')
     .select('name, city, state, category, description, phone')
