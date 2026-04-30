@@ -35,18 +35,35 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { category: categorySlug, state: stateSlug, city: citySlug } = await params
-  const categoryKey = categorySlugToKey(categorySlug)
-  if (!categoryKey) return {}
 
+  const categoryKey = categorySlugToKey(categorySlug)
   const stateAbbr = stateSlugToAbbr(stateSlug)
-  if (!stateAbbr) return {}
+  if (!categoryKey || !stateAbbr) return {}
 
   const categoryLabel = CATEGORIES[categoryKey].label
   const cityName = resolveCityName(stateAbbr, citySlug)
 
+  const title = `Best ${categoryLabel} in ${cityName}, ${stateAbbr}`
+  const description = `Find trusted ${categoryLabel.toLowerCase()} companies in ${cityName}, ${stateAbbr}. Compare local providers, read verified reviews, and get free quotes.`
+  const url = `https://junkremovalsearch.com/${categorySlug}/${stateSlug}/${citySlug}`
+
   return {
-    title: `${categoryLabel} in ${cityName}, ${stateAbbr}`,
-    description: `Find trusted ${categoryLabel.toLowerCase()} professionals in ${cityName}, ${stateAbbr}. Browse ratings, reviews, and contact information for local providers.`,
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+    },
+    alternates: {
+      canonical: url,
+    },
   }
 }
 
