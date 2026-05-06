@@ -221,3 +221,26 @@ export async function getDistinctCitiesForSitemap(): Promise<
   }
   return results
 }
+
+export async function getTopCitiesForHomepage() {
+  const { data } = await supabase
+    .from('businesses')
+    .select('city, state, state_full, category')
+    .eq('status', 'active')
+    .in('city', [
+      'Los Angeles', 'New York', 'Chicago', 'Houston', 'Phoenix',
+      'San Antonio', 'San Diego', 'Dallas', 'San Jose', 'Austin',
+      'Seattle', 'Denver', 'Atlanta', 'Miami', 'San Francisco',
+      'Portland', 'Las Vegas', 'Nashville', 'Charlotte', 'Boston'
+    ])
+    .limit(40)
+
+  // Deduplicate by city+state+category
+  const seen = new Set()
+  return (data ?? []).filter(row => {
+    const key = `${row.city}-${row.state}-${row.category}`
+    if (seen.has(key)) return false
+    seen.add(key)
+    return true
+  })
+}
