@@ -223,6 +223,7 @@ export async function getDistinctCitiesForSitemap(): Promise<
 }
 
 export async function getTopCitiesForHomepage() {
+  const supabase = await createClient()
   const { data } = await supabase
     .from('businesses')
     .select('city, state, state_full, category')
