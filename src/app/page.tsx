@@ -1,6 +1,7 @@
 import { HeroSection } from '@/components/home/HeroSection'
 import { FeaturedSection } from '@/components/home/FeaturedSection'
 import { CategorySection } from '@/components/home/CategorySection'
+import { StateSection } from '@/components/home/StateSection'
 import { Container } from '@/components/layout/Container'
 import { getFeaturedBusinesses } from '@/lib/db/businesses'
 import type { Metadata } from 'next'
@@ -25,6 +26,7 @@ export default async function HomePage() {
         <Container>
           <FeaturedSection businesses={featured} />
           <CategorySection />
+          <StateSection />
         </Container>
       </div>
     </>
