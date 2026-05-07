@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { getDistinctCitiesForSitemap } from '@/lib/db/businesses'
-import { CATEGORIES } from '@/lib/constants'
+import { CATEGORIES, US_STATES } from '@/lib/constants'
 import { toSlug, stateAbbrToSlug } from '@/lib/utils'
 
 const BASE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://junkremovalsearch.com').trim()
@@ -10,6 +10,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: BASE_URL, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
     { url: `${BASE_URL}/search`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   ]
+
+  const statePages: MetadataRoute.Sitemap = Object.values(CATEGORIES).flatMap(cat =>
+    US_STATES.map(state => ({
+      url: `${BASE_URL}/${cat.slug}/${toSlug(state.name)}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    }))
+  )
 
   let cityPages: MetadataRoute.Sitemap = []
   try {
@@ -31,5 +40,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // If DB is unavailable during build, return only static pages
   }
 
-  return [...staticPages, ...cityPages]
+  return [...staticPages, ...statePages, ...cityPages]
 }
