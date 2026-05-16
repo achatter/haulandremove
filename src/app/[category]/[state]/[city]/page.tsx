@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { Container } from '@/components/layout/Container'
 import { SearchBar } from '@/components/search/SearchBar'
 import { SearchResults } from '@/components/search/SearchResults'
@@ -77,6 +78,7 @@ export default async function CityPage({ params }: PageProps) {
 
   const categoryLabel = CATEGORIES[categoryKey].label
   const cityName = resolveCityName(stateAbbr, citySlug)
+  const stateFull = stateSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
 
   const { businesses, categoryFallback } = await getBusinessesByCategoryAndCity(categoryKey, stateAbbr, cityName)
 
