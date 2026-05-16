@@ -91,6 +91,13 @@ export default async function CityPage({ params }: PageProps) {
   return (
     <Container className="py-10">
       <div className="mb-8">
+        {/* Breadcrumb */}
+        <nav className="text-sm text-muted-foreground mb-3">
+          <Link href="/">Home</Link>{' '}→{' '}
+          <Link href={`/${categorySlug}/${stateSlug}`}>{stateFull}</Link>{' '}→{' '}
+          <span>{cityName}</span>
+        </nav>
+        
         <h1 className="text-3xl font-bold tracking-tight mb-1">
           {categoryLabel} in {cityName}, {stateAbbr}
         </h1>
