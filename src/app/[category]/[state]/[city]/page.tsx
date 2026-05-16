@@ -94,10 +94,18 @@ export default async function CityPage({ params }: PageProps) {
     <Container className="py-10">
       <div className="mb-8">
         {/* Breadcrumb */}
-        <nav className="text-sm text-muted-foreground mb-3">
-          <Link href="/">Home</Link>{' '}→{' '}
-          <Link href={`/${categorySlug}/${stateSlug}`}>{stateFull}</Link>{' '}→{' '}
-          <span>{cityName}</span>
+        <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+          <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
+          <span>/</span>
+          <Link href={`/categories/${categorySlug}`} className="hover:text-foreground transition-colors">
+            {categoryLabel}
+          </Link>
+          <span>/</span>
+          <Link href={`/${categorySlug}/${stateSlug}`} className="hover:text-foreground transition-colors">
+            {stateFull}
+          </Link>
+          <span>/</span>
+          <span className="text-foreground">{cityName}</span>
         </nav>
         
         <h1 className="text-3xl font-bold tracking-tight mb-1">
