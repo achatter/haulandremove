@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Container } from '@/components/layout/Container'
 import { SearchBar } from '@/components/search/SearchBar'
 import { SearchResults } from '@/components/search/SearchResults'
 import { searchBusinesses } from '@/lib/db/businesses'
+import { CATEGORIES } from '@/lib/constants'
 import type { SearchParams } from '@/types'
 
 interface PageProps {
@@ -28,9 +30,26 @@ export default async function SearchPage({ searchParams }: PageProps) {
 
   const { businesses, count, categoryFallback } = await searchBusinesses(params)
 
+  const categoryInfo = params.category ? CATEGORIES[params.category as keyof typeof CATEGORIES] : null
+
   return (
     <Container className="py-10">
       <div className="mb-6">
+        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+          <Link href="/" className="hover:text-foreground transition-colors underline underline-offset-4">Home</Link>
+          {categoryInfo && (
+            <>
+              <span aria-hidden="true">/</span>
+              <Link href={`/categories/${categoryInfo.slug}`} className="hover:text-foreground transition-colors underline underline-offset-4">
+                {categoryInfo.label}
+              </Link>
+            </>
+          )}
+          <span aria-hidden="true">/</span>
+          <span className="text-foreground font-medium">
+            {params.q ? `Results for "${params.q}"` : 'Browse All Services'}
+          </span>
+        </nav>
         <h1 className="text-3xl font-bold tracking-tight mb-4">
           {params.q ? `Results for "${params.q}"` : 'Browse All Services'}
         </h1>
