@@ -59,14 +59,14 @@ export default async function StatePage({ params }: PageProps) {
 
   return (
     <Container className="py-10">
-      <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-        <Link href="/" className="hover:text-foreground transition-colors">Home</Link>
-        <span>/</span>
-        <Link href={`/categories/${categorySlug}`} className="hover:text-foreground transition-colors">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
+        <Link href="/" className="hover:text-foreground transition-colors underline underline-offset-4">Home</Link>
+        <span aria-hidden="true">/</span>
+        <Link href={`/categories/${categorySlug}`} className="hover:text-foreground transition-colors underline underline-offset-4">
           {categoryLabel}
         </Link>
-        <span>/</span>
-        <span className="text-foreground">{stateInfo.name}</span>
+        <span aria-hidden="true">/</span>
+        <span className="text-foreground font-medium">{stateInfo.name}</span>
       </nav>
 
       <div className="mb-8">
