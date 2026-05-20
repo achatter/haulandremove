@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const categoryLabel = CATEGORIES[categoryKey].label
   const stateName = US_STATES.find(s => s.abbr === stateAbbr)?.name ?? stateAbbr
 
-  const title = `${categoryLabel} Services in ${stateName}`
+  const title = `${categoryLabel} in ${stateName}`
   const description = `Find trusted ${categoryLabel.toLowerCase()} companies across ${stateName}. Browse by city to find local providers, read verified reviews, and get free quotes.`
   const url = `https://junkremovalsearch.com/${categorySlug}/${stateSlug}`
 

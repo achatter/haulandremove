@@ -112,7 +112,7 @@ export default async function CityPage({ params }: PageProps) {
           {categoryLabel} in {cityName}, {stateAbbr}
         </h1>
         <p className="text-muted-foreground mb-4">
-          Find trusted {categoryLabel.toLowerCase()} professionals in {cityName}, {stateAbbr}.
+          Find trusted {categoryLabel.toLowerCase()} companies in {cityName}, {stateAbbr}.
         </p>
         <SearchBar currentCategory={categoryKey} />
       </div>
