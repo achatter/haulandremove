@@ -1,6 +1,6 @@
 export const CATEGORIES = {
   estate_cleanout: {
-    label: 'Estate Cleanout',
+    label: 'Estate Cleanout Services',
     slug: 'estate-cleanout',
     description: 'Professional estate cleanout services for homes, offices, and properties',
   },
