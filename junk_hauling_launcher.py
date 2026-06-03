@@ -129,6 +129,37 @@ EXCLUDE_CATEGORIES = {
     "personal injury lawyer", "legal services",
     # Appraisers & inspectors
     "appraiser", "home inspector",
+    # Truck / trailer / vehicle rental — not hauling/removal services
+    "truck rental agency", "trailer rental service", "van rental agency",
+    "vehicle rental agency", "car rental agency", "moving truck rental agency",
+    # Self-storage — not the same as junk removal
+    "self storage facility", "storage facility", "mini storage facility",
+    "moving and storage service",
+    # Cleaning services that are not estate cleanout
+    "pressure washing service", "power washing service", "soft washing service",
+    "window cleaning service", "gutter cleaning service", "carpet cleaning service",
+    "car wash", "auto detailing service", "auto body shop",
+    # Auto / vehicle repair — irrelevant
+    "auto repair shop", "tire shop", "mechanic", "transmission shop",
+    "auto parts store",
+    # Home trades — not removal/cleanout
+    "plumber", "plumbing service", "electrician", "electrical installation service",
+    "hvac contractor", "air conditioning repair service", "heating contractor",
+    "roofer", "roofing company", "painter", "painting",
+    "flooring contractor", "flooring store", "tile contractor",
+    # Landscaping / pest — not removal/cleanout
+    "lawn care service", "landscaping service", "landscape architect",
+    "tree service", "tree trimming service", "stump removal service",
+    "pest control service", "exterminator",
+    # Food & hospitality
+    "restaurant", "cafe", "coffee shop", "fast food restaurant", "bar",
+    "hotel", "motel", "bed and breakfast",
+    "grocery store", "supermarket", "convenience store",
+    # Health & medical
+    "dentist", "dental clinic", "medical clinic", "pharmacy", "hospital",
+    "urgent care center", "doctor",
+    # Fuel & retail
+    "gas station", "fuel supplier", "department store", "clothing store",
 }
 
 def make_filenames(search_term):

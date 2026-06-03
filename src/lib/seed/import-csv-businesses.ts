@@ -275,6 +275,55 @@ function parseAttributes(raw: string): Record<string, Record<string, boolean>> |
   }
 }
 
+// ── Category validation ───────────────────────────────────────────────────────
+
+// Google Maps categories that are never relevant to hauling/removal services.
+// The CSV 'category' column contains the Google Maps primary category name.
+// Any row whose category matches one of these is skipped at import time,
+// preventing non-relevant listings from polluting the directory.
+const EXCLUDED_GOOGLE_CATEGORIES = new Set([
+  // Truck / trailer / vehicle rental
+  'truck rental agency', 'trailer rental service', 'van rental agency',
+  'vehicle rental agency', 'car rental agency', 'moving truck rental agency',
+  // Self-storage
+  'self storage facility', 'storage facility', 'mini storage facility',
+  // Cleaning services that are not estate/junk related
+  'pressure washing service', 'power washing service', 'soft washing service',
+  'window cleaning service', 'gutter cleaning service', 'carpet cleaning service',
+  'car wash', 'auto detailing service', 'auto body shop',
+  // Auto / vehicle repair
+  'auto repair shop', 'tire shop', 'mechanic', 'transmission shop',
+  'auto parts store',
+  // Home trades
+  'plumber', 'plumbing service', 'electrician', 'electrical installation service',
+  'hvac contractor', 'air conditioning repair service', 'heating contractor',
+  'roofer', 'roofing company', 'painter', 'painting',
+  'flooring contractor', 'flooring store', 'tile contractor',
+  // Landscaping / pest
+  'lawn care service', 'landscaping service', 'landscape architect',
+  'tree service', 'tree trimming service', 'pest control service', 'exterminator',
+  // Real estate / finance
+  'real estate agency', 'real estate agent', 'real estate consultant',
+  'real estate attorney', 'real estate appraiser', 'estate agent',
+  'title company', 'mortgage lender', 'financial planner',
+  'insurance agency', 'accountant', 'lawyer', 'attorney',
+  // Food & hospitality
+  'restaurant', 'cafe', 'coffee shop', 'fast food restaurant', 'bar',
+  'hotel', 'motel',
+  // Health & medical
+  'dentist', 'dental clinic', 'medical clinic', 'pharmacy', 'hospital',
+  // Fuel & retail
+  'gas station', 'fuel supplier', 'department store', 'grocery store',
+  'supermarket', 'convenience store',
+])
+
+function isExcludedCategory(row: CsvRow): boolean {
+  // The 'category' column from Google Maps (primary category name).
+  // Rich format: row.category. Simple format: row.category.
+  const cat = (row.category ?? row.type ?? '').toLowerCase().trim()
+  return EXCLUDED_GOOGLE_CATEGORIES.has(cat)
+}
+
 // ── Main processing ───────────────────────────────────────────────────────────
 
 async function processCsvFile(
@@ -295,12 +344,16 @@ async function processCsvFile(
 
   const businesses: ProcessedBusiness[] = []
   let skipped = 0
+  let filtered = 0
 
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i]
 
     const name = (isRichFormat ? row.name : row.business_name)?.trim()
     if (!name) { skipped++; continue }
+
+    // Skip businesses whose Google Maps category is clearly irrelevant
+    if (isExcludedCategory(row)) { filtered++; continue }
 
     // Use the actual business city, fall back to scraped_city (simple format only)
     const city = (row.city?.trim() || (!isRichFormat ? row.scraped_city?.trim() : ''))
@@ -362,7 +415,7 @@ async function processCsvFile(
     })
   }
 
-  console.log(`   ✅ ${businesses.length} valid businesses (${skipped} skipped)`)
+  console.log(`   ✅ ${businesses.length} valid businesses (${skipped} skipped, ${filtered} filtered by category)`)
   return businesses
 }
 
