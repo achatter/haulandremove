@@ -7,6 +7,7 @@ import * as readline from 'readline'
 import { createAdminClient } from '../supabase/admin'
 import slugify from 'slugify'
 import { Category, ServiceItem, BusinessHours } from '@/types'
+import { PHOTOS } from './data'
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -478,22 +479,41 @@ async function insertInBatches(
       if (data) {
         data.forEach((row, idx) => {
           const biz = batch[idx]
+          const globalIdx = start + idx
+
+          // Always add a curated Unsplash photo as the primary image — these
+          // URLs are permanent and never expire, unlike scraped Google Maps
+          // photos which have expiring auth tokens.
+          const pool = biz.category === 'estate_cleanout' ? PHOTOS.estate : PHOTOS.junk
+          const poolEntry = pool[globalIdx % pool.length]
+          imageRecords.push({
+            business_id: row.id,
+            url: `https://images.unsplash.com/photo-${poolEntry.id}?w=800&q=80`,
+            alt_text: poolEntry.alt,
+            is_primary: true,
+            sort_order: 0,
+          })
+
+          // CSV photo (Google Maps URL) as a supplementary image — shown in
+          // the gallery if it loads, but not relied upon as the primary.
           if (biz._photo) {
             imageRecords.push({
               business_id: row.id,
               url: biz._photo,
               alt_text: `${biz.name} - photo`,
-              is_primary: true,
-              sort_order: 0,
+              is_primary: false,
+              sort_order: 1,
             })
           }
+
+          // CSV logo as an additional gallery image.
           if (biz._logo) {
             imageRecords.push({
               business_id: row.id,
               url: biz._logo,
               alt_text: `${biz.name} - logo`,
-              is_primary: biz._photo ? false : true,
-              sort_order: biz._photo ? 1 : 0,
+              is_primary: false,
+              sort_order: biz._photo ? 2 : 1,
             })
           }
         })
