@@ -275,13 +275,20 @@ function parseAttributes(raw: string): Record<string, Record<string, boolean>> |
   }
 }
 
-// ── Category validation ───────────────────────────────────────────────────────
+// ── Category classification helpers ──────────────────────────────────────────
 
 // Google Maps categories that are never relevant to hauling/removal services.
-// The CSV 'category' column contains the Google Maps primary category name.
-// Any row whose category matches one of these is skipped at import time,
-// preventing non-relevant listings from polluting the directory.
-const EXCLUDED_GOOGLE_CATEGORIES = new Set([
+// Combines real estate noise (from the "estate cleanout" search term) with
+// other off-topic categories (trades, rentals, food, etc.) that Apify returns.
+const EXCLUDE_GOOGLE_CATEGORIES = new Set([
+  // Real estate / finance — largest source of noise in estate_cleanout searches
+  'real estate agency', 'real estate agent', 'real estate consultant',
+  'real estate attorney', 'real estate appraiser', 'estate agent',
+  'commercial real estate agency',
+  'title company', 'mortgage lender', 'financial planner',
+  'insurance agency', 'accountant', 'lawyer', 'attorney',
+  'personal injury lawyer', 'legal services',
+  'appraiser', 'home inspector',
   // Truck / trailer / vehicle rental
   'truck rental agency', 'trailer rental service', 'van rental agency',
   'vehicle rental agency', 'car rental agency', 'moving truck rental agency',
@@ -302,11 +309,6 @@ const EXCLUDED_GOOGLE_CATEGORIES = new Set([
   // Landscaping / pest
   'lawn care service', 'landscaping service', 'landscape architect',
   'tree service', 'tree trimming service', 'pest control service', 'exterminator',
-  // Real estate / finance
-  'real estate agency', 'real estate agent', 'real estate consultant',
-  'real estate attorney', 'real estate appraiser', 'estate agent',
-  'title company', 'mortgage lender', 'financial planner',
-  'insurance agency', 'accountant', 'lawyer', 'attorney',
   // Food & hospitality
   'restaurant', 'cafe', 'coffee shop', 'fast food restaurant', 'bar',
   'hotel', 'motel',
@@ -317,11 +319,35 @@ const EXCLUDED_GOOGLE_CATEGORIES = new Set([
   'supermarket', 'convenience store',
 ])
 
-function isExcludedCategory(row: CsvRow): boolean {
-  // The 'category' column from Google Maps (primary category name).
-  // Rich format: row.category. Simple format: row.category.
-  const cat = (row.category ?? row.type ?? '').toLowerCase().trim()
-  return EXCLUDED_GOOGLE_CATEGORIES.has(cat)
+// Google Maps categories that are unambiguously junk/hauling/removal services.
+// When a row from any file has one of these Google categories, it is reclassified
+// as junk_removal regardless of which CSV file it came from.
+const JUNK_REMOVAL_GOOGLE_CATEGORIES = new Set([
+  'junk removal service', 'debris removal service',
+  'waste management service', 'garbage collection service',
+  'dumpster rental service', 'junk dealer', 'junkyard',
+  'garbage dump service', 'recycling center', 'recycling drop-off location',
+])
+
+// Google Maps categories that are unambiguously estate cleanout / liquidation.
+// Rows with these categories are pinned to estate_cleanout even if imported
+// from a junk-removal file.
+const ESTATE_CLEANOUT_GOOGLE_CATEGORIES = new Set([
+  'estate liquidator', 'auction house', 'antique store',
+  'estate sale service', 'estate appraiser',
+])
+
+/**
+ * Resolve the final app Category for a row.
+ * Priority: Google category override > file-level default.
+ * Returns null when the row should be excluded entirely.
+ */
+function resolveCategory(googleCategory: string, fileDefault: Category): Category | null {
+  const cat = (googleCategory || '').toLowerCase().trim()
+  if (EXCLUDE_GOOGLE_CATEGORIES.has(cat)) return null
+  if (JUNK_REMOVAL_GOOGLE_CATEGORIES.has(cat)) return 'junk_removal'
+  if (ESTATE_CLEANOUT_GOOGLE_CATEGORIES.has(cat)) return 'estate_cleanout'
+  return fileDefault
 }
 
 // ── Main processing ───────────────────────────────────────────────────────────
@@ -344,16 +370,14 @@ async function processCsvFile(
 
   const businesses: ProcessedBusiness[] = []
   let skipped = 0
-  let filtered = 0
+  let excluded = 0
+  let reclassified = 0
 
   for (let i = 0; i < rows.length; i++) {
     const row = rows[i]
 
     const name = (isRichFormat ? row.name : row.business_name)?.trim()
     if (!name) { skipped++; continue }
-
-    // Skip businesses whose Google Maps category is clearly irrelevant
-    if (isExcludedCategory(row)) { filtered++; continue }
 
     // Use the actual business city, fall back to scraped_city (simple format only)
     const city = (row.city?.trim() || (!isRichFormat ? row.scraped_city?.trim() : ''))
@@ -364,6 +388,12 @@ async function processCsvFile(
     // Rich CSV: 'state' = full name. Simple CSV: 'state_field' or 'state'
     const state_full = (row.state_field?.trim() || row.state?.trim())
     if (!state || !state_full) { skipped++; continue }
+
+    // Use Google Maps category to filter noise and correct cross-file mismatches.
+    // The 'category' column holds the Google business type (e.g. "Junk removal service").
+    const resolvedCategory = resolveCategory(row.category || '', category)
+    if (resolvedCategory === null) { excluded++; continue }
+    if (resolvedCategory !== category) reclassified++
 
     const zip_code = cleanZip(row.postal_code)
 
@@ -388,7 +418,7 @@ async function processCsvFile(
     businesses.push({
       name,
       slug,
-      category,
+      category: resolvedCategory,
       description,
       phone,
       email:         row.email?.trim() || undefined,
@@ -415,7 +445,7 @@ async function processCsvFile(
     })
   }
 
-  console.log(`   ✅ ${businesses.length} valid businesses (${skipped} skipped, ${filtered} filtered by category)`)
+  console.log(`   ✅ ${businesses.length} valid businesses (${skipped} skipped, ${excluded} excluded as noise, ${reclassified} reclassified)`)
   return businesses
 }
 
@@ -512,28 +542,38 @@ function findCsvFile(projectRoot: string, candidates: string[]): string | null {
 async function run() {
   const projectRoot = path.resolve(__dirname, '../../../')
 
-  // Find CSV files — try scraped ("Small") files first, then plain cleaned files
+  // Find CSV files — prefer the full all-cities harvested files, fall back to cleaned exports
   const junkFile   = findCsvFile(projectRoot, [
+    'junk_hauling_all_cities.csv',
     'Junk_Removal_Cleaned_Small.csv',
     'Junk_Removal_Cleaned.csv',
     'Junk_Hauling_Cleaned.csv',
   ])
   const estateFile = findCsvFile(projectRoot, [
+    'estate_cleanout_all_cities.csv',
     'Estate_Cleanout_Cleaned_Small.csv',
     'Estate_Cleanout_Cleaned.csv',
   ])
+  // "estate cleanout services" search returns a mix — import it as estate_cleanout
+  // and let resolveCategory() reclassify any junk removal rows it contains
+  const estateServicesFile = findCsvFile(projectRoot, [
+    'estate_cleanout_services_all_cities.csv',
+  ])
 
-  if (!junkFile && !estateFile) {
+  if (!junkFile && !estateFile && !estateServicesFile) {
     console.error('❌ No CSV files found. Expected one of:')
-    console.error('   Junk_Removal_Cleaned_Small.csv, Junk_Removal_Cleaned.csv, Junk_Hauling_Cleaned.csv')
-    console.error('   Estate_Cleanout_Cleaned_Small.csv, Estate_Cleanout_Cleaned.csv')
+    console.error('   junk_hauling_all_cities.csv, Junk_Removal_Cleaned.csv, Junk_Hauling_Cleaned.csv')
+    console.error('   estate_cleanout_all_cities.csv, Estate_Cleanout_Cleaned.csv')
+    console.error('   estate_cleanout_services_all_cities.csv')
     process.exit(1)
   }
 
-  if (junkFile)   console.log(`\n✅ Junk CSV:   ${path.basename(junkFile)}`)
-  else             console.warn('\n⚠️  No junk removal CSV found — skipping')
-  if (estateFile) console.log(`✅ Estate CSV: ${path.basename(estateFile)}`)
-  else             console.warn('⚠️  No estate cleanout CSV found — skipping')
+  if (junkFile)          console.log(`\n✅ Junk CSV:            ${path.basename(junkFile)}`)
+  else                   console.warn('\n⚠️  No junk removal CSV found — skipping')
+  if (estateFile)        console.log(`✅ Estate CSV:          ${path.basename(estateFile)}`)
+  else                   console.warn('⚠️  No estate cleanout CSV found — skipping')
+  if (estateServicesFile) console.log(`✅ Estate Services CSV: ${path.basename(estateServicesFile)}`)
+  else                    console.warn('⚠️  No estate cleanout services CSV found — skipping')
 
   const supabase = createAdminClient()
 
@@ -565,30 +605,30 @@ async function run() {
   console.log('\n📂 Step 2: Parsing CSV files…')
   const seenSlugs = new Map<string, number>()
 
-  const junkBusinesses   = junkFile
-    ? await processCsvFile(junkFile,   'junk_removal',   seenSlugs)
+  const junkBusinesses          = junkFile
+    ? await processCsvFile(junkFile,          'junk_removal',   seenSlugs)
     : []
-  const estateBusinesses = estateFile
-    ? await processCsvFile(estateFile, 'estate_cleanout', seenSlugs)
+  const estateBusinesses        = estateFile
+    ? await processCsvFile(estateFile,        'estate_cleanout', seenSlugs)
+    : []
+  const estateServicesBusinesses = estateServicesFile
+    ? await processCsvFile(estateServicesFile, 'estate_cleanout', seenSlugs)
     : []
 
-  console.log(`\n   Total to insert: ${junkBusinesses.length + estateBusinesses.length}`)
+  const allBusinesses = [...junkBusinesses, ...estateBusinesses, ...estateServicesBusinesses]
+  console.log(`\n   Total to insert: ${allBusinesses.length}`)
 
   // ── Step 3: Insert businesses in batches ──────────────────────────────────
   console.log('\n💾 Step 3: Inserting businesses into Supabase…')
   const allImageRecords: ImageRecord[] = []
 
-  if (junkBusinesses.length > 0) {
-    console.log('   Inserting junk removal businesses…')
-    const { inserted, imageRecords } = await insertInBatches(supabase, junkBusinesses)
-    console.log(`   ✅ Junk removal: ${inserted} inserted, ${imageRecords.length} images queued`)
-    allImageRecords.push(...imageRecords)
-  }
-
-  if (estateBusinesses.length > 0) {
-    console.log('   Inserting estate cleanout businesses…')
-    const { inserted, imageRecords } = await insertInBatches(supabase, estateBusinesses)
-    console.log(`   ✅ Estate cleanout: ${inserted} inserted, ${imageRecords.length} images queued`)
+  if (allBusinesses.length > 0) {
+    const { inserted, imageRecords } = await insertInBatches(supabase, allBusinesses)
+    const byCategory = allBusinesses.reduce<Record<string, number>>((acc, b) => {
+      acc[b.category] = (acc[b.category] ?? 0) + 1
+      return acc
+    }, {})
+    console.log(`   ✅ ${inserted} inserted (${byCategory.junk_removal ?? 0} junk_removal, ${byCategory.estate_cleanout ?? 0} estate_cleanout), ${imageRecords.length} images queued`)
     allImageRecords.push(...imageRecords)
   }
 
@@ -601,8 +641,7 @@ async function run() {
     console.log('\n🖼️  Step 4: No images to insert')
   }
 
-  const totalBusinesses = junkBusinesses.length + estateBusinesses.length
-  console.log(`\n🎉 Done! Total businesses: ${totalBusinesses}, images: ${allImageRecords.length}`)
+  console.log(`\n🎉 Done! Total businesses: ${allBusinesses.length}, images: ${allImageRecords.length}`)
 }
 
 run().catch(err => {
