@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { ListingGrid } from '@/components/listings/ListingGrid'
 import { SearchFilters } from './SearchFilters'
+import { Pagination } from './Pagination'
 import type { Business, SearchParams } from '@/types'
 import { CATEGORIES } from '@/lib/constants'
 import { US_STATES } from '@/lib/constants'
@@ -64,6 +65,10 @@ export function SearchResults({ businesses, count, params, categoryFallback }: S
       </div>
 
       <ListingGrid businesses={businesses} />
+
+      <Suspense fallback={null}>
+        <Pagination count={count} currentPage={parseInt(params.page ?? '1')} />
+      </Suspense>
     </div>
   )
 }
