@@ -55,7 +55,7 @@ export function HeroSectionBrightB() {
               <div
                 className="absolute top-0 left-0 right-0 h-[72px]"
                 style={{
-                  backgroundImage: 'url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=70)',
+                  backgroundImage: 'url(https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&q=70)',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center 30%',
                   borderRadius: '16px 16px 0 0',

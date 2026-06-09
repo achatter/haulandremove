@@ -31,13 +31,11 @@ interface SeedReview {
 // Curated Unsplash photo IDs for junk removal / estate cleanout
 export const PHOTOS = {
   junk: [
-    { id: '1558618666-fcd25c85cd64', alt: 'Junk removal truck loaded with debris' },
-    { id: '1530126174756-aeefa3b5c4ef', alt: 'Crew removing furniture from home' },
     { id: '1504307651254-35680f356dfd', alt: 'Dumpster bin for waste removal' },
+    { id: '1530126174756-aeefa3b5c4ef', alt: 'Crew removing furniture from home' },
     { id: '1581578731548-c64695cc6952', alt: 'Team clearing out garage clutter' },
     { id: '1530124566582-a618bc2615dc', alt: 'Junk removal professionals at work' },
     { id: '1517142089942-ba376ce32a2e', alt: 'Clean up crew hauling away trash' },
-    { id: '1558618047-3c8c76ca7d13', alt: 'Residential junk removal service' },
     { id: '1584622650111-993a426fbf0a', alt: 'Large item pickup service' },
   ],
   estate: [
