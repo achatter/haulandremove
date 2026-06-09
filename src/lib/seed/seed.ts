@@ -24,7 +24,16 @@ async function seed() {
   // Build slug→id map
   const slugToId = new Map(insertedBusinesses?.map((b) => [b.slug, b.id]) ?? [])
 
-  // Upsert images
+  // Replace images: delete existing then re-insert so stale URLs are never left behind
+  const bizIds = [...slugToId.values()]
+  if (bizIds.length > 0) {
+    const { error: delErr } = await supabase
+      .from('business_images')
+      .delete()
+      .in('business_id', bizIds)
+    if (delErr) console.warn('Image delete warning:', delErr.message)
+  }
+
   const imageRows = SEED_BUSINESSES.flatMap(({ slug, images }) => {
     const bizId = slugToId.get(slug)
     if (!bizId) return []
@@ -33,7 +42,7 @@ async function seed() {
 
   if (imageRows.length > 0) {
     const { error: imgError } = await supabase.from('business_images').insert(imageRows)
-    if (imgError && !imgError.message.includes('duplicate')) {
+    if (imgError) {
       console.warn('Image insert warning:', imgError.message)
     } else {
       console.log(`✅ Inserted ${imageRows.length} images`)
