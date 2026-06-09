@@ -11,7 +11,7 @@ export function HeroSectionBrightC() {
           className="flex-none"
           style={{
             width: '38%',
-            backgroundImage: 'url(https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80)',
+            backgroundImage: 'url(https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
