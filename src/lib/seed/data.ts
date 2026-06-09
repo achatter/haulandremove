@@ -29,7 +29,7 @@ interface SeedReview {
 }
 
 // Curated Unsplash photo IDs for junk removal / estate cleanout
-const PHOTOS = {
+export const PHOTOS = {
   junk: [
     { id: '1558618666-fcd25c85cd64', alt: 'Junk removal truck loaded with debris' },
     { id: '1530126174756-aeefa3b5c4ef', alt: 'Crew removing furniture from home' },
