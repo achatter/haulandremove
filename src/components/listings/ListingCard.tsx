@@ -32,7 +32,8 @@ interface ListingCardProps {
 }
 
 export function ListingCard({ business }: ListingCardProps) {
-  const primaryImage = business.images?.find((img) => img.is_primary) ?? business.images?.[0]
+  const sortedImages = [...(business.images ?? [])].sort((a, b) => a.sort_order - b.sort_order)
+  const primaryImage = sortedImages.find((img) => img.is_primary) ?? sortedImages[0]
   const tile = tilePalette[getTileIndex(business.id)]
   const cat = categoryMeta[business.category] ?? { label: business.category, color: '#2563EB' }
 
