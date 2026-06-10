@@ -66,6 +66,9 @@ export async function searchBusinesses(params: SearchParams): Promise<{
     else if (sort === 'name') qb = qb.order('name', { ascending: true })
     else if (sort === 'newest') qb = qb.order('created_at', { ascending: false })
 
+    // Always return images in a deterministic order so primary (sort_order=0) comes first
+    qb = qb.order('sort_order', { referencedTable: 'business_images', ascending: true })
+
     return qb.range(offset, offset + PAGE_SIZE - 1)
   }
 
@@ -99,6 +102,7 @@ export async function getBusinessBySlug(slug: string): Promise<Business | null> 
     .select(BUSINESS_SELECT)
     .eq('slug', slug)
     .eq('status', 'active')
+    .order('sort_order', { referencedTable: 'business_images', ascending: true })
     .single()
 
   if (error) return null
@@ -114,6 +118,7 @@ export async function getFeaturedBusinesses(): Promise<Business[]> {
     .eq('status', 'active')
     .eq('featured', true)
     .order('average_rating', { ascending: false })
+    .order('sort_order', { referencedTable: 'business_images', ascending: true })
     .limit(6)
 
   if (error) throw error
@@ -161,6 +166,7 @@ export async function getBusinessesByCategory(
     .eq('status', 'active')
     .eq('category', category)
     .order('average_rating', { ascending: false })
+    .order('sort_order', { referencedTable: 'business_images', ascending: true })
     .limit(limit)
 
   if (error) throw error
@@ -182,6 +188,7 @@ export async function getBusinessesByCategoryAndCity(
       .eq('state', state.toUpperCase())
       .ilike('city', `%${city}%`)
       .order('average_rating', { ascending: false })
+      .order('sort_order', { referencedTable: 'business_images', ascending: true })
 
   const { data, error } = await baseQuery().eq('category', category)
   if (error) throw error
