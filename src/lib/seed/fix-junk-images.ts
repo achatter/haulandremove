@@ -12,7 +12,7 @@ const APPROVED_ESTATE_IDS = new Set(PHOTOS.estate.map(p => p.id))
 const UNSPLASH_PHOTO_RE = /photo-([a-z0-9-]+)\?/i
 
 // Batch sizes to stay within Supabase PostgREST limits
-const BIZ_CHUNK = 500   // IDs per .in() when fetching images
+const BIZ_CHUNK = 100   // IDs per .in() when fetching images
 const UPD_CHUNK = 100   // rows per upsert batch
 
 async function fixCategory(
