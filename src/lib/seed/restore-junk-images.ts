@@ -221,9 +221,19 @@ async function run() {
     newImages.push({ business_id: bizId, url: DUMPSTER_URL, alt_text: DUMPSTER_ALT, is_primary: false, sort_order: photo ? 2 : logo ? 1 : 0 })
   }
 
-  console.log(`\n📸 ${matchedIds.length} businesses matched, ${newImages.length} image rows to write`)
+  // Deduplicate: same phone in multiple CSV rows can map to the same bizId
+  const uniqueMatchedIds = [...new Set(matchedIds)]
+  const seenImageKeys = new Set<string>()
+  const uniqueNewImages = newImages.filter(img => {
+    const key = `${img.business_id}::${img.url}`
+    if (seenImageKeys.has(key)) return false
+    seenImageKeys.add(key)
+    return true
+  })
 
-  if (matchedIds.length === 0) {
+  console.log(`\n📸 ${uniqueMatchedIds.length} businesses matched, ${uniqueNewImages.length} image rows to write`)
+
+  if (uniqueMatchedIds.length === 0) {
     console.log('No matches found — nothing to do.')
     return
   }
@@ -233,8 +243,8 @@ async function run() {
   console.log('\n🔧 Demoting existing primary images for matched businesses…')
   let demoted = 0
 
-  for (let i = 0; i < matchedIds.length; i += CHUNK) {
-    const batch = matchedIds.slice(i, i + CHUNK)
+  for (let i = 0; i < uniqueMatchedIds.length; i += CHUNK) {
+    const batch = uniqueMatchedIds.slice(i, i + CHUNK)
     const { error } = await supabase
       .from('business_images')
       .update({ is_primary: false, sort_order: 2 })
@@ -254,8 +264,8 @@ async function run() {
   let upserted = 0
   let errors = 0
 
-  for (let i = 0; i < newImages.length; i += CHUNK) {
-    const batch = newImages.slice(i, i + CHUNK)
+  for (let i = 0; i < uniqueNewImages.length; i += CHUNK) {
+    const batch = uniqueNewImages.slice(i, i + CHUNK)
     const { error } = await supabase
       .from('business_images')
       .upsert(batch, { onConflict: 'business_id,url' })
@@ -269,11 +279,11 @@ async function run() {
   }
 
   console.log(`\n✅ Done!`)
-  console.log(`   Businesses restored: ${matchedIds.length}`)
+  console.log(`   Businesses restored: ${uniqueMatchedIds.length}`)
   console.log(`   Image rows upserted: ${upserted}`)
   if (errors) console.log(`   Batches with errors: ${errors}`)
   console.log(`\nMatched businesses now show their own Google Maps photo as primary.`)
-  console.log(`Unmatched businesses (~${rows.length - matchedIds.length} skipped) still show the dumpster photo.`)
+  console.log(`Unmatched businesses (~${rows.length - uniqueMatchedIds.length} skipped) still show the dumpster photo.`)
   console.log(`Run npm run scrape-services to restore website-scraped photos for all businesses.`)
 }
 
