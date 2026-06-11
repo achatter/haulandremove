@@ -19,6 +19,7 @@
     "import-csv": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/import-csv-businesses.ts",
     "update-estate-cleanout": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/update-estate-cleanout.ts",
     "fix-junk-images": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/fix-junk-images.ts",
+    "restore-junk-images": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/restore-junk-images.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test"
