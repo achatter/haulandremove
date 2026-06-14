@@ -21,6 +21,8 @@
     "fix-junk-images": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/fix-junk-images.ts",
     "restore-junk-images": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/restore-junk-images.ts",
     "restore-website-photos": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/restore-website-photos.ts",
+    "export-missing-photos": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/export-missing-photos.ts",
+    "apify-fetch-photos": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/apify-fetch-photos.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test"
@@ -29,6 +31,7 @@
     "@supabase/ssr": "^0.9.0",
     "@supabase/supabase-js": "^2.98.0",
     "@types/xlsx": "^0.0.35",
+    "apify-client": "^2.23.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.577.0",

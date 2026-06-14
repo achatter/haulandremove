@@ -79,39 +79,26 @@ async function run() {
   }
   console.log(`  ${allBizsWithSite.length} junk_removal businesses with websites`)
 
-  // ── Step 2: find which ones show only the dumpster placeholder ────────────
+  // ── Step 2: find which ones already have a real (non-Unsplash) primary ──────
+  // Query the inverse: collect business_ids that ALREADY have a real photo.
+  // This avoids large .in() batches which exceed URL length limits.
   console.log('🔍 Checking for placeholder-only primaries…')
-  const bizIds = allBizsWithSite.map(b => b.id)
-  const needsRealPhoto = new Set<string>()
-
-  for (let i = 0; i < bizIds.length; i += CHUNK) {
-    const chunk = bizIds.slice(i, i + CHUNK)
-    const { data: images, error } = await supabase
+  const alreadyHasRealPhoto = new Set<string>()
+  let imgFrom = 0
+  while (true) {
+    const { data: realImgs, error } = await supabase
       .from('business_images')
-      .select('business_id, url, is_primary')
-      .in('business_id', chunk)
-
-    if (error) {
-      console.error(`  ❌ Image fetch error (batch ${i}): ${error.message}`)
-      continue
-    }
-
-    const byBiz = new Map<string, Array<{ url: string; is_primary: boolean }>>()
-    for (const img of images ?? []) {
-      if (!byBiz.has(img.business_id)) byBiz.set(img.business_id, [])
-      byBiz.get(img.business_id)!.push(img)
-    }
-
-    for (const bizId of chunk) {
-      const imgs = byBiz.get(bizId) ?? []
-      const primaries = imgs.filter(img => img.is_primary)
-      const hasOnlyPlaceholder =
-        primaries.length === 0 || primaries.every(img => img.url === DUMPSTER_URL)
-      if (hasOnlyPlaceholder) needsRealPhoto.add(bizId)
-    }
+      .select('business_id')
+      .eq('is_primary', true)
+      .not('url', 'like', '%unsplash%')
+      .range(imgFrom, imgFrom + 999)
+    if (error) throw new Error(`Fetch real images: ${error.message}`)
+    for (const img of realImgs ?? []) alreadyHasRealPhoto.add(img.business_id)
+    if (!realImgs || realImgs.length < 1000) break
+    imgFrom += 1000
   }
 
-  const targets = allBizsWithSite.filter(b => needsRealPhoto.has(b.id))
+  const targets = allBizsWithSite.filter(b => !alreadyHasRealPhoto.has(b.id))
   console.log(`  ${targets.length} businesses need a real primary photo`)
 
   if (targets.length === 0) {

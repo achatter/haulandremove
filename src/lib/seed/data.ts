@@ -31,10 +31,8 @@ interface SeedReview {
 // Curated Unsplash photo IDs for junk removal / estate cleanout
 export const PHOTOS = {
   junk: [
-    // Only visually-verified photos belong here. The dumpster shot below is the
-    // sole confirmed junk-removal image (used in all four hero sections).
-    // Add more IDs only after visually confirming the Unsplash photo content.
-    { id: '1504307651254-35680f356dfd', alt: 'Dumpster bin for waste removal' },
+    { id: '1704756082548-af7c773aa0ef', alt: 'Blue dumpster filled with junk on a road' },
+    { id: '1707960190213-1ee0c16e054a', alt: 'Dumpster at demolition site' },
   ],
   estate: [
     { id: '1484154218962-a197022b6ac6', alt: 'Estate cleanout team at work' },
