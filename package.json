@@ -23,6 +23,10 @@
     "restore-website-photos": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/restore-website-photos.ts",
     "export-missing-photos": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/export-missing-photos.ts",
     "apify-fetch-photos": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/apify-fetch-photos.ts",
+    "restore-estate-website-photos": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/restore-estate-website-photos.ts",
+    "export-missing-estate-photos": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/export-missing-estate-photos.ts",
+    "restore-estate-images": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/restore-estate-images.ts",
+    "apify-fetch-estate-photos": "npx ts-node -r dotenv/config --project tsconfig.seed.json src/lib/seed/apify-fetch-estate-photos.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test"
