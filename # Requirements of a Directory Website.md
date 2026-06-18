@@ -48,3 +48,9 @@ Check if the Supabase DB has the correct schema to store this data. If not, clea
 | `src/app/search/` | Search page and results |
 | `src/types/index.ts` | All shared TypeScript types |
 | `DATA_MIGRATION.md` | Guide for running migration scripts |
+
+## 3rd Phase
+1. The current search results show up with the first 10-12 services based on the search. The dashboard shows a thumbnail image/logo of the company, the name of the company, their rating, location and phone number. In this phase that dashboard view needs to be improved to show some more information about the business - what are their exact services, their hours, possibly their rates. To show this, possibly shrink the thumbnail image/logo further so that each service doesn't take up more space. 
+2. Upon clicking a specific service, it seems the content generated is generic. That content needs to be updated to reflect the real content from the company's website if they have any. If not, don't fabricate their services.
+3. For the ratings, if it is clicked, and there are real ratings, open up a scrollable pop up that shows the ratings details - who rated them (alias is ok), what was the comment if any and their specific rating.
+4. On the results page, if the type of service is changed via the drop down, immediately return the search results instead of having to hit the Search button again.

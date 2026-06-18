@@ -4,37 +4,15 @@ import { BusinessMeta } from './BusinessMeta'
 import { BusinessAttributes } from './BusinessAttributes'
 import { BusinessHours } from './BusinessHours'
 import { ServicesList } from './ServicesList'
-import { StarRating } from '@/components/reviews/StarRating'
-import type { Business, ServiceItem } from '@/types'
-import { formatRating } from '@/lib/utils'
-
-const DEFAULT_ESTATE_CLEANOUT_SERVICES: ServiceItem[] = [
-  { name: 'Estate Cleanout', description: 'Full property cleanout for estates and homes' },
-  { name: 'Furniture Removal', description: 'Removal and disposal of old furniture' },
-  { name: 'Appliance Disposal', description: 'Responsible appliance removal and recycling' },
-  { name: 'Hoarding Cleanup', description: 'Compassionate and thorough hoarding cleanouts' },
-  { name: 'Donation & Recycling', description: 'Items sorted for donation or eco-friendly recycling' },
-]
-
-function getDisplayDescription(business: Business): string | null {
-  if (business.description) return business.description
-  const categoryLabel =
-    business.category === 'estate_cleanout' ? 'estate cleanout' : 'junk removal'
-  return `${business.name} provides professional ${categoryLabel} services in ${business.city}, ${business.state_full}. Contact us to schedule a pickup or get a free estimate.`
-}
+import { ReviewsModal } from '@/components/reviews/ReviewsModal'
+import type { Business, Review } from '@/types'
 
 interface ListingDetailProps {
   business: Business
+  reviews: Review[]
 }
 
-export function ListingDetail({ business }: ListingDetailProps) {
-  const displayDescription = getDisplayDescription(business)
-  const displayServices =
-    business.services && business.services.length > 0
-      ? business.services
-      : business.category === 'estate_cleanout'
-        ? DEFAULT_ESTATE_CLEANOUT_SERVICES
-        : null
+export function ListingDetail({ business, reviews }: ListingDetailProps) {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
       {/* Left: Images + Description */}
@@ -47,17 +25,19 @@ export function ListingDetail({ business }: ListingDetailProps) {
           <div className="flex items-start gap-3 mb-3">
             <div className="flex-1">
               <h1 className="text-3xl font-bold tracking-tight text-foreground">{business.name}</h1>
-              <div className="flex items-center gap-2 mt-2">
-                <StarRating rating={business.average_rating} size="md" />
-                <span className="font-semibold">{formatRating(business.average_rating)}</span>
-                <span className="text-muted-foreground text-sm">({business.review_count} reviews)</span>
+              <div className="mt-2">
+                <ReviewsModal
+                  rating={business.average_rating}
+                  reviewCount={business.review_count}
+                  reviews={reviews}
+                />
               </div>
             </div>
             <CategoryBadge category={business.category} className="mt-1" />
           </div>
 
-          {displayDescription && (
-            <BusinessAttributes description={displayDescription} />
+          {business.description && (
+            <BusinessAttributes description={business.description} />
           )}
         </div>
 
@@ -67,8 +47,8 @@ export function ListingDetail({ business }: ListingDetailProps) {
           </div>
         )}
 
-        {displayServices && (
-          <ServicesList services={displayServices} />
+        {business.services && business.services.length > 0 && (
+          <ServicesList services={business.services} />
         )}
 
         {business.attributes && Object.keys(business.attributes).length > 0 && (

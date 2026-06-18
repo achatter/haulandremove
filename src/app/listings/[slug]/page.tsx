@@ -67,7 +67,7 @@ export default async function ListingPage({ params }: PageProps) {
 
   return (
     <Container className="py-10">
-      <ListingDetail business={business} />
+      <ListingDetail business={business} reviews={reviews} />
 
       <Separator className="my-10" />
 

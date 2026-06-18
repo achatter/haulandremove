@@ -1,9 +1,25 @@
 import Link from 'next/link'
-import { MapPin, Phone, ArrowUpRight } from 'lucide-react'
+import { MapPin, Phone, ArrowUpRight, Clock } from 'lucide-react'
 import { StarRating } from '@/components/reviews/StarRating'
-import type { Business } from '@/types'
+import type { Business, BusinessHours, ServiceItem } from '@/types'
 import { formatPhone, formatRating } from '@/lib/utils'
 import { ListingCardImage } from './ListingCardImage'
+
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'] as const
+
+function getHoursSummary(hours: BusinessHours): string | null {
+  const entries = DAYS.map(d => hours[d as keyof BusinessHours] ?? null)
+  const open = entries.filter(v => v && v !== 'Closed')
+  if (open.length === 0) return null
+  const weekday = entries.slice(0, 5)
+  const weekend = entries.slice(5)
+  const weekdayUniform = weekday.every(v => v === weekday[0]) && weekday[0]
+  const weekendClosed = weekend.every(v => !v || v === 'Closed')
+  if (weekdayUniform && weekendClosed) return `Mon–Fri: ${weekday[0]}`
+  const allSame = entries.every(v => v === entries[0]) && entries[0]
+  if (allSame) return `Daily: ${entries[0]}`
+  return `${open.length} days/week`
+}
 
 // Bold McKinsey-style tile palette
 const tilePalette = [
@@ -42,7 +58,7 @@ export function ListingCard({ business }: ListingCardProps) {
       <div className="h-full flex flex-col overflow-hidden hover:-translate-y-1 transition-transform duration-300 shadow-sm hover:shadow-xl">
 
         {/* ── Image / Color Tile ── */}
-        <div className="relative overflow-hidden" style={{ height: 220 }}>
+        <div className="relative overflow-hidden" style={{ height: 160 }}>
           {primaryImage ? (
             <ListingCardImage image={primaryImage} tileBg={tile.bg} tileAccent={tile.accent} businessName={business.name} />
           ) : (
@@ -118,6 +134,38 @@ export function ListingCard({ business }: ListingCardProps) {
               <Phone className="h-3.5 w-3.5 shrink-0" />
               <span>{formatPhone(business.phone)}</span>
             </div>
+          )}
+
+          {/* Services pills */}
+          {business.services && business.services.length > 0 && (
+            <div className="flex flex-wrap gap-1 mt-2">
+              {(business.services as ServiceItem[]).slice(0, 3).map((s) => (
+                <span
+                  key={s.name}
+                  className="text-[11px] bg-slate-50 text-slate-600 border border-slate-200 px-2 py-0.5 rounded-full whitespace-nowrap"
+                >
+                  {s.name}
+                </span>
+              ))}
+              {business.services.length > 3 && (
+                <span className="text-[11px] text-slate-400 py-0.5">
+                  +{business.services.length - 3} more
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Hours summary */}
+          {business.working_hours && (
+            (() => {
+              const summary = getHoursSummary(business.working_hours)
+              return summary ? (
+                <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mt-1.5">
+                  <Clock className="h-3 w-3 shrink-0" />
+                  <span>{summary}</span>
+                </div>
+              ) : null
+            })()
           )}
 
           {/* Footer row */}

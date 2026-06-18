@@ -147,7 +147,14 @@ export function SearchBar({
         <div className="relative flex items-center shrink-0">
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => {
+              const newCategory = e.target.value
+              setCategory(newCategory)
+              if (query.trim()) {
+                const url = buildSearchUrl({ q: query, ...(newCategory && { category: newCategory }) })
+                router.push(url)
+              }
+            }}
             aria-label="Service category"
             className="h-full appearance-none bg-transparent font-medium text-slate-700 cursor-pointer focus:outline-none pr-6"
             style={{
