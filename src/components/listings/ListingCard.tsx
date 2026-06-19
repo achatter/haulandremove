@@ -138,17 +138,23 @@ export function ListingCard({ business }: ListingCardProps) {
 
           {/* Services pills */}
           {business.services && business.services.length > 0 && (
-            <div className="flex flex-wrap gap-1 mt-2">
+            <div className="flex flex-wrap gap-1.5 mt-2.5">
               {(business.services as ServiceItem[]).slice(0, 3).map((s) => (
                 <span
                   key={s.name}
-                  className="text-[11px] bg-slate-50 text-slate-600 border border-slate-200 px-2 py-0.5 rounded-full whitespace-nowrap"
+                  style={{
+                    backgroundColor: `${cat.color}18`,
+                    color: cat.color,
+                    borderColor: `${cat.color}50`,
+                    boxShadow: `0 1px 2px ${cat.color}20, inset 0 1px 0 rgba(255,255,255,0.6)`,
+                  }}
+                  className="text-[12px] font-semibold border px-2.5 py-0.5 rounded-md whitespace-nowrap"
                 >
                   {s.name}
                 </span>
               ))}
               {business.services.length > 3 && (
-                <span className="text-[11px] text-slate-400 py-0.5">
+                <span className="text-[11px] text-slate-400 self-center">
                   +{business.services.length - 3} more
                 </span>
               )}
