@@ -31,9 +31,9 @@ const tilePalette = [
   { bg: '#1B0036', accent: '#C084FC' }, // deep purple / lavender
 ]
 
-const categoryMeta: Record<string, { label: string; color: string }> = {
-  'junk_removal':    { label: 'Junk Removal',    color: '#0891B2' },
-  'estate_cleanout': { label: 'Estate Cleanout', color: '#2563EB' },
+const categoryMeta: Record<string, { label: string; color: string; chipColor: string }> = {
+  'junk_removal':    { label: 'Junk Removal',    color: '#0891B2', chipColor: '#EA580C' },
+  'estate_cleanout': { label: 'Estate Cleanout', color: '#2563EB', chipColor: '#7C3AED' },
 }
 
 // Stable tile color derived from business id
@@ -51,7 +51,7 @@ export function ListingCard({ business }: ListingCardProps) {
   const sortedImages = [...(business.images ?? [])].sort((a, b) => a.sort_order - b.sort_order)
   const primaryImage = sortedImages.find((img) => img.is_primary) ?? sortedImages[0]
   const tile = tilePalette[getTileIndex(business.id)]
-  const cat = categoryMeta[business.category] ?? { label: business.category, color: '#2563EB' }
+  const cat = categoryMeta[business.category] ?? { label: business.category, color: '#2563EB', chipColor: '#2563EB' }
 
   return (
     <Link href={`/listings/${business.slug}`} className="group block h-full">
@@ -143,12 +143,11 @@ export function ListingCard({ business }: ListingCardProps) {
                 <span
                   key={s.name}
                   style={{
-                    backgroundColor: `${cat.color}18`,
-                    color: cat.color,
-                    borderColor: `${cat.color}50`,
-                    boxShadow: `0 1px 2px ${cat.color}20, inset 0 1px 0 rgba(255,255,255,0.6)`,
+                    backgroundColor: cat.chipColor,
+                    color: '#fff',
+                    boxShadow: `0 2px 6px ${cat.chipColor}60`,
                   }}
-                  className="text-[12px] font-semibold border px-2.5 py-0.5 rounded-md whitespace-nowrap"
+                  className="text-[12px] font-semibold px-2.5 py-0.5 rounded-md whitespace-nowrap"
                 >
                   {s.name}
                 </span>
