@@ -77,7 +77,7 @@ describe('BusinessAttributes', () => {
   })
 
   it('renders nothing when description is null-ish', () => {
-    const { container } = render(<BusinessAttributes description={null as any} />)
+    const { container } = render(<BusinessAttributes description={null} />)
     expect(container.firstChild).toBeNull()
   })
 

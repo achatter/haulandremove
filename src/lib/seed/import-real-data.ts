@@ -6,7 +6,7 @@ import slugify from 'slugify'
 import { Category } from '@/types'
 
 interface ExcelRowData {
-  [key: string]: any
+  [key: string]: unknown
 }
 
 interface ProcessedBusiness {
@@ -60,7 +60,7 @@ const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
  * {"Monday": ["5:30AM-9PM"], "Tuesday": ["5:30AM-9PM"], ...}
  * into flat object: { "Monday": "5:30AM-9PM", "Tuesday": "5:30AM-9PM", ... }
  */
-function parseWorkingHours(raw: any): Record<string, string | null> | undefined {
+function parseWorkingHours(raw: unknown): Record<string, string | null> | undefined {
   if (!raw) return undefined
   try {
     const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw
@@ -99,7 +99,7 @@ function parseSocialMedia(row: ExcelRowData): Record<string, string> | undefined
  * e.g. {"Service options": {"Onsite services": true}, "Accessibility": {"Wheelchair accessible entrance": true}}
  * Returns services (from 'Service options') and attributes (all other categories).
  */
-function parseAboutField(about: any): {
+function parseAboutField(about: unknown): {
   services: Array<{ name: string; source: 'google' }>
   attributes: Record<string, Record<string, boolean>> | undefined
 } {
@@ -143,7 +143,7 @@ function parseAboutField(about: any): {
  * Parses the 'subtypes' column into service items.
  * e.g. "Junk removal service, Debris removal service" → [{name: "Junk removal service", source: "google"}]
  */
-function parseSubtypes(subtypes: any): Array<{ name: string; source: 'google' }> {
+function parseSubtypes(subtypes: unknown): Array<{ name: string; source: 'google' }> {
   if (!subtypes) return []
   const raw = String(subtypes).trim()
   if (!raw) return []
@@ -198,7 +198,7 @@ function parseExcelFile(filePath: string): { businesses: ProcessedBusiness[]; ra
       }
 
       // Normalize state (handle both abbreviations and full names)
-      const stateUpper = stateRaw.toString().toUpperCase().trim()
+      const stateUpper = String(stateRaw).toUpperCase().trim()
       let state: string
       let state_full: string
 
@@ -220,7 +220,7 @@ function parseExcelFile(filePath: string): { businesses: ProcessedBusiness[]; ra
       }
 
       // Extract zip code
-      const zip_code = getFieldValue(row, ['zip', 'postal_code', 'zip_code', 'zipcode', 'postcode'])?.toString() || ''
+      const zip_code = String(getFieldValue(row, ['zip', 'postal_code', 'zip_code', 'zipcode', 'postcode']) ?? '')
 
       // Create slug, deduplicating with a counter suffix if needed
       const baseSlug = slugify(`${name} ${city} ${state}`, { lower: true, strict: true })
@@ -259,26 +259,26 @@ function parseExcelFile(filePath: string): { businesses: ProcessedBusiness[]; ra
       const review_count   = reviewCountRaw ? parseInt(String(reviewCountRaw), 10) || 0 : 0
 
       const business: ProcessedBusiness = {
-        name: name.toString().trim(),
+        name: String(name).trim(),
         slug,
         category: 'junk_removal',
         description: combinedDescription,
         phone: cleanPhone(getFieldValue(row, ['phone', 'telephone', 'phone_number', 'tel'])),
-        email: getFieldValue(row, ['email', 'email_address', 'contact_email']),
-        website: getFieldValue(row, ['website', 'url', 'web', 'site']),
-        street_address: getFieldValue(row, ['street', 'address', 'street_address', 'addr']),
-        city: city.toString().trim(),
+        email: getFieldValue(row, ['email', 'email_address', 'contact_email']) as string | undefined,
+        website: getFieldValue(row, ['website', 'url', 'web', 'site']) as string | undefined,
+        street_address: getFieldValue(row, ['street', 'address', 'street_address', 'addr']) as string | undefined,
+        city: String(city).trim(),
         state,
         state_full,
         zip_code: zip_code.trim(),
-        years_in_business: parseInt(getFieldValue(row, ['years_in_business', 'years', 'experience', 'years_experience']) || '0') || undefined,
+        years_in_business: parseInt(String(getFieldValue(row, ['years_in_business', 'years', 'experience', 'years_experience']) || '0')) || undefined,
         insured: parseBooleanField(getFieldValue(row, ['insured', 'insurance', 'is_insured'])),
         bonded: parseBooleanField(getFieldValue(row, ['bonded', 'bond', 'is_bonded'])),
         featured: false,
         average_rating,
         review_count,
         status: 'active',
-        booking_url:   getFieldValue(row, ['booking_appointment_link']) || undefined,
+        booking_url:   (getFieldValue(row, ['booking_appointment_link']) as string | undefined) || undefined,
         working_hours: parseWorkingHours(getFieldValue(row, ['working_hours'])),
         social_media:  parseSocialMedia(row),
         services:      services.length > 0 ? services : undefined,
@@ -300,7 +300,7 @@ function parseExcelFile(filePath: string): { businesses: ProcessedBusiness[]; ra
 /**
  * Helper function to get field value from row with multiple possible column names
  */
-function getFieldValue(row: ExcelRowData, possibleNames: string[]): any {
+function getFieldValue(row: ExcelRowData, possibleNames: string[]): unknown {
   for (const name of possibleNames) {
     // Check exact match
     if (row[name] !== undefined && row[name] !== null && row[name] !== '') {
@@ -321,11 +321,11 @@ function getFieldValue(row: ExcelRowData, possibleNames: string[]): any {
 /**
  * Clean and format phone numbers
  */
-function cleanPhone(phone: any): string | undefined {
+function cleanPhone(phone: unknown): string | undefined {
   if (!phone) return undefined
 
   // Remove all non-digits
-  const cleaned = phone.toString().replace(/\D/g, '')
+  const cleaned = String(phone).replace(/\D/g, '')
 
   // Return formatted phone if it's a valid length
   if (cleaned.length === 10) {
@@ -340,7 +340,7 @@ function cleanPhone(phone: any): string | undefined {
 /**
  * Parse boolean fields from various possible values
  */
-function parseBooleanField(value: any): boolean {
+function parseBooleanField(value: unknown): boolean {
   if (typeof value === 'boolean') return value
   if (typeof value === 'string') {
     const lower = value.toLowerCase().trim()

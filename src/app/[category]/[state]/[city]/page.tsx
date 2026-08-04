@@ -4,7 +4,10 @@ import Link from 'next/link'
 import { Container } from '@/components/layout/Container'
 import { SearchBar } from '@/components/search/SearchBar'
 import { SearchResults } from '@/components/search/SearchResults'
+import { CityIntro } from '@/components/content/CityIntro'
+import { CityPricingFaq } from '@/components/content/CityPricingFaq'
 import { getBusinessesByCategoryAndCity } from '@/lib/db/businesses'
+import { getCityContent } from '@/lib/content/city-content'
 import { CATEGORIES, CITIES_BY_STATE } from '@/lib/constants'
 import { toSlug, fromSlug, categorySlugToKey, stateSlugToAbbr, stateAbbrToSlug } from '@/lib/utils'
 
@@ -81,6 +84,7 @@ export default async function CityPage({ params }: PageProps) {
   const stateFull = stateSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')
 
   const { businesses, categoryFallback } = await getBusinessesByCategoryAndCity(categoryKey, stateAbbr, cityName)
+  const cityContent = getCityContent(categoryKey, stateAbbr, citySlug)
 
   const searchParams = {
     category: categoryKey,
@@ -111,12 +115,24 @@ export default async function CityPage({ params }: PageProps) {
         <h1 className="text-3xl font-bold tracking-tight mb-1">
           {categoryLabel} in {cityName}, {stateAbbr}
         </h1>
-        <p className="text-muted-foreground mb-4">
-          Find trusted {categoryLabel.toLowerCase()} companies in {cityName}, {stateAbbr}.
-        </p>
+        {cityContent ? (
+          <CityIntro paragraphs={cityContent.intro} />
+        ) : (
+          <p className="text-muted-foreground mb-4">
+            Find trusted {categoryLabel.toLowerCase()} companies in {cityName}, {stateAbbr}.
+          </p>
+        )}
         <SearchBar currentCategory={categoryKey} />
       </div>
       <SearchResults businesses={businesses} count={businesses.length} params={searchParams} categoryFallback={categoryFallback} />
+      {cityContent && (
+        <CityPricingFaq
+          cityName={cityName}
+          stateAbbr={stateAbbr}
+          categoryLabel={categoryLabel}
+          content={cityContent}
+        />
+      )}
     </Container>
   )
 }

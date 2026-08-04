@@ -1,11 +1,30 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { Container } from '@/components/layout/Container'
 import { SearchBar } from '@/components/search/SearchBar'
 import { SearchResults } from '@/components/search/SearchResults'
 import { searchBusinesses } from '@/lib/db/businesses'
-import { CATEGORIES } from '@/lib/constants'
+import { CATEGORIES, CITIES_BY_STATE } from '@/lib/constants'
+import { isCityState, parseCityState, toSlug, stateAbbrToSlug } from '@/lib/utils'
 import type { SearchParams } from '@/types'
+
+// If the query resolves to a known city and a specific category is selected,
+// send the user to the canonical city landing page (richer content, same listings)
+// instead of the generic results grid.
+function resolveCityPageRedirect(params: SearchParams): string | null {
+  if (!params.q || !params.category || !isCityState(params.q)) return null
+
+  const { city, state } = parseCityState(params.q)
+  const matchedCity = (CITIES_BY_STATE[state] ?? []).find(
+    c => c.toLowerCase() === city.toLowerCase()
+  )
+  if (!matchedCity) return null
+
+  const categorySlug = CATEGORIES[params.category as keyof typeof CATEGORIES].slug
+  const stateSlug = stateAbbrToSlug(state)
+  return `/${categorySlug}/${stateSlug}/${toSlug(matchedCity)}`
+}
 
 interface PageProps {
   searchParams: Promise<Record<string, string | string[] | undefined>>
@@ -27,6 +46,9 @@ export default async function SearchPage({ searchParams }: PageProps) {
     sort: typeof sp.sort === 'string' ? (sp.sort as SearchParams['sort']) : 'rating',
     page: typeof sp.page === 'string' ? sp.page : '1',
   }
+
+  const cityPageRedirect = resolveCityPageRedirect(params)
+  if (cityPageRedirect) redirect(cityPageRedirect)
 
   const { businesses, count, categoryFallback } = await searchBusinesses(params)
 
