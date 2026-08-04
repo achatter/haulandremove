@@ -38,7 +38,7 @@ describe('ServicesList', () => {
   })
 
   it('returns null for null services', () => {
-    const { container } = render(<ServicesList services={null as any} />)
+    const { container } = render(<ServicesList services={null as unknown as ServiceItem[]} />)
     expect(container.firstChild).toBeNull()
   })
 })

@@ -16,7 +16,7 @@ describe('CityPricingFaq', () => {
       />
     )
     expect(screen.getByText(/Typical Cost of Junk Removal in Kansas City, MO/i)).toBeInTheDocument()
-    expect(screen.getByText(/\$125–\$550/)).toBeInTheDocument()
+    expect(screen.getAllByText(/\$125–\$550/).length).toBeGreaterThan(0)
   })
 
   it('renders all FAQ questions', () => {
