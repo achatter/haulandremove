@@ -151,6 +151,60 @@ const CITY_CONTENT: Record<string, CityContent> = {
       { q: 'Will an estate cleanout company help get a Charlotte home market-ready?', a: 'Most offer a full clear-out plus light cleaning so the home is ready for staging or photos, though deep cleaning is usually a separate service.' },
     ],
   },
+
+  [key('junk_removal', 'IL', 'chicago')]: {
+    intro: [
+      "Chicago's iconic two- and three-flats in Wicker Park, Logan Square, and Pilsen keep junk removal crews busy year-round, especially as owners gut-renovate century-old buildings floor by floor and haul out old kitchens, plaster, and flooring debris. The city's alley-based garbage system is a wrinkle most out-of-town haulers don't expect — a lot of pickups happen from the alley behind the building rather than the curb, so local crews who know a block's alley access and gangway width move faster than newcomers. In the bungalow belt neighborhoods of Beverly, Mount Greenwood, and Portage Park, longtime homeowners regularly call for garage and basement cleanouts after decades of accumulated tools, furniture, and holiday decorations.",
+      "Apartment turnover drives a steady stream of work too, particularly around October 1 and May 1, when a huge share of Chicago leases turn over on the same days — a tradition landlords near Rogers Park, Uptown, and Lakeview still call 'moving day.' High-rise condo buildings in the Loop and Streeterville add their own logistics, since junk removal often has to be scheduled around a freight elevator window and building management approval. Bridgeport and Pilsen's industrial corridors also generate commercial cleanouts after a business closes or relocates, and Chicago's brutal winters mean burst pipes and storm damage keep haulers busy clearing water-damaged belongings well into spring.",
+    ],
+    priceRange: { low: 150, high: 650, unit: 'per load', note: 'Walk-up buildings, alley access, and higher-floor pickups push costs toward the top of the range.' },
+    faqs: [
+      { q: 'How much does junk removal cost in Chicago, IL?', a: 'Typical loads run $150–$650, with walk-up buildings, alley access, and higher-floor pickups pushing toward the top of the range.' },
+      { q: 'Do Chicago junk haulers pick up from the alley or the street?', a: "Most buildings in Chicago use alley-based garbage collection, so crews typically haul from the alley behind the property rather than the curb — confirm access with your hauler ahead of time." },
+      { q: 'Can junk removal companies handle high-rise condo pickups in the Loop or Streeterville?', a: 'Yes, but many buildings require scheduling a freight elevator window and clearing the pickup with building management in advance.' },
+      { q: 'How fast can I book junk removal in Chicago?', a: 'Same-day or next-day service is common outside of the citywide October 1 and May 1 moving days, when demand spikes.' },
+    ],
+  },
+  [key('estate_cleanout', 'IL', 'chicago')]: {
+    intro: [
+      "Chicago's bungalow belt — Beverly, Mount Greenwood, and Portage Park — is full of homes that have stayed in the same family for generations, so estate cleanouts here often mean sorting through a full basement, attic, and garage of belongings while coordinating with a Cook County probate attorney to get the house ready for sale. Two- and three-flat buildings in neighborhoods like Logan Square and Pilsen bring extra complexity, since multiple units and shared basements can mean clearing out belongings left behind by more than one household at a time.",
+      "Downsizing is common as longtime residents move from a Beverly bungalow or a Lincoln Square two-flat into a smaller condo or senior living community, needing help separating what to keep from decades of accumulated belongings. Families are frequently coordinating from out of state, and Chicago's harsh winters add pressure to get a cleanout finished before a home sits vacant and exposed to frozen pipes. Estate cleanout crews familiar with Cook County probate timelines, elevator scheduling for high-rise units, and the narrow gangways of vintage courtyard buildings can keep a listing on track without added delays.",
+    ],
+    priceRange: { low: 1500, high: 5500, unit: 'per full home', note: 'Multi-unit two- and three-flats run toward the higher end due to added units and shared basement storage.' },
+    faqs: [
+      { q: 'How much does an estate cleanout cost in Chicago, IL?', a: 'Full-home cleanouts typically run $1,500–$5,500, with multi-unit two- and three-flats running higher due to added units and shared basement storage.' },
+      { q: 'Do estate cleanout companies work with Cook County probate attorneys?', a: 'Yes — established Chicago companies regularly coordinate with attorneys, executors, and realtors managing Cook County probate and closing timelines.' },
+      { q: 'Can a cleanout crew handle a Chicago two-flat or three-flat with multiple units?', a: "Yes — crews experienced with Chicago's building stock can clear multiple units and shared basement storage as part of one job." },
+      { q: 'Will an estate cleanout crew work around winter weather in Chicago?', a: 'Reputable companies plan around snow and ice, and can prioritize jobs where frozen pipes or a vacant property are a concern.' },
+    ],
+  },
+
+  [key('junk_removal', 'IN', 'indianapolis')]: {
+    intro: [
+      "Indianapolis' mix of historic neighborhoods and sprawling suburbs keeps junk removal crews busy with very different jobs across the city. In Irvington, one of the city's oldest neighborhoods, Victorian-era homes generate steady renovation debris as owners update century-old kitchens and finish long-neglected basements, while bungalows in Broad Ripple and Meridian-Kessler need garage and attic cleanouts after years of accumulated belongings. Near the Indianapolis Motor Speedway in Speedway, seasonal cleanouts pick up around race weekends each May, when rental properties turn over fast for race fans and crews need quick, reliable pickups.",
+      "Apartment and rental turnover is constant near downtown and Fountain Square, where landlords rely on bulk pickups to get units ready between tenants, and the city's role as a Midwest logistics and distribution hub means commercial cleanouts are common after a warehouse or office space changes hands. Storm damage is a factor too — Indiana's spring tornado and hail season regularly leaves homeowners in Mapleton-Fall Creek and other older neighborhoods hauling out water-damaged furniture and drywall. Same-day and next-day service matters most during the busy summer moving season, when apartment complexes across the metro turn over dozens of units at once.",
+    ],
+    priceRange: { low: 100, high: 500, unit: 'per load', note: 'Larger loads like garage or basement cleanouts run toward the higher end.' },
+    faqs: [
+      { q: 'How much does junk removal cost in Indianapolis, IN?', a: 'Typical loads run $100–$500, depending on volume and how far items need to be carried to the truck.' },
+      { q: 'Can I get junk removal near the Indianapolis Motor Speedway during race weekend?', a: 'Yes, though it’s worth booking ahead since crews get busy with rental turnovers around May race weekends.' },
+      { q: 'Do Indianapolis junk removal companies take storm-damaged debris?', a: 'Most do, including water-damaged furniture and drywall after spring storms — check with the company about weight limits for large loads.' },
+      { q: 'How quickly can I book junk removal in Indianapolis?', a: 'Same-day or next-day appointments are common outside the busiest summer apartment turnover season.' },
+    ],
+  },
+  [key('estate_cleanout', 'IN', 'indianapolis')]: {
+    intro: [
+      "Indianapolis' historic Irvington neighborhood, with its Victorian and Arts and Crafts homes, is home to many families who've owned the same house for generations, so an estate cleanout there often means working through a full attic and basement of belongings while coordinating with a Marion County probate attorney to get the home ready for market. Meridian-Kessler and Broad Ripple see similar work, as longtime owners of mid-century homes pass belongings down or sell after decades in the same house, and crews sort through furniture, tools, and keepsakes room by room.",
+      "Downsizing is common too, as older residents move from a Meridian-Kessler or Butler-Tarkington home into a smaller property or senior living community closer to family, often near the city's northside suburbs like Carmel or Fishers. Families coordinating an estate from out of state lean on local companies that can manage the full process — sorting, donating, and hauling — without much back-and-forth. Indianapolis estate cleanout crews familiar with Marion County Superior Court probate timelines can help a family meet a tight closing date, especially when a realtor needs the house listing-ready within days rather than weeks.",
+    ],
+    priceRange: { low: 1200, high: 4000, unit: 'per full home', note: 'Final cost depends on home size, volume of belongings, and whether donation or resale sorting is included.' },
+    faqs: [
+      { q: 'How much does an estate cleanout cost in Indianapolis, IN?', a: 'Full-home cleanouts typically run $1,200–$4,000, depending on home size and how much sorting or donation is involved.' },
+      { q: 'Do estate cleanout companies work with Marion County probate timelines?', a: 'Yes — established Indianapolis companies regularly coordinate with attorneys, executors, and realtors managing Marion County Superior Court probate proceedings.' },
+      { q: 'Can an out-of-state family manage an Indianapolis estate cleanout remotely?', a: 'Yes — most companies are used to working with out-of-state families, coordinating access and updates remotely.' },
+      { q: 'Will an estate cleanout crew set aside sentimental items in Indianapolis?', a: 'Reputable companies flag valuables, documents, and sentimental items for family review before anything is removed.' },
+    ],
+  },
 }
 
 export function getCityContent(
