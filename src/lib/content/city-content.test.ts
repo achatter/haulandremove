@@ -12,6 +12,10 @@ const TARGET_CITIES: { category: 'junk_removal' | 'estate_cleanout'; state: stri
   { category: 'estate_cleanout', state: 'NY', citySlug: 'albany' },
   { category: 'junk_removal', state: 'NC', citySlug: 'charlotte' },
   { category: 'estate_cleanout', state: 'NC', citySlug: 'charlotte' },
+  { category: 'junk_removal', state: 'IL', citySlug: 'chicago' },
+  { category: 'estate_cleanout', state: 'IL', citySlug: 'chicago' },
+  { category: 'junk_removal', state: 'IN', citySlug: 'indianapolis' },
+  { category: 'estate_cleanout', state: 'IN', citySlug: 'indianapolis' },
 ]
 
 function wordCount(paragraphs: string[]): number {
@@ -19,7 +23,7 @@ function wordCount(paragraphs: string[]): number {
 }
 
 describe('getCityContent', () => {
-  it('returns content for all 10 target city/category blocks', () => {
+  it('returns content for all target city/category blocks', () => {
     for (const { category, state, citySlug } of TARGET_CITIES) {
       const content = getCityContent(category, state, citySlug)
       expect(content, `${category}:${state}:${citySlug}`).not.toBeNull()
