@@ -106,7 +106,7 @@ export const CITIES_BY_STATE: Record<string, string[]> = {
   NJ: ['Camden', 'Elizabeth', 'Jersey City', 'Newark', 'Paterson', 'Trenton'],
   NM: ['Albuquerque', 'Las Cruces', 'Rio Rancho', 'Santa Fe'],
   NV: ['Henderson', 'Las Vegas', 'North Las Vegas', 'Reno'],
-  NY: ['Albany', 'Buffalo', 'Mount Vernon', 'New Rochelle', 'New York City', 'Rochester', 'Schenectady', 'Syracuse', 'Utica', 'Yonkers'],
+  NY: ['Albany', 'Brooklyn', 'Buffalo', 'Mount Vernon', 'New Rochelle', 'New York City', 'Rochester', 'Schenectady', 'Syracuse', 'Utica', 'Yonkers'],
   OH: ['Akron', 'Cincinnati', 'Cleveland', 'Columbus', 'Dayton', 'Toledo'],
   OK: ['Broken Arrow', 'Norman', 'Oklahoma City', 'Tulsa'],
   OR: ['Eugene', 'Gresham', 'Portland', 'Salem'],
