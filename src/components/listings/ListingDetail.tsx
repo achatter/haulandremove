@@ -30,6 +30,7 @@ export function ListingDetail({ business, reviews }: ListingDetailProps) {
                   rating={business.average_rating}
                   reviewCount={business.review_count}
                   reviews={reviews}
+                  googleMapsUrl={business.google_maps_url}
                 />
               </div>
             </div>

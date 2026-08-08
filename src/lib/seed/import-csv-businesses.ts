@@ -89,6 +89,7 @@ interface ProcessedBusiness {
   featured: boolean
   average_rating: number
   review_count: number
+  google_maps_url?: string
   status: 'active'
   social_media?: Record<string, string>
   services?: ServiceItem[]
@@ -434,6 +435,7 @@ async function processCsvFile(
       featured:      false,
       average_rating,
       review_count,
+      google_maps_url: row.google_maps_url?.trim() || undefined,
       status:        'active',
       social_media:  parseSocialMedia(row),
       // Rich format only fields:

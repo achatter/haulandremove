@@ -74,9 +74,9 @@ export default async function ListingPage({ params }: PageProps) {
       <section>
         <h2 className="text-2xl font-semibold mb-6">
           Reviews
-          {business.review_count > 0 && (
+          {reviews.length > 0 && (
             <span className="text-muted-foreground font-normal text-lg ml-2">
-              ({business.review_count})
+              ({reviews.length})
             </span>
           )}
         </h2>

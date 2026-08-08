@@ -44,6 +44,7 @@ export interface Business {
   featured: boolean;
   average_rating: number;
   review_count: number;
+  google_maps_url?: string | null;
   status: BusinessStatus;
   created_at: string;
   images?: BusinessImage[];
