@@ -14,11 +14,43 @@ interface ReviewsModalProps {
   rating: number
   reviewCount: number
   reviews: Review[]
+  googleMapsUrl?: string | null
 }
 
-export function ReviewsModal({ rating, reviewCount, reviews }: ReviewsModalProps) {
+export function ReviewsModal({ rating, reviewCount, reviews, googleMapsUrl }: ReviewsModalProps) {
   const [open, setOpen] = useState(false)
   const hasReviews = reviews.length > 0
+  // review_count/average_rating are a Google-sourced aggregate on scraped
+  // listings — there's often no on-site review behind them. Link out to
+  // Google rather than opening an empty modal in that case.
+  const isGoogleAggregate = !hasReviews && reviewCount > 0
+
+  const ratingBadge = (
+    <>
+      <StarRating rating={rating} size="md" />
+      <span className="font-semibold">{rating > 0 ? rating.toFixed(1) : '—'}</span>
+      <span className="text-muted-foreground text-sm">
+        ({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'}
+        {isGoogleAggregate ? ' on Google' : ''})
+      </span>
+    </>
+  )
+
+  if (isGoogleAggregate) {
+    return googleMapsUrl ? (
+      <a
+        href={googleMapsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-2 cursor-pointer hover:opacity-80 transition-opacity"
+        aria-label={`See ${reviewCount} reviews on Google`}
+      >
+        {ratingBadge}
+      </a>
+    ) : (
+      <div className="flex items-center gap-2">{ratingBadge}</div>
+    )
+  }
 
   return (
     <>
@@ -28,11 +60,7 @@ export function ReviewsModal({ rating, reviewCount, reviews }: ReviewsModalProps
         className={`flex items-center gap-2 ${hasReviews ? 'cursor-pointer hover:opacity-80' : 'cursor-default'} transition-opacity`}
         aria-label={hasReviews ? `View ${reviewCount} reviews` : undefined}
       >
-        <StarRating rating={rating} size="md" />
-        <span className="font-semibold">{rating > 0 ? rating.toFixed(1) : '—'}</span>
-        <span className="text-muted-foreground text-sm">
-          ({reviewCount} {reviewCount === 1 ? 'review' : 'reviews'})
-        </span>
+        {ratingBadge}
       </button>
 
       <Dialog open={open} onOpenChange={setOpen}>

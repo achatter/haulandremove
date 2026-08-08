@@ -9,7 +9,7 @@ export function ReviewList({ reviews }: ReviewListProps) {
   if (reviews.length === 0) {
     return (
       <p className="text-muted-foreground text-sm py-4">
-        No reviews yet. Be the first to leave a review!
+        No reviews on this site yet. Be the first to leave one!
       </p>
     )
   }

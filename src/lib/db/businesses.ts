@@ -7,7 +7,7 @@ const BUSINESS_SELECT = `
   id, name, slug, category, description, phone, email, website,
   street_address, city, state, state_full, zip_code,
   years_in_business, insured, bonded, featured,
-  average_rating, review_count, status, created_at,
+  average_rating, review_count, google_maps_url, status, created_at,
   booking_url, working_hours, services, social_media, attributes,
   images:business_images(id, url, alt_text, is_primary, sort_order)
 `

@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS businesses (
   featured        BOOLEAN NOT NULL DEFAULT false,
   average_rating  NUMERIC(3,2) NOT NULL DEFAULT 0,
   review_count    INTEGER NOT NULL DEFAULT 0,
+  google_maps_url TEXT,
   search_vector   TSVECTOR,
   status          TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
   created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
