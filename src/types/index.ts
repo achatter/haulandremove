@@ -44,6 +44,10 @@ export interface Business {
   featured: boolean;
   average_rating: number;
   review_count: number;
+  google_average_rating: number;
+  google_review_count: number;
+  display_rating: number;
+  display_review_count: number;
   google_maps_url?: string | null;
   status: BusinessStatus;
   created_at: string;

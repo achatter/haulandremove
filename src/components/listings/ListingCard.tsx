@@ -118,9 +118,9 @@ export function ListingCard({ business }: ListingCardProps) {
 
           {/* Rating */}
           <div className="flex items-center gap-2 mb-2">
-            <StarRating rating={business.average_rating} size="sm" />
-            <span className="text-sm font-semibold text-slate-800">{formatRating(business.average_rating)}</span>
-            <span className="text-xs text-slate-400">({business.review_count})</span>
+            <StarRating rating={business.display_rating} size="sm" />
+            <span className="text-sm font-semibold text-slate-800">{formatRating(business.display_rating)}</span>
+            <span className="text-xs text-slate-400">({business.display_review_count})</span>
           </div>
 
           {/* Location */}

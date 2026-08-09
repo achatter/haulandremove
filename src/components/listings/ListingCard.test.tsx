@@ -23,6 +23,10 @@ const mockBusiness: Business = {
   featured: true,
   average_rating: 4.8,
   review_count: 42,
+  google_average_rating: 4.8,
+  google_review_count: 42,
+  display_rating: 4.8,
+  display_review_count: 42,
   status: 'active',
   created_at: '2024-01-01T00:00:00Z',
   images: [
