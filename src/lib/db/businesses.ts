@@ -7,7 +7,8 @@ const BUSINESS_SELECT = `
   id, name, slug, category, description, phone, email, website,
   street_address, city, state, state_full, zip_code,
   years_in_business, insured, bonded, featured,
-  average_rating, review_count, google_maps_url, status, created_at,
+  average_rating, review_count, google_average_rating, google_review_count,
+  display_rating, display_review_count, google_maps_url, status, created_at,
   booking_url, working_hours, services, social_media, attributes,
   images:business_images(id, url, alt_text, is_primary, sort_order)
 `
@@ -62,7 +63,7 @@ export async function searchBusinesses(params: SearchParams): Promise<{
     if (includeCategory && category) qb = qb.eq('category', category)
     if (state) qb = qb.eq('state', state)
 
-    if (sort === 'rating') qb = qb.order('average_rating', { ascending: false })
+    if (sort === 'rating') qb = qb.order('display_rating', { ascending: false })
     else if (sort === 'name') qb = qb.order('name', { ascending: true })
     else if (sort === 'newest') qb = qb.order('created_at', { ascending: false })
 
@@ -117,7 +118,7 @@ export async function getFeaturedBusinesses(): Promise<Business[]> {
     .select(BUSINESS_SELECT)
     .eq('status', 'active')
     .eq('featured', true)
-    .order('average_rating', { ascending: false })
+    .order('display_rating', { ascending: false })
     .order('sort_order', { referencedTable: 'business_images', ascending: true })
     .limit(6)
 
@@ -165,7 +166,7 @@ export async function getBusinessesByCategory(
     .select(BUSINESS_SELECT)
     .eq('status', 'active')
     .eq('category', category)
-    .order('average_rating', { ascending: false })
+    .order('display_rating', { ascending: false })
     .order('sort_order', { referencedTable: 'business_images', ascending: true })
     .limit(limit)
 
@@ -187,7 +188,7 @@ export async function getBusinessesByCategoryAndCity(
       .eq('status', 'active')
       .eq('state', state.toUpperCase())
       .ilike('city', `%${city}%`)
-      .order('average_rating', { ascending: false })
+      .order('display_rating', { ascending: false })
       .order('sort_order', { referencedTable: 'business_images', ascending: true })
 
   const { data, error } = await baseQuery().eq('category', category)

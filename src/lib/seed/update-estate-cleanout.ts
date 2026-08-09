@@ -57,8 +57,8 @@ interface ProcessedBusiness {
   insured: boolean
   bonded: boolean
   featured: boolean
-  average_rating: number
-  review_count: number
+  google_average_rating: number
+  google_review_count: number
   status: 'active'
   social_media?: Record<string, string>
   _images: string[]
@@ -264,8 +264,8 @@ async function parseCsv(filePath: string, existingSlugs: Set<string>): Promise<P
       insured:        false,
       bonded:         false,
       featured:       false,
-      average_rating: parseFloat(row.rating) || 0,
-      review_count:   parseInt(row.reviews, 10) || 0,
+      google_average_rating: parseFloat(row.rating) || 0,
+      google_review_count:   parseInt(row.reviews, 10) || 0,
       status:         'active',
       social_media:   parseSocialMedia(row),
       _images:        images,

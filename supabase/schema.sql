@@ -22,9 +22,18 @@ CREATE TABLE IF NOT EXISTS businesses (
   insured         BOOLEAN NOT NULL DEFAULT false,
   bonded          BOOLEAN NOT NULL DEFAULT false,
   featured        BOOLEAN NOT NULL DEFAULT false,
-  average_rating  NUMERIC(3,2) NOT NULL DEFAULT 0,
-  review_count    INTEGER NOT NULL DEFAULT 0,
+  average_rating  NUMERIC(3,2) NOT NULL DEFAULT 0, -- on-site reviews only; maintained by trig_update_business_rating
+  review_count    INTEGER NOT NULL DEFAULT 0,       -- on-site reviews only; maintained by trig_update_business_rating
+  google_average_rating NUMERIC(3,2) NOT NULL DEFAULT 0, -- aggregate imported from Google-sourced scrape data, never touched by the reviews trigger
+  google_review_count   INTEGER NOT NULL DEFAULT 0,
   google_maps_url TEXT,
+  -- What to actually display: on-site reviews once they exist, Google's aggregate otherwise
+  display_rating NUMERIC(3,2) GENERATED ALWAYS AS (
+    CASE WHEN review_count > 0 THEN average_rating ELSE google_average_rating END
+  ) STORED,
+  display_review_count INTEGER GENERATED ALWAYS AS (
+    CASE WHEN review_count > 0 THEN review_count ELSE google_review_count END
+  ) STORED,
   search_vector   TSVECTOR,
   status          TEXT NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive')),
   created_at      TIMESTAMPTZ NOT NULL DEFAULT now()
@@ -36,6 +45,7 @@ CREATE INDEX IF NOT EXISTS idx_businesses_state ON businesses (state);
 CREATE INDEX IF NOT EXISTS idx_businesses_zip ON businesses (zip_code);
 CREATE INDEX IF NOT EXISTS idx_businesses_status ON businesses (status);
 CREATE INDEX IF NOT EXISTS idx_businesses_featured ON businesses (featured) WHERE featured = true;
+CREATE INDEX IF NOT EXISTS idx_businesses_display_rating ON businesses (display_rating DESC);
 
 -- ============================================================
 -- business_images table

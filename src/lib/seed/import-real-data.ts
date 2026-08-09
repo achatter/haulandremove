@@ -26,8 +26,8 @@ interface ProcessedBusiness {
   insured: boolean
   bonded: boolean
   featured: boolean
-  average_rating: number
-  review_count: number
+  google_average_rating: number
+  google_review_count: number
   status: 'active'
   booking_url?: string
   working_hours?: Record<string, string | null>
@@ -255,8 +255,8 @@ function parseExcelFile(filePath: string): { businesses: ProcessedBusiness[]; ra
       // Extract ratings directly from CSV
       const ratingRaw      = getFieldValue(row, ['rating'])
       const reviewCountRaw = getFieldValue(row, ['reviews'])
-      const average_rating = ratingRaw      ? parseFloat(String(ratingRaw))      || 0 : 0
-      const review_count   = reviewCountRaw ? parseInt(String(reviewCountRaw), 10) || 0 : 0
+      const google_average_rating = ratingRaw      ? parseFloat(String(ratingRaw))      || 0 : 0
+      const google_review_count   = reviewCountRaw ? parseInt(String(reviewCountRaw), 10) || 0 : 0
 
       const business: ProcessedBusiness = {
         name: String(name).trim(),
@@ -275,8 +275,8 @@ function parseExcelFile(filePath: string): { businesses: ProcessedBusiness[]; ra
         insured: parseBooleanField(getFieldValue(row, ['insured', 'insurance', 'is_insured'])),
         bonded: parseBooleanField(getFieldValue(row, ['bonded', 'bond', 'is_bonded'])),
         featured: false,
-        average_rating,
-        review_count,
+        google_average_rating,
+        google_review_count,
         status: 'active',
         booking_url:   (getFieldValue(row, ['booking_appointment_link']) as string | undefined) || undefined,
         working_hours: parseWorkingHours(getFieldValue(row, ['working_hours'])),

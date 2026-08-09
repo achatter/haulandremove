@@ -27,8 +27,8 @@ export function ListingDetail({ business, reviews }: ListingDetailProps) {
               <h1 className="text-3xl font-bold tracking-tight text-foreground">{business.name}</h1>
               <div className="mt-2">
                 <ReviewsModal
-                  rating={business.average_rating}
-                  reviewCount={business.review_count}
+                  rating={business.display_rating}
+                  reviewCount={business.display_review_count}
                   reviews={reviews}
                   googleMapsUrl={business.google_maps_url}
                 />

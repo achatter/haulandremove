@@ -87,8 +87,8 @@ interface ProcessedBusiness {
   insured: boolean
   bonded: boolean
   featured: boolean
-  average_rating: number
-  review_count: number
+  google_average_rating: number
+  google_review_count: number
   google_maps_url?: string
   status: 'active'
   social_media?: Record<string, string>
@@ -405,8 +405,8 @@ async function processCsvFile(
     seenSlugs.set(baseSlug, count + 1)
     const slug = count === 0 ? baseSlug : `${baseSlug}-${count + 1}`
 
-    const average_rating = parseFloat(row.rating) || 0
-    const review_count   = parseInt(row.reviews, 10) || 0
+    const google_average_rating = parseFloat(row.rating) || 0
+    const google_review_count   = parseInt(row.reviews, 10) || 0
 
     // Street address: both formats use 'address'; rich format also has 'street'
     const street_address = (row.address?.trim() || (isRichFormat ? row.street?.trim() : '')) || undefined
@@ -433,8 +433,8 @@ async function processCsvFile(
       insured:       false,
       bonded:        false,
       featured:      false,
-      average_rating,
-      review_count,
+      google_average_rating,
+      google_review_count,
       google_maps_url: row.google_maps_url?.trim() || undefined,
       status:        'active',
       social_media:  parseSocialMedia(row),
