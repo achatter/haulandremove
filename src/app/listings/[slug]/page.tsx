@@ -80,7 +80,7 @@ export default async function ListingPage({ params }: PageProps) {
             </span>
           )}
         </h2>
-        <ReviewList reviews={reviews} />
+        <ReviewList reviews={reviews} hasGoogleReviews={reviews.length === 0 && business.review_count > 0} />
       </section>
 
       <Separator className="my-10" />
